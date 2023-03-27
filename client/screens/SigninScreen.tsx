@@ -1,10 +1,19 @@
-<script src="http://localhost:8097"></script>;
+
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, Image, Text, View } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { TextInput, Button } from "react-native-paper";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const SigninScreen = () => {
+const SignInScreen = ({navigation}: {navigation: any}) => {
   const [text, setText] = useState("");
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex justify-between mb-[25px]">
@@ -42,8 +51,11 @@ const SigninScreen = () => {
           mode="outlined"
           placeholder="Mật khẩu"
           left={<TextInput.Icon icon={require("../assets/icons/lock.png")} />}
+          right={
+            <TextInput.Icon icon={require("../assets/icons/visibility.png")} />
+          }
         />
-        <View className="flex justify-between items-center flex-row mt-[8px]">
+        <View className="flex justify-between items-center flex-row mt-[16px]">
           <Text>
             <Image source={require("../assets/icons/check_circle_2.png")} />
             &nbsp;
@@ -52,27 +64,36 @@ const SigninScreen = () => {
           <Text className="text-[#969393] underline">Quên mật khẩu?</Text>
         </View>
         <View className="">
-          <Button
-            // icon="camera"
-            mode="contained"
-            compact={true}
-            className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-            onPress={() => console.log("Pressed")}
-          >
-            <Image source={require("../assets/icons/telegram_icon.png")} />
-            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
-          </Button>
+          <TouchableOpacity>
+            <Button
+              // icon="camera"
+              mode="contained"
+              compact={true}
+              className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
+              onPress={() => console.log("Pressed")}
+            >
+              <Image source={require("../assets/icons/telegram_icon.png")} />
+              <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
+            </Button>
+          </TouchableOpacity>
         </View>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
           Chưa có tài khoản?
           <Text> </Text>
-          <Text className="font-[500] underline">Đăng Ký</Text>
+          <Text
+            className="font-[500] underline"
+            onPress={() => {
+              navigation.navigate('SignUp')
+            }}
+          >
+            Đăng Ký
+          </Text>
         </Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default SigninScreen;
+export default SignInScreen;
 
 const styles = StyleSheet.create({});
