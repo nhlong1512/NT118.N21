@@ -1,6 +1,5 @@
-
-import React, { useState } from "react";
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,10 +9,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { TextInput, Button } from "react-native-paper";
+import { TextInput, Button, Checkbox } from "react-native-paper";
 
-const SignInScreen = ({navigation}: {navigation: any}) => {
+const SignInScreen = ({ navigation }: { navigation: any }) => {
+  //FormDataState
   const [text, setText] = useState("");
+  //SavePasswordState
+  const [saved, setSaved] = useState<boolean>(false);
+
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex justify-between mb-[25px]">
       <StatusBar style="light" />
@@ -33,7 +36,7 @@ const SignInScreen = ({navigation}: {navigation: any}) => {
           activeOutlineColor="#6667AB"
           placeholderTextColor="#969393"
           mode="outlined"
-          placeholder="Tên đăng nhập"
+          placeholder="Email"
           left={
             <TextInput.Icon icon={require("../assets/icons/person_2.png")} />
           }
@@ -55,12 +58,25 @@ const SignInScreen = ({navigation}: {navigation: any}) => {
           }
         />
         <View className="flex justify-between items-center flex-row mt-[16px]">
-          <Text>
+          <Text className="flex justify-center items-center">
             <Image source={require("../assets/icons/check_circle_2.png")} />
-            &nbsp;
+            {/* <Checkbox
+              status={saved ? "checked" : "unchecked"}
+              onPress={() =>
+                setSaved(!saved);
+              }}
+              style={styles.checkboxContainer}
+              
+            /> */}
             <Text className="text-[#969393] underline">Lưu mật khẩu</Text>
           </Text>
-          <Text className="text-[#969393] underline">Quên mật khẩu?</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("ForgotPassword");
+            }}
+          >
+            <Text className="text-[#969393] underline">Quên mật khẩu?</Text>
+          </TouchableOpacity>
         </View>
         <View className="">
           <TouchableOpacity>
@@ -82,7 +98,7 @@ const SignInScreen = ({navigation}: {navigation: any}) => {
           <Text
             className="font-[500] underline"
             onPress={() => {
-              navigation.navigate('SignUp')
+              navigation.navigate("SignUp");
             }}
           >
             Đăng Ký
@@ -95,4 +111,9 @@ const SignInScreen = ({navigation}: {navigation: any}) => {
 
 export default SignInScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  checkboxContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+});

@@ -6,6 +6,7 @@ import HomeScreen from "../screens/HomeScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
+import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ const Navigation = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SignIn" component={SignInScreen}  />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name = "ForgotPassword" component = {ForgotPasswordScreen} />
       </Stack.Navigator>
   );
 };

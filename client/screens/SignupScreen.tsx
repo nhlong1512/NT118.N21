@@ -44,7 +44,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             activeOutlineColor="#6667AB"
             placeholderTextColor="#969393"
             mode="outlined"
-            placeholder="Email"
+            placeholder="Họ Tên"
           />
           <TextInput
             // value={text}
@@ -55,7 +55,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             activeOutlineColor="#6667AB"
             placeholderTextColor="#969393"
             mode="outlined"
-            placeholder="Tên đăng nhập"
+            placeholder="Email"
           />
           <TextInput
             // value={text}
