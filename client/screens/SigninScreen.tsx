@@ -78,20 +78,18 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
             <Text className="text-[#969393] underline">Quên mật khẩu?</Text>
           </TouchableOpacity>
         </View>
-        <View className="">
-          <TouchableOpacity>
-            <Button
-              // icon="camera"
-              mode="contained"
-              compact={true}
-              className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-              onPress={() => console.log("Pressed")}
-            >
-              <Image source={require("../assets/icons/telegram_icon.png")} />
-              <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
-            </Button>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity>
+          <Button
+            // icon="camera"
+            mode="contained"
+            compact={true}
+            className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
+            onPress={() => console.log("Pressed")}
+          >
+            <Image source={require("../assets/icons/telegram_icon.png")} />
+            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
+          </Button>
+        </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
           Chưa có tài khoản?
           <Text> </Text>

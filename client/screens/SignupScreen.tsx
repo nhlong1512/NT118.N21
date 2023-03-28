@@ -26,9 +26,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
           <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
             ĐĂNG KÝ
           </Text>
-          <TouchableOpacity
-            className="opacity-0"
-          >
+          <TouchableOpacity className="opacity-0">
             <View className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
               <Image source={require("../assets/icons/arrow_back.png")} />
             </View>
@@ -92,20 +90,18 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             }
           />
         </View>
-        <View className="">
-          <TouchableOpacity>
-            <Button
-              // icon="camera"
-              mode="contained"
-              compact={true}
-              className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-              onPress={() => console.log("Pressed Sign up")}
-            >
-              <Image source={require("../assets/icons/telegram_icon.png")} />
-              <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
-            </Button>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity>
+          <Button
+            // icon="camera"
+            mode="contained"
+            compact={true}
+            className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
+            onPress={() => console.log("Pressed Sign up")}
+          >
+            <Image source={require("../assets/icons/telegram_icon.png")} />
+            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
+          </Button>
+        </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
           Đã có tài khoản?
           <Text> </Text>
