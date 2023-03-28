@@ -78,6 +78,7 @@ const VerificationScreen = ({ navigation }: { navigation: any }) => {
             className="rounded-[10px] py-[2px] bg-[#6667AB] mt-[48px]"
             onPress={() => {
               console.log("VerifyNumber:", verifyNumber);
+              navigation.navigate("ChangePassword")
             }}
           >
             <Text className="text-[18px] font-[700] leading-[24px]">

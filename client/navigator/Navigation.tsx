@@ -8,6 +8,8 @@ import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import VerificationScreen from "../screens/VerificationScreen";
+import ChangePasswordScreen from "../screens/ChangePasswordScreen";
+import SuccessChangePasswordScreen from "../screens/SuccessChangePasswordScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +21,9 @@ const Navigation = () => {
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <Stack.Screen name="Verification" component={VerificationScreen} />
+      <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+      <Stack.Screen name="SuccessChangePassword" component={SuccessChangePasswordScreen} />
+
     </Stack.Navigator>
   );
 };

@@ -9,14 +9,14 @@ import {
 import React from "react";
 import { Button, TextInput } from "react-native-paper";
 
-const ForgotPasswordScreen = ({ navigation }: { navigation: any }) => {
+const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex mb-[25px]">
       <View>
         <View className="">
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("SignIn");
+              navigation.navigate("Verification");
             }}
             className="absolute top-[30px] z-[20]"
           >
@@ -29,23 +29,38 @@ const ForgotPasswordScreen = ({ navigation }: { navigation: any }) => {
           </View>
         </View>
         <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center mb-[14px]">
-          QUÊN MẬT KHẨU
+          TẠO MẬT KHẨU MỚI
         </Text>
-        <Text className="text-center text-[14px] leading-[20px] text-[#00000080] mb-[40px]">
-          Tiến hành nhập Email cá nhân dùng để đăng ký tài khoản, sau đó hệ
-          thống sẽ gửi mã xác minh vào tài khoản Email đó.
-        </Text>
+
         <TextInput
           // value={text}
           // onChangeText={(text) => setText(text)}
-          className="mt-[8px] rounded-[10px]"
+          secureTextEntry={true}
+          className="mt-[24px] rounded-[10px]"
           theme={{ roundness: 10 }}
           outlineColor="transparent"
           activeOutlineColor="#6667AB"
           placeholderTextColor="#969393"
           mode="outlined"
-          placeholder="Email"
-          left={<TextInput.Icon icon={require("../assets/icons/mail.png")} />}
+          placeholder="Nhập mật khẩu mới"
+          right={
+            <TextInput.Icon icon={require("../assets/icons/visibility.png")} />
+          }
+        />
+        <TextInput
+          // value={text}
+          // onChangeText={(text) => setText(text)}
+          secureTextEntry={true}
+          className="mt-[24px] rounded-[10px]"
+          theme={{ roundness: 10 }}
+          outlineColor="transparent"
+          activeOutlineColor="#6667AB"
+          placeholderTextColor="#969393"
+          mode="outlined"
+          placeholder="Xác nhận mật khẩu mới"
+          right={
+            <TextInput.Icon icon={require("../assets/icons/visibility.png")} />
+          }
         />
         <TouchableOpacity>
           <Button
@@ -53,10 +68,12 @@ const ForgotPasswordScreen = ({ navigation }: { navigation: any }) => {
             mode="contained"
             compact={true}
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-            onPress={() => {navigation.navigate("Verification")}}
+            onPress={() => {
+              navigation.navigate("SuccessChangePassword");
+            }}
           >
             <Text className="text-[18px] font-[700] leading-[24px]">
-              GỬI
+              ĐẶT LẠI
             </Text>
           </Button>
         </TouchableOpacity>
@@ -65,6 +82,6 @@ const ForgotPasswordScreen = ({ navigation }: { navigation: any }) => {
   );
 };
 
-export default ForgotPasswordScreen;
+export default ChangePasswordScreen;
 
 const styles = StyleSheet.create({});
