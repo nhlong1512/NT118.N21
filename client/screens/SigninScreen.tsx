@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { TextInput, Button } from "react-native-paper";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const SignInScreen = ({navigation}: {navigation: any}) => {
   const [text, setText] = useState("");
