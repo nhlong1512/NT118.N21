@@ -10,14 +10,11 @@ import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import VerificationScreen from "../screens/VerificationScreen";
 import ChangePasswordScreen from "../screens/ChangePasswordScreen";
 import SuccessChangePasswordScreen from "../screens/SuccessChangePasswordScreen";
-import HomeScreen from "../screens/HomeScreen";
-import BottomTabNavigation from "./BottomTabNavigation";
 
 const Stack = createNativeStackNavigator();
-
-const Navigation = () => {
+const HomeStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>    
       <Stack.Screen name="SignIn" component={SignInScreen} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
@@ -31,6 +28,6 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default HomeStack;
 
 const styles = StyleSheet.create({});

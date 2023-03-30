@@ -14,6 +14,8 @@ import {
   Inter_800ExtraBold,
   Inter_900Black,
 } from "@expo-google-fonts/inter";
+import { BottomNavigation } from "react-native-paper";
+import BottomTabNavigation from "./navigator/BottomTabNavigation";
 
 const App = () => {
   let [fontsLoaded] = useFonts({
@@ -30,7 +32,8 @@ const App = () => {
   else {
     return (
       <NavigationContainer>
-        <Navigation />
+        <BottomTabNavigation />
+        
       </NavigationContainer>
     );
   }
