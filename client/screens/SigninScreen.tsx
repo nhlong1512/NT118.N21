@@ -91,15 +91,15 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
           </Button>
         </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
-          Chưa có tài khoản?
+          Chưa có tài khoản? {"\n"}
           <Text> </Text>
           <Text
-            className="font-[500] underline"
+            className="font-[400]"
             onPress={() => {
               navigation.navigate("SignUp");
             }}
           >
-            Đăng Ký
+            ĐĂNG KÝ
           </Text>
         </Text>
       </View>
