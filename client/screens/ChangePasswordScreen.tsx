@@ -11,6 +11,7 @@ import { Button, TextInput } from "react-native-paper";
 
 const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
   return (
+    
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex mb-[25px]">
       <View>
         <View className="">

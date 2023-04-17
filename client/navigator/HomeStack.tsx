@@ -11,6 +11,7 @@ import VerificationScreen from "../screens/VerificationScreen";
 import ChangePasswordScreen from "../screens/ChangePasswordScreen";
 import SuccessChangePasswordScreen from "../screens/SuccessChangePasswordScreen";
 import Detailofnews from "../screens/Detailofnews";
+import News from "../screens/News";
 import HomePageScreen from "../screens/HomePageScreen";
 import PleaseSignIn from "../screens/PleaseSignIn";
 import DetailsScreen from "../screens/DetailsScreen";
@@ -38,7 +39,8 @@ const HomeStack = () => {
       <Stack.Screen name="DeleteJ" component={DeleteJob}/>
       <Stack.Screen name="DeleteSuccess" component={DeleteSuccessScreen}/>
       <Stack.Screen name="ThongKe" component={Statistic}/>
-      <Stack.Screen name="Tintuc" component={Detailofnews}/>
+      <Stack.Screen name="Tintuc" component={News}/>
+      <Stack.Screen name="Xemthem" component={Detailofnews} />
     </Stack.Navigator>
   );
 };

@@ -15,6 +15,7 @@ import BottomTabNavigation from "./BottomTabNavigation";
 import HomePageScreen from "../screens/HomePageScreen";
 import PleaseSignIn from "../screens/PleaseSignIn";
 import DetailsScreen from "../screens/DetailsScreen";
+import News from "../screens/News";
 import UpLoadCV from "../screens/UpLoadCV";
 import DeleteJob from "../screens/DeleteJob";
 import DeleteSuccessScreen from "../screens/DeleteSuccessScreen";
@@ -39,6 +40,8 @@ const Navigation = () => {
       <Stack.Screen name="Detail" component={DetailsScreen}/>
       <Stack.Screen name="Upload" component={UpLoadCV}/>
       <Stack.Screen name="DeleteJ" component={DeleteJob}/>
+      
+      <Stack.Screen name="Tintuc" component={News}/>
       <Stack.Screen name="DeleteSuccess" component={DeleteSuccessScreen}/>
     </Stack.Navigator>
   );
