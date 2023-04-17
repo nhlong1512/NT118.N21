@@ -13,7 +13,7 @@ const DetailsScreen=({navigation}:{navigation:any})=>{
               navigation.navigate("HomeSc");
             }}>
             <View style={{marginLeft:-30}}>
-              <Image style={{height:90,width:90}} source={require('../assets/back.png')}/>
+              <Image style={{height:90,width:90}} source={require('../assets/icons/back.png')}/>
             </View>
           </TouchableOpacity> 
           <View style={{marginBottom:25,marginTop:15}}>
@@ -23,7 +23,7 @@ const DetailsScreen=({navigation}:{navigation:any})=>{
           </View>
           </View>
           <View style={{alignItems:'center'}}>
-            <Image source={require('../assets/company.png')}/>
+            <Image source={require('../assets/icons/company.png')}/>
           </View>
           <View style={{marginTop:20}}>
             <Text style={{textAlign:'center',fontFamily:'Cochin',fontSize:25,color:'#1E1E1E'}}>
@@ -38,7 +38,7 @@ const DetailsScreen=({navigation}:{navigation:any})=>{
           </View>
           <View style={styles.information}>
             <View>
-              <Image source={require('../assets/location.png')}/>
+              <Image source={require('../assets/icons/location.png')}/>
             </View>
             <View style={{marginLeft:20,}}>
               <Text style={{fontFamily:'lexend',fontSize:15,color:'#1E1E1E',marginRight:20}}>
@@ -48,7 +48,7 @@ const DetailsScreen=({navigation}:{navigation:any})=>{
           </View>
           <View style={styles.information}>
             <View>
-              <Image source={require('../assets/style.png')}/>
+              <Image source={require('../assets/icons/style.png')}/>
             </View>
             <View style={{marginLeft:20,marginTop:10}}>
               <Text style={{fontFamily:'lexend',fontSize:15,color:'#1E1E1E'}}>
@@ -58,7 +58,7 @@ const DetailsScreen=({navigation}:{navigation:any})=>{
           </View>
           <View style={styles.information}>
             <View>
-              <Image source={require('../assets/talk.png')}/>
+              <Image source={require('../assets/icons/talk.png')}/>
             </View>
             <View style={{marginLeft:20,marginTop:10}}>
               <Text style={{fontFamily:'lexend',fontSize:15,color:'#1E1E1E'}}>
@@ -68,7 +68,7 @@ const DetailsScreen=({navigation}:{navigation:any})=>{
           </View>
           <View style={styles.information}>
             <View>
-              <Image source={require('../assets/experience.png')}/>
+              <Image source={require('../assets/icons/experience.png')}/>
             </View>
             <View style={{marginLeft:20,marginTop:10}}>
               <Text style={{fontFamily:'lexend',fontSize:15,color:'#1E1E1E'}}>
