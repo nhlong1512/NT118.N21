@@ -9,6 +9,7 @@ import {
   } from "react-native";
 import React from "react";
 import { Button, TextInput } from "react-native-paper";
+// @ts-ignore
 import {BarChart} from "react-native-chart-kit";
 
 const Statistic =({navigation}:{navigation:any})=> {

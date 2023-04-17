@@ -61,7 +61,7 @@ const HomePageScreen=({ navigation }: { navigation: any })=>{
             />
           </View>
           <View style={{justifyContent:'center',padding:15,alignItems:'center'}}>
-            <Image style={{height:224,borderRadius:10,}} source={require('../assets/icons/job.png')}/>
+            <Image style={{height:224,borderRadius:10,}} source={require('../assets/icons/timviec.png')}/>
           </View>
           <View>
             <Text style={styles.baseText}>
