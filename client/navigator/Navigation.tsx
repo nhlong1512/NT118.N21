@@ -12,6 +12,12 @@ import ChangePasswordScreen from "../screens/ChangePasswordScreen";
 import SuccessChangePasswordScreen from "../screens/SuccessChangePasswordScreen";
 import HomeScreen from "../screens/HomeScreen";
 import BottomTabNavigation from "./BottomTabNavigation";
+import HomePageScreen from "../screens/HomePageScreen";
+import PleaseSignIn from "../screens/PleaseSignIn";
+import DetailsScreen from "../screens/DetailsScreen";
+import UpLoadCV from "../screens/UpLoadCV";
+import DeleteJob from "../screens/DeleteJob";
+import DeleteSuccessScreen from "../screens/DeleteSuccessScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +25,7 @@ const Navigation = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="SignIn" component={SignInScreen} />
+      <Stack.Screen name="HomeSc" component={HomePageScreen}/>
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <Stack.Screen name="Verification" component={VerificationScreen} />
@@ -27,6 +34,12 @@ const Navigation = () => {
         name="SuccessChangePassword"
         component={SuccessChangePasswordScreen}
       />
+      <Stack.Screen name="HomeSc" component={HomePageScreen}/>
+      <Stack.Screen name="PlSignIn" component={PleaseSignIn}/>
+      <Stack.Screen name="Detail" component={DetailsScreen}/>
+      <Stack.Screen name="Upload" component={UpLoadCV}/>
+      <Stack.Screen name="DeleteJ" component={DeleteJob}/>
+      <Stack.Screen name="DeleteSuccess" component={DeleteSuccessScreen}/>
     </Stack.Navigator>
   );
 };

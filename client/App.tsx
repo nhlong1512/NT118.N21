@@ -33,7 +33,6 @@ const App = () => {
     return (
       <NavigationContainer>
         <BottomTabNavigation />
-        
       </NavigationContainer>
     );
   }
