@@ -20,7 +20,7 @@ import {
                 }}
          style={styles.backButton}>
             <View className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
-                <Image source={require("/assets/arrow_back.png")} />
+                <Image source={require("../assets/icons/arrow_back.png")} />
               </View>
           </TouchableOpacity>
           <Text style={styles.title}>Quản Lý</Text>
