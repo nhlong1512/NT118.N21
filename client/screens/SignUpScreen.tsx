@@ -6,10 +6,59 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Button, TextInput } from "react-native-paper";
+import { FormDataSignUp } from "../model/model";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import {auth} from "../firebaseConfig"
 
 const SignUpScreen = ({ navigation }: { navigation: any }) => {
+  //Form Data Sign Up Screen
+  const initialState: FormDataSignUp = {
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+  const [formData, setFormData] = useState<FormDataSignUp>(initialState);
+
+  //Handle change Form Data
+  const handleChangeFullName = (fullName: string) => {
+    setFormData({ ...formData, fullName: fullName });
+  };
+  const handleChangeEmail = (email: string) => {
+    setFormData({ ...formData, email: email });
+  };
+  const handleChangePassword = (password: string) => {
+    setFormData({ ...formData, password: password });
+  };
+  const handleChangeConfirmPassword = (confirmPassword: string) => {
+    setFormData({ ...formData, confirmPassword: confirmPassword });
+  };
+
+  //Handle Sign Up
+  const handleSignUp = () => {
+    const { fullName, email, password, confirmPassword } = formData;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        //Signed in
+        const user = userCredential.user;
+        updateProfile(user, {
+          displayName: fullName,
+        });
+        console.log(user);
+        navigation.navigate("SignIn");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
+
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex justify-between mb-[25px]">
       <View>
@@ -34,8 +83,8 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
         </View>
         <View>
           <TextInput
-            // value={text}
-            // onChangeText={(text) => setText(text)}
+            value={formData.fullName}
+            onChangeText={(text) => handleChangeFullName(text)}
             className="mt-[36px] rounded-[10px]"
             theme={{ roundness: 10 }}
             outlineColor="transparent"
@@ -45,8 +94,8 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             placeholder="Họ Tên"
           />
           <TextInput
-            // value={text}
-            // onChangeText={(text) => setText(text)}
+            value={formData.email}
+            onChangeText={(text) => handleChangeEmail(text)}
             className="mt-[24px] rounded-[10px]"
             theme={{ roundness: 10 }}
             outlineColor="transparent"
@@ -56,8 +105,8 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             placeholder="Email"
           />
           <TextInput
-            // value={text}
-            // onChangeText={(text) => setText(text)}
+            value={formData.password}
+            onChangeText={(text) => handleChangePassword(text)}
             secureTextEntry={true}
             className="mt-[24px] rounded-[10px]"
             theme={{ roundness: 10 }}
@@ -73,8 +122,8 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             }
           />
           <TextInput
-            // value={text}
-            // onChangeText={(text) => setText(text)}
+            value={formData.confirmPassword}
+            onChangeText={(text) => handleChangeConfirmPassword(text)}
             secureTextEntry={true}
             className="mt-[24px] rounded-[10px]"
             theme={{ roundness: 10 }}
@@ -96,7 +145,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             mode="contained"
             compact={true}
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-            onPress={() => console.log("Pressed Sign up")}
+            onPress={handleSignUp}
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
             <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
