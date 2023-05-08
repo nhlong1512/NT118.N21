@@ -10,10 +10,41 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { TextInput, Button, Checkbox } from "react-native-paper";
+import { FormDataSignIn } from "../model/model";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../firebaseConfig"
+
 
 const SignInScreen = ({ navigation }: { navigation: any }) => {
   //FormDataState
-  const [text, setText] = useState("");
+  const initialState: FormDataSignIn = {
+    email: "",
+    password: "",
+  };
+  //Handle change formData Sign in
+  const [formData, setFormData] = useState<FormDataSignIn>(initialState);
+  const handleChangeEmail = (email: string) => {
+    setFormData({ ...formData, email: email });
+  };
+  const handleChangePassword = (password: string) => {
+    setFormData({ ...formData, password: password });
+  };
+
+  //Handle Sign In
+  const handleSignIn = () => {
+    const { email, password } = formData;
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        //Signed in
+        const user = userCredential.user;
+        console.log(user);
+        navigation.navigate("HomeSc");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   //SavePasswordState
   const [saved, setSaved] = useState<boolean>(false);
 
@@ -28,8 +59,10 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
           ĐĂNG NHẬP
         </Text>
         <TextInput
-          // value={text}
-          // onChangeText={(text) => setText(text)}
+          value={formData.email}
+          // onChangeText = {email => setEmail(email)}
+
+          onChangeText={(text) => handleChangeEmail(text)}
           className="mt-[8px] rounded-[10px]"
           theme={{ roundness: 10 }}
           outlineColor="transparent"
@@ -42,8 +75,10 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
           }
         />
         <TextInput
-          // value={text}
-          // onChangeText={(text) => setText(text)}
+          // onChangeText={password => setPassword(password)}
+          value={formData.password}
+          onChangeText={(text) => handleChangePassword(text)}
+          // label="password"
           secureTextEntry={true}
           className="mt-[24px] rounded-[10px]"
           theme={{ roundness: 10 }}
@@ -78,26 +113,21 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
             <Text className="text-[#969393] underline">Quên mật khẩu?</Text>
           </TouchableOpacity>
         </View>
-        
+
         <TouchableOpacity>
           <Button
             // icon="camera"
             mode="contained"
             compact={true}
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-            onPress={()=>{
-              navigation.navigate("HomeSc");
-            }}
+            onPress={handleSignIn}
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
-            <Text onPress={()=>{
-              navigation.navigate("HomeSc");
-            }}
-            className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
+            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
           </Button>
         </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
-          Chưa có tài khoản? 
+          Chưa có tài khoản?
           <Text> </Text>
           <Text
             className="font-[500] underline"
