@@ -40,6 +40,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
             value="0123456789"
             className="mt-[20px]"
             // onChangeText={(text) => setText(text)}
+            
           />
           <TextInput
             label="Email"

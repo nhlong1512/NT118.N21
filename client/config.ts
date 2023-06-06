@@ -1,0 +1,6 @@
+export const API_KEY= "AIzaSyBtEWG7uTSx6I8BDwL0HHVuETvueSvxx9E"
+export const AUTH_DOMAIN = "nt118-b3471.firebaseapp.com"
+export const PROJECT_ID = "nt118-b3471"
+export const STORAGE_BUCKET = "nt118-b3471.appspot.com"
+export const APP_ID = "1:228826791331:web:0156d8c3d0ec8421b1ae16"
+export const MESSAGING_SENDER_ID = "228826791331"

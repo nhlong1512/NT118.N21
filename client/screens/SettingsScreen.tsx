@@ -6,13 +6,54 @@ import {
   Image,
   SafeAreaView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-native-paper";
 import { Feather, AntDesign, Entypo } from "@expo/vector-icons";
+import Modal from "react-native-modal";
+import { sendEmailVerification, signOut } from "firebase/auth";
+import useUserStore from "../store/user";
+import { shallow } from "zustand/shallow";
+import { auth } from "../firebaseConfig";
 
 const SettingsScreen = ({ navigation }: { navigation: any }) => {
+  const [show, setShow] = useState(false);
+  const [logOut] = useUserStore((state) => [state.logOut], shallow);
+  const toggle = () => setShow((prev) => !prev);
+  const logout = () => {
+    toggle();
+    signOut(auth).then(() => {
+      logOut();
+      navigation.navigate("SignIn");
+    });
+  };
+
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex justify-start mb-[25px]">
+      <Modal isVisible={show} onBackdropPress={toggle} className="justify-center items-center">
+        <View className="max-w-[320] rounded-lg bg-white px-4 pb-6 pt-8">
+          <Text className="text-center font-app-semibold text-[20px] text-black">
+            Bạn có chắc rằng bạn muốn đăng xuất không?
+          </Text>
+          <View className="h-6" />
+          <Button
+            className="mt-[20px] bg-[#6667AB]"
+            mode="contained"
+            onPress={toggle}
+          >
+            <View style={{ width: 16, height: 1 }} />
+            <Text className="text-center ml-[20px]">Không, tôi muốn ở lại</Text>
+          </Button>
+          <View className="h-2" />
+          <Button
+            className="mt-[20px] bg-[#6667AB]"
+            mode="contained"
+            onPress={logout}
+          >
+            <View style={{ width: 16, height: 1 }} />
+            <Text className="text-center ml-[20px]">Đúng, đăng xuất</Text>
+          </Button>
+        </View>
+      </Modal>
       <View className="bg-[#fff] rounded-[20px] flex justify-center items-center py-[20px] mt-[20px]">
         <Image
           className="w-[150px] h-[150px] rounded-[100]"
@@ -47,9 +88,7 @@ const SettingsScreen = ({ navigation }: { navigation: any }) => {
         <Button
           className="mt-[20px] bg-[#6667AB] "
           mode="contained"
-          onPress={() => {
-            navigation.navigate("SignIn");
-          }}
+          onPress={toggle}
         >
           <Entypo name="log-out" size={20} color="white" />
           <View style={{ width: 16, height: 1 }} />
