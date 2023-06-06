@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
 
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import SettingsScreen from "../screens/SettingsScreen";
 import JobsListScreen from "../screens/JobsListScreen";
 import HomeScreen from "../screens/HomeScreen";

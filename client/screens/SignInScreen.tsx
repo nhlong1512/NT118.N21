@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Image,
@@ -11,11 +11,25 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { TextInput, Button, Checkbox } from "react-native-paper";
 import { FormDataSignIn } from "../model/model";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import {auth} from "../firebaseConfig"
-
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebaseConfig";
+import useUserStore from "../store/user";
+import { shallow } from "zustand/shallow";
+import Toast from "react-native-toast-message";
+import getAuthErrorMsg from "../utils/getAuthErrorMsg";
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 const SignInScreen = ({ navigation }: { navigation: any }) => {
+  const [showPwd, setShowPwd] = useState<boolean>(false);
+  const [setUser] = useUserStore((state) => [state.setUser], shallow);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      }
+    });
+  }, [setUser]);
   //FormDataState
   const initialState: FormDataSignIn = {
     email: "",
@@ -37,11 +51,20 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
       .then((userCredential) => {
         //Signed in
         const user = userCredential.user;
+        //Zustand
         console.log(user);
+        setUser(user);
         navigation.navigate("HomeSc");
       })
       .catch((error) => {
-        console.log(error);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        Toast.show({
+          type: "error",
+          text1: "Login failed",
+          text2: getAuthErrorMsg(errorMessage),
+        });
+        console.log(errorCode, errorMessage);
       });
   };
 
@@ -60,8 +83,6 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
         </Text>
         <TextInput
           value={formData.email}
-          // onChangeText = {email => setEmail(email)}
-
           onChangeText={(text) => handleChangeEmail(text)}
           className="mt-[8px] rounded-[10px]"
           theme={{ roundness: 10 }}
@@ -75,11 +96,8 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
           }
         />
         <TextInput
-          // onChangeText={password => setPassword(password)}
           value={formData.password}
           onChangeText={(text) => handleChangePassword(text)}
-          // label="password"
-          secureTextEntry={true}
           className="mt-[24px] rounded-[10px]"
           theme={{ roundness: 10 }}
           outlineColor="transparent"
@@ -87,6 +105,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
           placeholderTextColor="#969393"
           mode="outlined"
           placeholder="Mật khẩu"
+          secureTextEntry={!showPwd}
           left={<TextInput.Icon icon={require("../assets/icons/lock.png")} />}
           right={
             <TextInput.Icon icon={require("../assets/icons/visibility.png")} />
@@ -95,14 +114,6 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
         <View className="flex justify-between items-center flex-row mt-[16px]">
           <Text className="flex justify-center items-center">
             <Image source={require("../assets/icons/check_circle_2.png")} />
-            {/* <Checkbox
-              status={saved ? "checked" : "unchecked"}
-              onPress={() =>
-                setSaved(!saved);
-              }}
-              style={styles.checkboxContainer}
-              
-            /> */}
             <Text className="text-[#969393] underline">Lưu mật khẩu</Text>
           </Text>
           <TouchableOpacity
