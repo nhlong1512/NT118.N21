@@ -146,7 +146,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
               navigation.navigate("SignUp");
             }}
           >
-            ĐĂNG KÝ
+            Đăng Ký
           </Text>
         </Text>
       </View>

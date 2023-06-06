@@ -7,16 +7,52 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { Button, TextInput } from "react-native-paper";
+import { Button, HelperText, TextInput } from "react-native-paper";
 import { FormDataSignUp } from "../model/model";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import {auth} from "../firebaseConfig"
+import { useNavigation } from "@react-navigation/native";
+import { AuthNavigationProp } from "../navigator/AuthNav";
+import * as yup from "yup";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../firebaseConfig";
+import useUserStore from "../store/user";
+import { shallow } from "zustand/shallow";
+import Toast from "react-native-toast-message";
+
+const validationSchema = yup.object({
+  fullName: yup.string().required("Họ tên không được để trống. "),
+  email: yup
+    .string()
+    .required("Email không được để trống. ")
+    .email("Email không hợp lệ. "),
+  password: yup
+    .string()
+    .required("Mật khẩu không được để trống. ")
+    .min(8, "Mật khẩu phải ít nhất 8 kí tự. "),
+  confirmPassword: yup
+    .string()
+    .test(
+      "confirm-pwd",
+      "Mật khẩu xác nhận không trùng khớp với mật khẩu",
+      function (value) {
+        return this.parent.password === value;
+      }
+    ),
+});
 
 const SignUpScreen = ({ navigation }: { navigation: any }) => {
   //Form Data Sign Up Screen
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormDataSignUp>({ resolver: yupResolver(validationSchema) });
+  const [setUser] = useUserStore((state) => [state.setUser], shallow);
+  const [secure, setSecure] = useState([true, true]);
+
   const initialState: FormDataSignUp = {
     fullName: "",
     email: "",
@@ -39,23 +75,45 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
     setFormData({ ...formData, confirmPassword: confirmPassword });
   };
 
-  //Handle Sign Up
-  const handleSignUp = () => {
-    const { fullName, email, password, confirmPassword } = formData;
-    createUserWithEmailAndPassword(auth, email, password)
+  
+
+  const onSubmit: SubmitHandler<FormDataSignUp> = (data) => {
+    createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
-        //Signed in
         const user = userCredential.user;
-        updateProfile(user, {
-          displayName: fullName,
-        });
-        console.log(user);
-        navigation.navigate("SignIn");
+        setUser(user);
+        navigation.navigate("HomeSc");  
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        Toast.show({
+          type: "error",
+          text1: "Sign up failed",
+          text2: errorMessage,
+        });
+      });
+  };
+
+  //Handle Sign Up
+  const handleSignUp = () => {
+    const { fullName, email, password, confirmPassword } = formData;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setUser(user);
+        navigation.navigate("HomeSc");  
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        Toast.show({
+          type: "error",
+          text1: "Sign up failed",
+          text2: errorMessage,
+        });
       });
   };
 
@@ -64,9 +122,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
       <View>
         <View className="flex justify-between items-center flex-row mt-[48px]">
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("SignIn");
-            }}
+            onPress={() => navigation.canGoBack() && navigation.goBack()}
           >
             <View className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
               <Image source={require("../assets/icons/arrow_back.png")} />
@@ -139,13 +195,12 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             }
           />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSignUp}>
           <Button
             // icon="camera"
             mode="contained"
             compact={true}
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-            onPress={handleSignUp}
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
             <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
