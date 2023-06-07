@@ -10,7 +10,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, initializeAuth } from "firebase/auth";
 import { getReactNativePersistence } from "firebase/auth/react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 // Initialize Firebase
 
@@ -29,3 +29,4 @@ initializeAuth(firebaseApp, {
 });
 export const db = getFirestore(firebaseApp);
 export const auth = getAuth(firebaseApp);
+export { collection, addDoc}
