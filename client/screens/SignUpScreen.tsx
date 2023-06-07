@@ -5,9 +5,11 @@ import {
   View,
   Image,
   TouchableOpacity,
+  ScrollView,
+  Pressable,
 } from "react-native";
 import React, { useState } from "react";
-import { Button, HelperText, TextInput } from "react-native-paper";
+import { HelperText, TextInput, Button } from "react-native-paper";
 import { FormDataSignUp } from "../model/model";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigationProp } from "../navigator/AuthNav";
@@ -19,6 +21,16 @@ import { auth } from "../firebaseConfig";
 import useUserStore from "../store/user";
 import { shallow } from "zustand/shallow";
 import Toast from "react-native-toast-message";
+import { CustomSafeAreaView, TextFieldWithLabel } from "../components/common";
+import {
+  Apple,
+  ArrowLeft,
+  Eye,
+  Facebook,
+  Google,
+  Star8,
+  UnEye,
+} from "../assets/iconsCustom";
 
 const validationSchema = yup.object({
   fullName: yup.string().required("Họ tên không được để trống. "),
@@ -75,14 +87,12 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
     setFormData({ ...formData, confirmPassword: confirmPassword });
   };
 
-  
-
   const onSubmit: SubmitHandler<FormDataSignUp> = (data) => {
     createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
         setUser(user);
-        navigation.navigate("HomeSc");  
+        navigation.navigate("HomeSc");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -102,8 +112,11 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        updateProfile(user, {
+          displayName: fullName,
+        });
         setUser(user);
-        navigation.navigate("HomeSc");  
+        navigation.navigate("HomeSc");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -220,6 +233,62 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
         </Text>
       </View>
     </SafeAreaView>
+    // <CustomSafeAreaView className='items-center px-5'>
+    //   {/* Header */}
+    //   <View className='flex-row items-center'>
+    //     <Pressable onPress={() => navigation.canGoBack() && navigation.goBack()}>
+    //       <ArrowLeft />
+    //     </Pressable>
+    //     <View className='flex-1' />
+    //     <Star8 />
+    //   </View>
+
+    //   <ScrollView contentContainerStyle={{ flexGrow: 1 }} className='w-full' showsVerticalScrollIndicator={false}>
+    //     <Text className='mt-[54px] w-full text-heading1 font-bold'>Sign up</Text>
+    //     <TextFieldWithLabel
+    //       label={'Email'}
+    //       error={errors.email?.message}
+    //       containerClassName='mt-[34px]'
+    //       control={control}
+    //       name='email'
+    //       placeholder='example@gmail.com'
+    //     />
+    //     <TextFieldWithLabel
+    //       error={errors.password?.message}
+    //       label={'Create a password'}
+    //       containerClassName='mt-[26px]'
+    //       secureTextEntry={secure[0]}
+    //       control={control}
+    //       name='password'
+    //       onRightIconPress={() => setSecure([!secure[0], secure[1]])}
+    //       placeholder='must be 8 characters'
+    //       rightIcon={!secure[0] ? <Eye /> : <UnEye />}
+    //     />
+    //     <TextFieldWithLabel
+    //       error={errors.confirmPassword?.message}
+    //       label={'Confirm password'}
+    //       onRightIconPress={() => setSecure([secure[0], !secure[1]])}
+    //       secureTextEntry={secure[1]}
+    //       name='confirmPassword'
+    //       control={control}
+    //       containerClassName='mt-[22px] mb-[38px]'
+    //       placeholder='repeat password'
+    //       rightIcon={!secure[1] ? <Eye /> : <UnEye />}
+    //     />
+
+    //     <Button onPress={handleSubmit(onSubmit)} label={'Create account'} />
+    //     <View className='flex-1' />
+    //     {/* Already have an account? Log in */}
+    //     <View className='mb-12 mt-4 flex-row justify-center'>
+    //       <Text className='font-app-light text-sm' style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
+    //         Already have an account?{' '}
+    //       </Text>
+    //       <Text className='font-app-semibold text-sm' onPress={() => navigation.navigate('Login')}>
+    //         Log in
+    //       </Text>
+    //     </View>
+    //   </ScrollView>
+    // </CustomSafeAreaView>
   );
 };
 

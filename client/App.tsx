@@ -23,6 +23,8 @@ import AuthNav from "./navigator/AuthNav";
 const App = () => {
   const [user] = useUserStore((state) => [state.user], shallow)
 
+  console.log('App USER: ', user);
+  
   const getNav = () => {
     if (!user) return <AuthNav />
     // if (user.email === 'hdatdragon2@gmail.com') return <AdminTab />

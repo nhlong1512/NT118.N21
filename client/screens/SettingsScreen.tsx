@@ -17,7 +17,9 @@ import { auth } from "../firebaseConfig";
 
 const SettingsScreen = ({ navigation }: { navigation: any }) => {
   const [show, setShow] = useState(false);
-  const [logOut] = useUserStore((state) => [state.logOut], shallow);
+  const [user,logOut] = useUserStore((state) => [state.user, state.logOut], shallow);
+  console.log('SettingsScreen USER: ', user);
+  
   const toggle = () => setShow((prev) => !prev);
   const logout = () => {
     toggle();
@@ -61,7 +63,7 @@ const SettingsScreen = ({ navigation }: { navigation: any }) => {
           source={require("../assets/images/user.jpg")}
         />
         <Text className="text-[24px] text-[#6667AB] font-[700] mt-[20px]">
-          Long Nguyen
+          {user?.displayName || "Anonymous lol =)))"}
         </Text>
       </View>
       <View>
