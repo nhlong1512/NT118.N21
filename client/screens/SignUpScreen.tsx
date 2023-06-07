@@ -17,7 +17,7 @@ import * as yup from "yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { auth, addDoc, collection, db } from "../firebaseConfig";
 import useUserStore from "../store/user";
 import { shallow } from "zustand/shallow";
 import Toast from "react-native-toast-message";
@@ -106,6 +106,27 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
       });
   };
 
+  const addDbUser = async (
+    id: string,
+    fullName: string,
+    email: string,
+    role: number,
+    createdAt: Date
+  ) => {
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        id: id,
+        fullName: fullName,
+        email: email,
+        role: role,
+        createdAt: createdAt,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  };
+
   //Handle Sign Up
   const handleSignUp = () => {
     const { fullName, email, password, confirmPassword } = formData;
@@ -116,6 +137,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
           displayName: fullName,
         });
         setUser(user);
+        addDbUser(user.uid, fullName || "", user.email || "", 1, new Date())
         navigation.navigate("HomeSc");
       })
       .catch((error) => {
