@@ -1,68 +1,107 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  SafeAreaView,
-} from "react-native";
+import { View, Text, Pressable, Image, ScrollView } from "react-native";
 import React, { useState } from "react";
-import { Button, TextInput } from "react-native-paper";
-import { Feather, AntDesign, Entypo } from "@expo/vector-icons";
+import TextFieldWithLabel from "../../components/common/TextFieldWithLabel";
+// import Bars from '~/components/navigation/Bars'
+
+import { CustomSafeAreaView } from "../../components/common";
+import { TextInput, Button, Checkbox } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import useUserStore from "../../store/user";
+import { shallow } from "zustand/shallow";
+import Bars from "../../navigator/Bar";
 
 const ProfileScreen = ({ navigation }: { navigation: any }) => {
-  const [text, setText] = useState<string>("");
+  const [user] = useUserStore((state) => [state.user], shallow);
+
+  const [avt, setAvt] = useState("");
+  const [name, setName] = useState(user?.displayName || "");
+  const [phone, setPhone] = useState(user?.phoneNumber || "");
+  const [mail, setMail] = useState(user?.email || "");
+  const [dateOfBirth, setdateOfBirth] = useState("");
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [3, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setAvt(result.assets[0].uri);
+    }
+  };
 
   return (
-    <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex justify-start mb-[25px]">
-      <View className="bg-[#fff] rounded-[20px] flex justify-center items-center py-[20px] mt-[20px]">
-        <Image
-          className="w-[150px] h-[150px] rounded-[100]"
-          style={{ borderRadius: 100 }}
-          source={require("../../assets/images/user.jpg")}
+    <CustomSafeAreaView className="flex-1 items-center bg-white px-4">
+      <Bars
+        headerLeft='return'
+        title='Thông tin của tôi'
+        headerRight='action'
+        label='Lưu'
+        onLeftButtonPress={() => navigation.goBack()}
+        onRightButtonPress={() => navigation.goBack()}
+        className='mb-2 font-[700]'
+      />
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        className="w-full mb-[20px]"
+        showsVerticalScrollIndicator={false}
+      >
+        <Pressable className="items-center py-4" onPress={pickImage}>
+          <Image
+            className="w-[150px] h-[150px] rounded-[100px]"
+            resizeMode="cover"
+            source={
+              avt ? { uri: avt } : require("../../assets/images/user.jpg")
+            }
+          />
+          <Text className="mt-2 py-[7.5px] font-app-medium text-body2">
+            Thay đổi hỉnh ảnh
+          </Text>
+        </Pressable>
+
+        {/* text field */}
+
+        {/* Full name */}
+        <TextFieldWithLabel
+          value={name}
+          onChangeText={(text) => setName(text)}
+          label="Họ và tên"
+          containerClassName="mt-2"
+          placeholder="Nhập tên của bạn"
         />
-        <Text className="text-[24px] text-[#6667AB] font-[700] mt-[20px]">
-          Long Nguyen
-        </Text>
-      </View>
-      <View className="mt-[40px]">
-        <View className="px-[10px] bg-red-500">
-          {/* <Feather name="user" color="white" className="w-[20px]" /> */}
-        </View>
-        <View>
-          <TextInput
-            label="Họ tên"
-            value="Long Nguyen"
-            // onChangeText={(text) => setText(text)}
-          />
-          <TextInput
-            label="Số điện thoại"
-            value="0123456789"
-            className="mt-[20px]"
-            // onChangeText={(text) => setText(text)}
-            
-          />
-          <TextInput
-            label="Email"
-            value="abc@12345"
-            className="mt-[20px]"
-            // onChangeText={(text) => setText(text)}
-          />
-        </View>
-        <Button
-          className="mt-[20px] bg-[#6667AB] "
-          mode="contained"
-          onPress={() => {
-            navigation.navigate("UpdateSuccess");
-          }}
-        >
-          <Text>Cập nhật</Text>
-        </Button>
-      </View>
-    </SafeAreaView>
+
+        {/* Phone */}
+        <TextFieldWithLabel
+          value={phone}
+          onChangeText={(text) => setPhone(text)}
+          label="Số điện thoại"
+          keyboardType="numeric"
+          containerClassName="mt-4"
+          placeholder="Nhập số điện thoại của bạn"
+        />
+        {/* Email */}
+        <TextFieldWithLabel
+          value={mail}
+          onChangeText={(text) => setMail(text)}
+          label="Email"
+          keyboardType="email-address"
+          containerClassName="mt-4"
+          placeholder="Nhập email của bạn"
+        />
+
+        {/* Date of birth */}
+        <TextFieldWithLabel
+          value={dateOfBirth}
+          onChangeText={(text) => setdateOfBirth(text)}
+          label="Date of birth"
+          containerClassName="mt-4"
+        />
+      </ScrollView>
+    </CustomSafeAreaView>
   );
 };
 
 export default ProfileScreen;
-
-const styles = StyleSheet.create({});
