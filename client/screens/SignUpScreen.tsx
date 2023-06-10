@@ -31,6 +31,7 @@ import {
   Star8,
   UnEye,
 } from "../assets/iconsCustom";
+import getAuthErrorMsg from "../utils/getAuthErrorMsg";
 
 const validationSchema = yup.object({
   fullName: yup.string().required("Họ tên không được để trống. "),
@@ -137,7 +138,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
           displayName: fullName,
         });
         setUser(user);
-        addDbUser(user.uid, fullName || "", user.email || "", 1, new Date())
+        addDbUser(user.uid, fullName || "", user.email || "", 1, new Date());
         navigation.navigate("HomeSc");
       })
       .catch((error) => {
@@ -147,7 +148,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
         Toast.show({
           type: "error",
           text1: "Sign up failed",
-          text2: errorMessage,
+          text2: getAuthErrorMsg(errorMessage),
         });
       });
   };
