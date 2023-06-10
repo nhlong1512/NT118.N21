@@ -20,24 +20,25 @@ const ForgotPasswordScreen = ({ navigation }: { navigation: any }) => {
             }}
             className="absolute top-[30px] z-[20]"
           >
-            <View className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
+            <View style={{alignItems:'flex-start', margin:16}} className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
               <Image source={require("../assets/icons/arrow_back.png")} />
             </View>
           </TouchableOpacity>
-          <View>
+          <View style={{alignItems:'center'}}>
             <Image source={require("../assets/images/logo1.png")} />
           </View>
         </View>
         <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center mb-[14px]">
           QUÊN MẬT KHẨU
         </Text>
-        <Text className="text-center text-[14px] leading-[20px] text-[#00000080] mb-[40px]">
+        <Text style={{alignItems:'center', margin:16}} className="text-center text-[14px] leading-[20px] text-[#00000080] mb-[40px]">
           Tiến hành nhập Email cá nhân dùng để đăng ký tài khoản, sau đó hệ
           thống sẽ gửi mã xác minh vào tài khoản Email đó.
         </Text>
         <TextInput
           // value={text}
           // onChangeText={(text) => setText(text)}
+          style={{marginLeft:16,marginRight:16}}
           className="mt-[8px] rounded-[10px]"
           theme={{ roundness: 10 }}
           outlineColor="transparent"
@@ -47,7 +48,7 @@ const ForgotPasswordScreen = ({ navigation }: { navigation: any }) => {
           placeholder="Email"
           left={<TextInput.Icon icon={require("../assets/icons/mail.png")} />}
         />
-        <TouchableOpacity>
+        <TouchableOpacity style={{marginLeft:16,marginRight:16}}>
           <Button
             // icon="camera"
             mode="contained"

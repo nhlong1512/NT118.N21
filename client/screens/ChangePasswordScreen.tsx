@@ -21,11 +21,11 @@ const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
             }}
             className="absolute top-[30px] z-[20]"
           >
-            <View className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
+            <View style={{alignItems:'flex-start', margin:16}} className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
               <Image source={require("../assets/icons/arrow_back.png")} />
             </View>
           </TouchableOpacity>
-          <View>
+          <View style={{alignItems:'center'}}>
             <Image source={require("../assets/images/logo1.png")} />
           </View>
         </View>
@@ -36,6 +36,7 @@ const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
         <TextInput
           // value={text}
           // onChangeText={(text) => setText(text)}
+          style={{marginLeft:16,marginRight:16}}
           secureTextEntry={true}
           className="mt-[24px] rounded-[10px]"
           theme={{ roundness: 10 }}
@@ -51,6 +52,7 @@ const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
         <TextInput
           // value={text}
           // onChangeText={(text) => setText(text)}
+          style={{marginLeft:16,marginRight:16}}
           secureTextEntry={true}
           className="mt-[24px] rounded-[10px]"
           theme={{ roundness: 10 }}
@@ -63,7 +65,7 @@ const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
             <TextInput.Icon icon={require("../assets/icons/visibility.png")} />
           }
         />
-        <TouchableOpacity>
+        <TouchableOpacity style={{marginLeft:16,marginRight:16}}>
           <Button
             // icon="camera"
             mode="contained"

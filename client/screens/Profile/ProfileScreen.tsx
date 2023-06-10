@@ -15,14 +15,14 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
 
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex justify-start mb-[25px]">
-      <View className="bg-[#fff] rounded-[20px] flex justify-center items-center py-[20px] mt-[20px]">
+      <View style={{margin:16}} className="bg-[#fff] rounded-[20px] flex justify-center items-center py-[20px] mt-[20px]">
         <Image
           className="w-[150px] h-[150px] rounded-[100]"
           style={{ borderRadius: 100 }}
-          source={require("../../assets/images/user.jpg")}
+          source={require("../../assets/icons/avtuser.png")}
         />
-        <Text className="text-[24px] text-[#6667AB] font-[700] mt-[20px]">
-          Long Nguyen
+        <Text style={{fontFamily:'Cochin'}} className="text-[24px] text-[#6667AB] font-[700] mt-[20px]">
+          Nhi Truong
         </Text>
       </View>
       <View className="mt-[40px]">
@@ -32,7 +32,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
         <View>
           <TextInput
             label="Họ tên"
-            value="Long Nguyen"
+            value="Nhi Truong"
             // onChangeText={(text) => setText(text)}
           />
           <TextInput
@@ -40,7 +40,6 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
             value="0123456789"
             className="mt-[20px]"
             // onChangeText={(text) => setText(text)}
-            
           />
           <TextInput
             label="Email"
@@ -49,14 +48,14 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
             // onChangeText={(text) => setText(text)}
           />
         </View>
-        <Button
+        <Button style={{marginLeft:16, marginRight:16,marginTop:50,borderRadius:10,height:40}}
           className="mt-[20px] bg-[#6667AB] "
           mode="contained"
           onPress={() => {
             navigation.navigate("UpdateSuccess");
           }}
         >
-          <Text>Cập nhật</Text>
+          <Text style={{fontFamily:'Cochin',fontSize:18}}>CẬP NHẬT</Text>
         </Button>
       </View>
     </SafeAreaView>

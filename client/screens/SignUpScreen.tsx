@@ -157,13 +157,15 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
       <View>
         <View className="flex justify-between items-center flex-row mt-[48px]">
           <TouchableOpacity
-            onPress={() => navigation.canGoBack() && navigation.goBack()}
+            onPress={() => {
+              navigation.navigate("SignIn");
+            }}
           >
-            <View className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
+            <View style={{alignItems:'flex-start', margin:16}} className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
               <Image source={require("../assets/icons/arrow_back.png")} />
             </View>
           </TouchableOpacity>
-          <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+          <Text style={{textAlign:'center'}} className="text-[25px] font-[700] text-[#6667AB] leading-[32px] text-center shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
             ĐĂNG KÝ
           </Text>
           <TouchableOpacity className="opacity-0">
@@ -174,8 +176,9 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
         </View>
         <View>
           <TextInput
-            value={formData.fullName}
-            onChangeText={(text) => handleChangeFullName(text)}
+            // value={text}
+            // onChangeText={(text) => setText(text)}
+            style={{marginLeft:16,marginRight:16}}
             className="mt-[36px] rounded-[10px]"
             theme={{ roundness: 10 }}
             outlineColor="transparent"
@@ -185,8 +188,9 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             placeholder="Họ Tên"
           />
           <TextInput
-            value={formData.email}
-            onChangeText={(text) => handleChangeEmail(text)}
+            // value={text}
+            // onChangeText={(text) => setText(text)}
+            style={{marginLeft:16,marginRight:16}}
             className="mt-[24px] rounded-[10px]"
             theme={{ roundness: 10 }}
             outlineColor="transparent"
@@ -196,8 +200,9 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             placeholder="Email"
           />
           <TextInput
-            value={formData.password}
-            onChangeText={(text) => handleChangePassword(text)}
+            // value={text}
+            // onChangeText={(text) => setText(text)}
+            style={{marginLeft:16,marginRight:16}}
             secureTextEntry={true}
             className="mt-[24px] rounded-[10px]"
             theme={{ roundness: 10 }}
@@ -213,8 +218,9 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             }
           />
           <TextInput
-            value={formData.confirmPassword}
-            onChangeText={(text) => handleChangeConfirmPassword(text)}
+            // value={text}
+            // onChangeText={(text) => setText(text)}
+            style={{marginLeft:16,marginRight:16}}
             secureTextEntry={true}
             className="mt-[24px] rounded-[10px]"
             theme={{ roundness: 10 }}
@@ -230,21 +236,24 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             }
           />
         </View>
-        <TouchableOpacity onPress={handleSignUp}>
+        <TouchableOpacity style={{marginLeft:16,marginRight:16}}>
           <Button
             // icon="camera"
             mode="contained"
             compact={true}
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
+            onPress={()=>{
+              navigation.navigate("SignIn");
+            }}
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
             <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
           </Button>
         </TouchableOpacity>
-        <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
+        <Text style={{fontSize:20}} className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
           Đã có tài khoản?
           <Text> </Text>
-          <Text
+          <Text style={{color:'#6667AB',fontSize:20}}
             className="font-[500] underline"
             onPress={() => {
               navigation.navigate("SignIn");

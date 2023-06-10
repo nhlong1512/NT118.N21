@@ -10,17 +10,17 @@ import {
 import React from "react";
 import { Button, TextInput } from "react-native-paper";
 // @ts-ignore
-// import {BarChart} from "react-native-chart-kit";
+import {BarChart} from "react-native-chart-kit";
 
 const Statistic =({navigation}:{navigation:any})=> {
     return (
         <SafeAreaView style={styles.container}>
             <View>
                 <View style={{ marginTop: 20, marginBottom: 30 }}>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', fontFamily: 'Cochin', textAlign: 'center' }}>Hi there, Long Nguyen</Text>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', fontFamily: 'Cochin', textAlign: 'center' }}>Hi there, Nhi Truong</Text>
                 </View>
-                <View>
-                    {/* <BarChart
+                <View style={{padding:16}}>
+                    <BarChart
                         data={{
                             labels: ['January', 'February', 'March', 'April', 'May', 'June'],
                             datasets: [
@@ -29,8 +29,8 @@ const Statistic =({navigation}:{navigation:any})=> {
                                 },
                             ],
                         }}
-                        width={Dimensions.get('window').width - 16}
-                        height={220}
+                        width={Dimensions.get('window').width - 30}
+                        height={250}
                         yAxisLabel={'Rs'}
                         chartConfig={{
                             backgroundColor: '#1cc910',
@@ -45,17 +45,20 @@ const Statistic =({navigation}:{navigation:any})=> {
                         style={{
                             marginVertical: 8,
                             borderRadius: 16,
-                        }} /> */}
+                        }} />
                 </View>
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    
+                    style={{marginTop:50,marginLeft:16,marginRight:16}}>
                         <View style={{ width: 300, marginLeft: 20, marginRight: 20, height: 40, backgroundColor: '#6667AB', borderRadius: 10, justifyContent: 'center' }}>
                             <Text style={{ fontFamily: 'Cochin', fontSize: 18, fontWeight: '700', textAlign: 'center', color: 'white' }}>
                             DOANH NGHIỆP
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity style={{marginTop:20,marginLeft:16,marginRight:16}}
+                     onPress={()=>{
                     navigation.navigate("HomeSc");
                     }}>
                         <View style={{ width: 300, marginLeft: 20, marginRight: 20, marginTop: 20, height: 40, backgroundColor: '#B25000', borderRadius: 10, justifyContent: 'center' }}>
@@ -64,7 +67,8 @@ const Statistic =({navigation}:{navigation:any})=> {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity style={{marginTop:20,marginLeft:16,marginRight:16}}
+                     onPress={()=>{
                     navigation.navigate("Tintuc");
                     }}>
                         <View style={{ width: 300, marginLeft: 20, marginRight: 20, marginTop: 20, height: 40, backgroundColor: '#FFB340', borderRadius: 10, justifyContent: 'center' }}>
