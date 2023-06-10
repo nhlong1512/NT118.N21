@@ -6,10 +6,42 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Button, TextInput } from "react-native-paper";
+import { sendPasswordResetEmail } from 'firebase/auth'
+import { auth } from '../firebaseConfig'
+import * as yup from 'yup'
+import Toast from 'react-native-toast-message'
+import toastConfig from '../utils/config/toastConfig'
+
+const validationSchema = yup.object({
+  email: yup.string().required('Required').email('Invalid email')
+})
 
 const ForgotPasswordScreen = ({ navigation }: { navigation: any }) => {
+
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
+  const resetPassword = () => {
+    validationSchema
+      .validate({ email })
+      .then((value) => {
+        console.log(value.email);
+        
+        setError('')
+        sendPasswordResetEmail(auth, value.email).then(() => {
+          Toast.show({
+            type: 'success',
+            text1: 'Gửi Email!',
+            text2: 'Kiểm tra Email để đặt lại mật khẩu.'
+          })
+          navigation.navigate("SignIn")
+        })
+      })
+      .catch((e) => {
+        setError(e.errors[0])
+      })
+  }
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex mb-[25px]">
       <View>
@@ -38,6 +70,8 @@ const ForgotPasswordScreen = ({ navigation }: { navigation: any }) => {
         <TextInput
           // value={text}
           // onChangeText={(text) => setText(text)}
+          onChangeText={(text) => setEmail(text)}
+          value={email}
           className="mt-[8px] rounded-[10px]"
           theme={{ roundness: 10 }}
           outlineColor="transparent"
@@ -53,7 +87,7 @@ const ForgotPasswordScreen = ({ navigation }: { navigation: any }) => {
             mode="contained"
             compact={true}
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-            onPress={() => {navigation.navigate("Verification")}}
+            onPress={resetPassword}
           >
             <Text className="text-[18px] font-[700] leading-[24px]">
               GỬI
