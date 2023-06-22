@@ -1,13 +1,14 @@
+import { UserCustom } from './../model/model';
 import { User } from 'firebase/auth'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
 interface State {
-  user?: User
+  user?: UserCustom
 }
 
 interface Action {
-  setUser: (user: User) => void
+  setUser: (user: UserCustom) => void
   logOut: () => void
 }
 

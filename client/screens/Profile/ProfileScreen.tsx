@@ -10,15 +10,31 @@ import * as ImagePicker from "expo-image-picker";
 import useUserStore from "../../store/user";
 import { shallow } from "zustand/shallow";
 import Bars from "../../navigator/Bar";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 
 const ProfileScreen = ({ navigation }: { navigation: any }) => {
   const [user] = useUserStore((state) => [state.user], shallow);
 
   const [avt, setAvt] = useState("");
-  const [name, setName] = useState(user?.displayName || "");
+  const [name, setName] = useState(user?.fullName || "");
   const [phone, setPhone] = useState(user?.phoneNumber || "");
   const [mail, setMail] = useState(user?.email || "");
   const [dateOfBirth, setdateOfBirth] = useState("");
+
+  const fetchUser = async () => {
+    if (user?.id === undefined) return;
+    const userRef = doc(db, "users", user?.id);
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
+  fetchUser();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -29,6 +45,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
     });
 
     if (!result.canceled) {
+      console.log(result.assets[0].uri);
       setAvt(result.assets[0].uri);
     }
   };

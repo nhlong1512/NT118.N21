@@ -35,7 +35,7 @@ const ProductCardBig = ({ data = DATA, style, onPress }: Props) => {
         {desc}
       </Text>
       {badge !== 'none' && (
-        <View className='absolute left-2 top-2 h-6 items-center rounded bg-charizard-400 px-2'>
+        <View className='absolute left-2 top-2 h-6 items-center rounded bg-[#6667AB] px-2'>
           <Text className='font-app-medium text-body2'>{badge}</Text>
         </View>
       )}

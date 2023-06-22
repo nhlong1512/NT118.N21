@@ -39,7 +39,7 @@ const SnackBar = ({ containerClassName, className, onCancel }: Props) => {
         <Text className='ml-4 font-app text-body1 text-white'>Item removed</Text>
         <View className='flex-1' />
         <TouchableOpacity onPress={onCancel}>
-          <Text className='font-app text-body1 text-charizard-400'>Cancel</Text>
+          <Text className='font-app text-body1 text-[#6667AB]'>Cancel</Text>
         </TouchableOpacity>
       </View>
     </CustomSafeAreaView>

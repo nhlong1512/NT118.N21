@@ -10,26 +10,27 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { TextInput, Button, Checkbox } from "react-native-paper";
-import { FormDataSignIn } from "../model/model";
+import { FormDataSignIn, UserCustom } from "../model/model";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { auth, db } from "../firebaseConfig";
 import useUserStore from "../store/user";
 import { shallow } from "zustand/shallow";
 import Toast from "react-native-toast-message";
 import getAuthErrorMsg from "../utils/getAuthErrorMsg";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { doc, getDoc } from "firebase/firestore";
 
 const SignInScreen = ({ navigation }: { navigation: any }) => {
   const [showPwd, setShowPwd] = useState<boolean>(false);
   const [setUser] = useUserStore((state) => [state.setUser], shallow);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      }
-    });
-  }, [setUser]);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setUser(user);
+  //     }
+  //   });
+  // }, [setUser]);
   //FormDataState
   const initialState: FormDataSignIn = {
     email: "",
@@ -48,12 +49,30 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
   const handleSignIn = () => {
     const { email, password } = formData;
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async(userCredential) => {
         //Signed in
         const user = userCredential.user;
         //Zustand
         console.log(user);
-        setUser(user);
+    const userRef = doc(db, "users", user?.uid);
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      const userCustom: UserCustom = {
+        id: docSnap.data().id,
+        fullName: docSnap.data().fullName,
+        email: docSnap.data().email,
+        role: docSnap.data().role,
+        createdAt: docSnap.data().createdAt,
+        photoURL: docSnap.data().photoURL,
+        phoneNumber: docSnap.data().phoneNumber,
+        dateOfBirth: docSnap.data().dateOfBirth,
+      }
+      setUser(userCustom);
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
         navigation.navigate("HomeSc");
       })
       .catch((error) => {

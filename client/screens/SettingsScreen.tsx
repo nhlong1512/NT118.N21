@@ -63,7 +63,7 @@ const SettingsScreen = ({ navigation }: { navigation: any }) => {
           source={require("../assets/images/user.jpg")}
         />
         <Text className="text-[24px] text-[#6667AB] font-[700] mt-[20px]">
-          {user?.displayName || "Anonymous lol =)))"}
+          {user?.fullName || "Nguyễn Richhhh"}
         </Text>
       </View>
       <View>

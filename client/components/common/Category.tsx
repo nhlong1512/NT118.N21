@@ -23,7 +23,7 @@ const Category = ({ left, right, action }: Props) => {
       {typeof right === 'boolean' ? (
         <Pressable onPress={action}>
           {isChecked ? (
-            <View className='ml-4 h-6 w-6 items-center justify-center rounded-full bg-charizard-400'>
+            <View className='ml-4 h-6 w-6 items-center justify-center rounded-full bg-[#6667AB]'>
               <Check />
             </View>
           ) : (

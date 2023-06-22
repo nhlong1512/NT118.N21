@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { HelperText, TextInput, Button } from "react-native-paper";
-import { FormDataSignUp } from "../model/model";
+import { FormDataSignUp, UserCustom } from "../model/model";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigationProp } from "../navigator/AuthNav";
 import * as yup from "yup";
@@ -32,6 +32,7 @@ import {
   UnEye,
 } from "../assets/iconsCustom";
 import getAuthErrorMsg from "../utils/getAuthErrorMsg";
+import { doc, setDoc } from "firebase/firestore";
 
 const validationSchema = yup.object({
   fullName: yup.string().required("Họ tên không được để trống. "),
@@ -87,42 +88,29 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
   const handleChangeConfirmPassword = (confirmPassword: string) => {
     setFormData({ ...formData, confirmPassword: confirmPassword });
   };
-
-  const onSubmit: SubmitHandler<FormDataSignUp> = (data) => {
-    createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setUser(user);
-        navigation.navigate("HomeSc");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        Toast.show({
-          type: "error",
-          text1: "Sign up failed",
-          text2: errorMessage,
-        });
-      });
-  };
-
   const addDbUser = async (
     id: string,
     fullName: string,
     email: string,
     role: number,
-    createdAt: Date
+    createdAt: Date,
+    photoURL: string,
+    phoneNumber: string,
+    dateOfBirth: Date | null,
   ) => {
     try {
-      const docRef = await addDoc(collection(db, "users"), {
+      const userRef = collection(db, "users");
+      await setDoc(doc(userRef, id), {
         id: id,
         fullName: fullName,
         email: email,
         role: role,
         createdAt: createdAt,
+        photoURL: photoURL,
+        phoneNumber: phoneNumber,
+        dateOfBirth: dateOfBirth || null,
       });
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Document written with ID: ", userRef.id);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -137,8 +125,18 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
         updateProfile(user, {
           displayName: fullName,
         });
-        setUser(user);
-        addDbUser(user.uid, fullName || "", user.email || "", 1, new Date());
+        const userCustom: UserCustom = {
+          id: user?.uid,
+          fullName: fullName,
+          email: email,
+          role: 1,
+          createdAt: new Date(),
+          photoURL: "",
+          phoneNumber: "",
+          dateOfBirth: null,
+        }
+        setUser(userCustom);
+        addDbUser(user.uid, fullName || "", user.email || "", 1, new Date(), "", "", null);
         navigation.navigate("HomeSc");
       })
       .catch((error) => {
