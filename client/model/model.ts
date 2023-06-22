@@ -18,5 +18,5 @@ export interface UserCustom {
     createdAt: Date,
     photoURL: string,
     phoneNumber: string,
-    dateOfBirth: Date | null,
+    dateOfBirth: string,
 }

@@ -18,7 +18,6 @@ import { auth } from "../firebaseConfig";
 const SettingsScreen = ({ navigation }: { navigation: any }) => {
   const [show, setShow] = useState(false);
   const [user,logOut] = useUserStore((state) => [state.user, state.logOut], shallow);
-  console.log('SettingsScreen USER: ', user);
   
   const toggle = () => setShow((prev) => !prev);
   const logout = () => {
@@ -60,7 +59,7 @@ const SettingsScreen = ({ navigation }: { navigation: any }) => {
         <Image
           className="w-[150px] h-[150px] rounded-[100]"
           style={{ borderRadius: 100 }}
-          source={require("../assets/images/user.jpg")}
+          source={user?.photoURL ? { uri: user.photoURL } : require("../assets/images/user.jpg")}
         />
         <Text className="text-[24px] text-[#6667AB] font-[700] mt-[20px]">
           {user?.fullName || "Nguyễn Richhhh"}

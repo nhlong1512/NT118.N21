@@ -96,7 +96,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
     createdAt: Date,
     photoURL: string,
     phoneNumber: string,
-    dateOfBirth: Date | null,
+    dateOfBirth: string,
   ) => {
     try {
       const userRef = collection(db, "users");
@@ -108,7 +108,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
         createdAt: createdAt,
         photoURL: photoURL,
         phoneNumber: phoneNumber,
-        dateOfBirth: dateOfBirth || null,
+        dateOfBirth: dateOfBirth,
       });
       console.log("Document written with ID: ", userRef.id);
     } catch (error) {
@@ -133,10 +133,10 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
           createdAt: new Date(),
           photoURL: "",
           phoneNumber: "",
-          dateOfBirth: null,
+          dateOfBirth: "",
         }
         setUser(userCustom);
-        addDbUser(user.uid, fullName || "", user.email || "", 1, new Date(), "", "", null);
+        addDbUser(user.uid, fullName || "", user.email || "", 1, new Date(), "", "", "");
         navigation.navigate("HomeSc");
       })
       .catch((error) => {

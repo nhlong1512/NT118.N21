@@ -27,7 +27,7 @@ const App = () => {
   
   const getNav = () => {
     if (!user) return <AuthNav />
-    // if (user.email === 'hdatdragon2@gmail.com') return <AdminTab />
+    // if (user.email === 'huulongn2@gmail.com') return <AdminTab />
     return <BottomTabNavigation />
   }
 

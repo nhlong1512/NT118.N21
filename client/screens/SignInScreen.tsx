@@ -49,30 +49,30 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
   const handleSignIn = () => {
     const { email, password } = formData;
     signInWithEmailAndPassword(auth, email, password)
-      .then(async(userCredential) => {
+      .then(async (userCredential) => {
         //Signed in
         const user = userCredential.user;
         //Zustand
         console.log(user);
-    const userRef = doc(db, "users", user?.uid);
-    const docSnap = await getDoc(userRef);
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      const userCustom: UserCustom = {
-        id: docSnap.data().id,
-        fullName: docSnap.data().fullName,
-        email: docSnap.data().email,
-        role: docSnap.data().role,
-        createdAt: docSnap.data().createdAt,
-        photoURL: docSnap.data().photoURL,
-        phoneNumber: docSnap.data().phoneNumber,
-        dateOfBirth: docSnap.data().dateOfBirth,
-      }
-      setUser(userCustom);
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
-    }
+        const userRef = doc(db, "users", user?.uid);
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data());
+          const userCustom: UserCustom = {
+            id: docSnap.data().id,
+            fullName: docSnap.data().fullName,
+            email: docSnap.data().email,
+            role: docSnap.data().role,
+            createdAt: docSnap.data().createdAt,
+            photoURL: docSnap.data().photoURL,
+            phoneNumber: docSnap.data().phoneNumber,
+            dateOfBirth: docSnap.data().dateOfBirth,
+          };
+          setUser(userCustom);
+        } else {
+          // docSnap.data() will be undefined in this case
+          console.log("No such document!");
+        }
         navigation.navigate("HomeSc");
       })
       .catch((error) => {

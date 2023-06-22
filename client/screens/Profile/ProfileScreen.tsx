@@ -10,31 +10,44 @@ import * as ImagePicker from "expo-image-picker";
 import useUserStore from "../../store/user";
 import { shallow } from "zustand/shallow";
 import Bars from "../../navigator/Bar";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import Toast from "react-native-toast-message";
 
 const ProfileScreen = ({ navigation }: { navigation: any }) => {
-  const [user] = useUserStore((state) => [state.user], shallow);
-
-  const [avt, setAvt] = useState("");
+  const [user, setUser] = useUserStore((state) => [state.user, state.setUser], shallow);
+  const [avt, setAvt] = useState(user?.photoURL || "");
   const [name, setName] = useState(user?.fullName || "");
   const [phone, setPhone] = useState(user?.phoneNumber || "");
   const [mail, setMail] = useState(user?.email || "");
-  const [dateOfBirth, setdateOfBirth] = useState("");
+  const [dateOfBirth, setdateOfBirth] = useState(user?.dateOfBirth || "");
 
-  const fetchUser = async () => {
+  const handleSave = async () => {
     if (user?.id === undefined) return;
     const userRef = doc(db, "users", user?.id);
     const docSnap = await getDoc(userRef);
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
-
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
+    // Update user profile
+    await updateDoc(userRef, {
+      phoneNumber: phone,
+      fullName: name,
+      dateOfBirth: dateOfBirth,
+      photoURL: avt,
+    });
+    setUser({ ...user, phoneNumber: phone, fullName: name, dateOfBirth: dateOfBirth, photoURL: avt });
+    Toast.show({
+      type: 'success',
+      text1: 'Cập nhật thông tin',
+      text2: 'Cập nhật thông tin thành công.'
+    })
+
+    // dispatch(setUser())
   }
-  fetchUser();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -58,7 +71,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
         headerRight='action'
         label='Lưu'
         onLeftButtonPress={() => navigation.goBack()}
-        onRightButtonPress={() => navigation.goBack()}
+        onRightButtonPress={handleSave}
         className='mb-2 font-[700]'
       />
       <ScrollView
@@ -78,9 +91,6 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
             Thay đổi hỉnh ảnh
           </Text>
         </Pressable>
-
-        {/* text field */}
-
         {/* Full name */}
         <TextFieldWithLabel
           value={name}
@@ -115,6 +125,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
           onChangeText={(text) => setdateOfBirth(text)}
           label="Date of birth"
           containerClassName="mt-4"
+          placeholder="01/01/2000"
         />
       </ScrollView>
     </CustomSafeAreaView>

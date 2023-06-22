@@ -18,8 +18,7 @@ const Detailofnews = ({ navigation }: { navigation: any }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <Appbar.Header  >
-    
+    <Appbar.Header>
       <Appbar.BackAction onPress={() => {navigation.navigate("Tintuc")}} />
       <Appbar.Content title="TIN TỨC" />
     </Appbar.Header>
