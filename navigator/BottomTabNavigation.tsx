@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
 
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import SettingsScreen from "../screens/SettingsScreen";
 import JobsListScreen from "../screens/JobsListScreen";
 import HomeScreen from "../screens/HomeScreen";
 import HomeStack from "./HomeStack";
-
+import ManageSetting from "../screens/ManageSetting";
+import UserScreen from "../screens/UserScreen";
 const BottomTabNavigation = () => {
   const Tab = createBottomTabNavigator();
 
@@ -26,6 +27,11 @@ const BottomTabNavigation = () => {
             iconName = focused ? "ios-settings" : "ios-settings-outline";
           } else if (route.name === "Công việc") {
             iconName = focused ? "briefcase-sharp" : "briefcase-outline";
+          } else if (route.name === "Công ty"){
+            iconName = focused ? "ios-library" : "ios-library-outline"; 
+          }
+          else if (route.name === "Cá nhân"){
+            iconName = focused ? "ios-woman" : "ios-woman-outline"; 
           }
 
           // You can return any component that you like here!
@@ -39,6 +45,8 @@ const BottomTabNavigation = () => {
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Công việc" component={JobsListScreen} />
       <Tab.Screen name="Cài đặt" component={SettingsScreen} />
+      <Tab.Screen name="Công ty" component={ManageSetting}/>
+      <Tab.Screen name="Cá nhân" component={UserScreen}/>
     </Tab.Navigator>
   );
 };

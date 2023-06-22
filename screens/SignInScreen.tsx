@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Image,
@@ -10,10 +10,64 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { TextInput, Button, Checkbox } from "react-native-paper";
+import { FormDataSignIn } from "../model/model";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebaseConfig";
+import useUserStore from "../store/user";
+import { shallow } from "zustand/shallow";
+import Toast from "react-native-toast-message";
+import getAuthErrorMsg from "../utils/getAuthErrorMsg";
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 const SignInScreen = ({ navigation }: { navigation: any }) => {
+  const [showPwd, setShowPwd] = useState<boolean>(false);
+  const [setUser] = useUserStore((state) => [state.setUser], shallow);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      }
+    });
+  }, [setUser]);
   //FormDataState
-  const [text, setText] = useState("");
+  const initialState: FormDataSignIn = {
+    email: "",
+    password: "",
+  };
+  //Handle change formData Sign in
+  const [formData, setFormData] = useState<FormDataSignIn>(initialState);
+  const handleChangeEmail = (email: string) => {
+    setFormData({ ...formData, email: email });
+  };
+  const handleChangePassword = (password: string) => {
+    setFormData({ ...formData, password: password });
+  };
+
+  //Handle Sign In
+  const handleSignIn = () => {
+    const { email, password } = formData;
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        //Signed in
+        const user = userCredential.user;
+        //Zustand
+        console.log(user);
+        setUser(user);
+        navigation.navigate("HomeSc");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        Toast.show({
+          type: "error",
+          text1: "Login failed",
+          text2: getAuthErrorMsg(errorMessage),
+        });
+        console.log(errorCode, errorMessage);
+      });
+  };
+
   //SavePasswordState
   const [saved, setSaved] = useState<boolean>(false);
 
@@ -27,10 +81,9 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
         <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center mb-[14px]">
           ĐĂNG NHẬP
         </Text>
-        <View style={{marginLeft:16, marginRight:16}}>
-          <TextInput
-          // value={text}
-          // onChangeText={(text) => setText(text)}
+        <TextInput style={{marginLeft:16,marginRight:16}}
+          value={formData.email}
+          onChangeText={(text) => handleChangeEmail(text)}
           className="mt-[8px] rounded-[10px]"
           theme={{ roundness: 10 }}
           outlineColor="transparent"
@@ -41,13 +94,10 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
           left={
             <TextInput.Icon icon={require("../assets/icons/person_2.png")} />
           }
-          />
-        </View>
-        <View style={{marginLeft:16, marginRight:16}}>
-          <TextInput
-          // value={text}
-          // onChangeText={(text) => setText(text)}
-          secureTextEntry={true}
+        />
+        <TextInput style={{marginLeft:16,marginRight:16}}
+          value={formData.password}
+          onChangeText={(text) => handleChangePassword(text)}
           className="mt-[24px] rounded-[10px]"
           theme={{ roundness: 10 }}
           outlineColor="transparent"
@@ -55,23 +105,15 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
           placeholderTextColor="#969393"
           mode="outlined"
           placeholder="Mật khẩu"
+          secureTextEntry={!showPwd}
           left={<TextInput.Icon icon={require("../assets/icons/lock.png")} />}
           right={
             <TextInput.Icon icon={require("../assets/icons/visibility.png")} />
           }
-          />
-        </View>
-        <View style={{marginLeft:16,marginRight:16}} className="flex justify-between items-center flex-row mt-[16px]">
-          <Text className="flex justify-center items-center">
+        />
+        <View className="flex justify-between items-center flex-row mt-[16px]">
+          <Text style={{marginLeft:16,marginRight:16}} className="flex justify-center items-center">
             <Image source={require("../assets/icons/check_circle_2.png")} />
-            {/* <Checkbox
-              status={saved ? "checked" : "unchecked"}
-              onPress={() =>
-                setSaved(!saved);
-              }}
-              style={styles.checkboxContainer}
-              
-            /> */}
             <Text className="text-[#969393] underline">Lưu mật khẩu</Text>
           </Text>
           <TouchableOpacity
@@ -79,37 +121,32 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
               navigation.navigate("ForgotPassword");
             }}
           >
-            <Text className="text-[#969393] underline">Quên mật khẩu?</Text>
+            <Text style={{marginLeft:16,marginRight:16}} className="text-[#969393] underline">Quên mật khẩu?</Text>
           </TouchableOpacity>
         </View>
-        
-        <TouchableOpacity style={{marginLeft:16,marginRight:16}}>
-          <Button
+
+        <TouchableOpacity>
+          <Button style={{marginLeft:16,marginRight:16}}
             // icon="camera"
             mode="contained"
             compact={true}
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-            onPress={()=>{
-              navigation.navigate("HomeSc");
-            }}
+            onPress={handleSignIn}
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
-            <Text onPress={()=>{
-              navigation.navigate("TrangChu");
-            }}
-            className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
+            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
           </Button>
         </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
-          Chưa có tài khoản? {"\n"}
+          Chưa có tài khoản?
           <Text> </Text>
           <Text
-            className="font-[500] text-[#6667AB] underLine"
+            className="font-[500] underline"
             onPress={() => {
               navigation.navigate("SignUp");
             }}
           >
-            ĐĂNG KÝ
+            Đăng Ký
           </Text>
         </Text>
       </View>
@@ -120,8 +157,12 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
 export default SignInScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    flex:1
+  },
   checkboxContainer: {
     flexDirection: "row",
     marginBottom: 20,
+
   },
 });

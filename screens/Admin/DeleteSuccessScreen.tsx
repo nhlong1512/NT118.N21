@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
 import { Text, View, StyleSheet, SafeAreaView,Image,TouchableOpacity } from 'react-native';
 
-const DeleteSuccessScreen=()=>{
+const DeleteSuccessScreen=({navigation}:{navigation:any})=>{
   return(
     <SafeAreaView style={styles.container}>
       <View style={{alignItems:'center'}}>
         <View style={{marginTop:120}}>
-          <Image source={require('../assets/icons/delete.png')}/>
+          <Image source={require('../../assets/icons/delete.png')}/>
         </View>
         <View style={{marginTop:35,marginBottom:50}}>
           <Text style={{fontSize:25,color:'#26277D',fontWeight:'bold'}}>
@@ -14,7 +14,9 @@ const DeleteSuccessScreen=()=>{
           </Text>
         </View>
         <View style={{marginTop:20}}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>{
+              navigation.navigate("HomeSc");
+            }}>
             <Text style={{fontSize:25,color:'#26277D',fontWeight:'500'}}>
               Quay lại
             </Text>

@@ -1,9 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import Navigation from "./navigator/Navigation";
 import AppLoading from "expo-app-loading";
-import {createDrawerNavigator} from '@react-navigation/drawer';
 import {
   useFonts,
   Inter_200ExtraLight,
@@ -15,13 +13,23 @@ import {
   Inter_800ExtraBold,
   Inter_900Black,
 } from "@expo-google-fonts/inter";
-
-import { BottomNavigation } from "react-native-paper";
 import BottomTabNavigation from "./navigator/BottomTabNavigation";
-import HomePageScreen from "./screens/HomePageScreen";
-import News from "./screens/News";
+import useUserStore from './store/user'
+import { shallow } from 'zustand/shallow'
+import Toast from 'react-native-toast-message'
+import toastConfig from './config/toast'
+import AuthNav from "./navigator/AuthNav";
 
 const App = () => {
+  const [user] = useUserStore((state) => [state.user], shallow)
+
+  console.log('App USER: ', user);
+  
+  const getNav = () => {
+    if (!user) return <AuthNav />
+    // if (user.email === 'hdatdragon2@gmail.com') return <AdminTab />
+    return <BottomTabNavigation />
+  }
 
   let [fontsLoaded] = useFonts({
     Inter_200ExtraLight,
@@ -37,9 +45,11 @@ const App = () => {
   else {
     return (
       <NavigationContainer>
-        <BottomTabNavigation />
+        {getNav()}
+        <Toast config={toastConfig} position='bottom' />
       </NavigationContainer>
     );
   }
 };
+
 export default App;

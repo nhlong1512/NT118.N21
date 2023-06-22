@@ -21,7 +21,7 @@ const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
             }}
             className="absolute top-[30px] z-[20]"
           >
-            <View style={{alignItems:'flex-start',margin:16}} className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
+            <View style={{alignItems:'flex-start', margin:16}} className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
               <Image source={require("../assets/icons/arrow_back.png")} />
             </View>
           </TouchableOpacity>
@@ -33,10 +33,10 @@ const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
           TẠO MẬT KHẨU MỚI
         </Text>
 
-        <View style={{marginLeft:16,marginRight:16}}>
-          <TextInput
+        <TextInput
           // value={text}
           // onChangeText={(text) => setText(text)}
+          style={{marginLeft:16,marginRight:16}}
           secureTextEntry={true}
           className="mt-[24px] rounded-[10px]"
           theme={{ roundness: 10 }}
@@ -48,12 +48,11 @@ const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
           right={
             <TextInput.Icon icon={require("../assets/icons/visibility.png")} />
           }
-          />
-        </View>
-        <View style={{marginLeft:16,marginRight:16}}>
-          <TextInput
+        />
+        <TextInput
           // value={text}
           // onChangeText={(text) => setText(text)}
+          style={{marginLeft:16,marginRight:16}}
           secureTextEntry={true}
           className="mt-[24px] rounded-[10px]"
           theme={{ roundness: 10 }}
@@ -65,8 +64,7 @@ const ChangePasswordScreen = ({ navigation }: { navigation: any }) => {
           right={
             <TextInput.Icon icon={require("../assets/icons/visibility.png")} />
           }
-          />
-        </View>
+        />
         <TouchableOpacity style={{marginLeft:16,marginRight:16}}>
           <Button
             // icon="camera"

@@ -32,7 +32,7 @@ const VerificationScreen = ({ navigation }: { navigation: any }) => {
             }}
             className="absolute top-[30px] z-[20]"
           >
-            <View style={{alignItems:'flex-start',margin:16}} className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
+            <View style={{alignItems:'flex-start', margin:16}} className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
               <Image source={require("../assets/icons/arrow_back.png")} />
             </View>
           </TouchableOpacity>
@@ -43,10 +43,10 @@ const VerificationScreen = ({ navigation }: { navigation: any }) => {
         <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center mb-[14px]">
           MÃ XÁC MINH
         </Text>
-        <Text className="text-[14px] leading-[20px] text-[#00000080] mb-[40px] mx-[20px] text-center">
+        <Text style={{alignItems:'center', margin:16}} className="text-[14px] leading-[20px] text-[#00000080] mb-[40px] mx-[20px] text-center">
           Hệ thống vừa gửi mã xác minh vào Email. Vui lòng nhập mã xác minh.
           &nbsp;
-          <Text className="text-[#00000080] leading-[20px] underline font-[700]">
+          <Text style={{color:'#6667AB'}} className="text-[#00000080] leading-[20px] underline font-[700]">
             Gửi lại
           </Text>
         </Text>
@@ -86,7 +86,7 @@ const VerificationScreen = ({ navigation }: { navigation: any }) => {
             </Text>
           </Button>
         </TouchableOpacity>
-        <View className="mt-[38px]" style={{marginLeft:16,marginRight:16}}>
+        <View style={{margin:16}} className="mt-[38px]">
           <Text className="text-center text-[14px] leading-[24px]">
             Nếu <Text className="font-[700]">không nhận được</Text> mã xác minh
             (OTP), vui lòng kiểm tra mục spam hoặc nhấn vào

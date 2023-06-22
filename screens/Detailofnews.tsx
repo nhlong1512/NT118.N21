@@ -14,11 +14,11 @@ const Detailofnews = ({ navigation }: { navigation: any }) => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = {backgroundColor: 'white', padding: 20};
+  const containerStyle = {backgroundColor: '#6667AB', padding: 16};
 
   return (
     <SafeAreaView style={styles.container}>
-    <Appbar.Header>
+    <Appbar.Header  >
     
       <Appbar.BackAction onPress={() => {navigation.navigate("Tintuc")}} />
       <Appbar.Content title="TIN TỨC" />
@@ -125,20 +125,21 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textAlign:'center',
     fontFamily:'Cochin',
-    fontWeight:'500'
+    fontWeight:'bold'
   },
   header:{
-    fontSize: 25,
+    fontSize: 23,
     marginBottom:5,
     fontFamily:'Cochin',
-    fontWeight:'500'
+    fontWeight:'bold',
+    textAlign:'center'
   },scrollView: {
     marginHorizontal: 10,
     backgroundColor: '#bfbfdf',
   },
   text:{
     fontSize: 20,
-    fontFamily:'Cochin',
+    fontFamily:'Cochin'
   },
   
 });

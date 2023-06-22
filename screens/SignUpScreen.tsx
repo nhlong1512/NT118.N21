@@ -5,26 +5,162 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Modal
+  ScrollView,
+  Pressable,
 } from "react-native";
-import React, {useState} from "react";
-import { Button, TextInput } from "react-native-paper";
+import React, { useState } from "react";
+import { HelperText, TextInput, Button } from "react-native-paper";
+import { FormDataSignUp } from "../model/model";
+import { useNavigation } from "@react-navigation/native";
+import { AuthNavigationProp } from "../navigator/AuthNav";
+import * as yup from "yup";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, addDoc, collection, db } from "../firebaseConfig";
+import useUserStore from "../store/user";
+import { shallow } from "zustand/shallow";
+import Toast from "react-native-toast-message";
+import { CustomSafeAreaView, TextFieldWithLabel } from "../components/common";
+import {
+  Apple,
+  ArrowLeft,
+  Eye,
+  Facebook,
+  Google,
+  Star8,
+  UnEye,
+} from "../assets/iconsCustom";
+import getAuthErrorMsg from "../utils/getAuthErrorMsg";
+
+const validationSchema = yup.object({
+  fullName: yup.string().required("Họ tên không được để trống. "),
+  email: yup
+    .string()
+    .required("Email không được để trống. ")
+    .email("Email không hợp lệ. "),
+  password: yup
+    .string()
+    .required("Mật khẩu không được để trống. ")
+    .min(8, "Mật khẩu phải ít nhất 8 kí tự. "),
+  confirmPassword: yup
+    .string()
+    .test(
+      "confirm-pwd",
+      "Mật khẩu xác nhận không trùng khớp với mật khẩu",
+      function (value) {
+        return this.parent.password === value;
+      }
+    ),
+});
 
 const SignUpScreen = ({ navigation }: { navigation: any }) => {
-  const [isModalVisible, setisModalVisible] = useState(false);
-  const changeModalVisible =(bool:any)=>{
-    setisModalVisible(bool)
-  }
+  //Form Data Sign Up Screen
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormDataSignUp>({ resolver: yupResolver(validationSchema) });
+  const [setUser] = useUserStore((state) => [state.setUser], shallow);
+  const [secure, setSecure] = useState([true, true]);
+
+  const initialState: FormDataSignUp = {
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+  const [formData, setFormData] = useState<FormDataSignUp>(initialState);
+
+  //Handle change Form Data
+  const handleChangeFullName = (fullName: string) => {
+    setFormData({ ...formData, fullName: fullName });
+  };
+  const handleChangeEmail = (email: string) => {
+    setFormData({ ...formData, email: email });
+  };
+  const handleChangePassword = (password: string) => {
+    setFormData({ ...formData, password: password });
+  };
+  const handleChangeConfirmPassword = (confirmPassword: string) => {
+    setFormData({ ...formData, confirmPassword: confirmPassword });
+  };
+
+  const onSubmit: SubmitHandler<FormDataSignUp> = (data) => {
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setUser(user);
+        navigation.navigate("HomeSc");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        Toast.show({
+          type: "error",
+          text1: "Sign up failed",
+          text2: errorMessage,
+        });
+      });
+  };
+
+  const addDbUser = async (
+    id: string,
+    fullName: string,
+    email: string,
+    role: number,
+    createdAt: Date
+  ) => {
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        id: id,
+        fullName: fullName,
+        email: email,
+        role: role,
+        createdAt: createdAt,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  };
+
+  //Handle Sign Up
+  const handleSignUp = () => {
+    const { fullName, email, password, confirmPassword } = formData;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        updateProfile(user, {
+          displayName: fullName,
+        });
+        setUser(user);
+        addDbUser(user.uid, fullName || "", user.email || "", 1, new Date());
+        navigation.navigate("HomeSc");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        Toast.show({
+          type: "error",
+          text1: "Sign up failed",
+          text2: getAuthErrorMsg(errorMessage),
+        });
+      });
+  };
+
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex justify-between mb-[25px]">
       <View>
         <View className="flex justify-between items-center flex-row mt-[48px]">
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("SignIn");
-            }}
+            onPress={() => navigation.canGoBack() && navigation.goBack()}
           >
-            <View style={{alignItems:'flex-start',margin:16}} className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
+            <View style={{marginLeft:16}} className="bg-[#6667AB] flex flex-row justify-center items-center py-[4px] px-[14px] rounded-[10px]">
               <Image source={require("../assets/icons/arrow_back.png")} />
             </View>
           </TouchableOpacity>
@@ -37,10 +173,10 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{marginLeft:16,marginRight:16}}>
-          <TextInput
-            // value={text}
-            // onChangeText={(text) => setText(text)}
+        <View>
+          <TextInput style={{marginLeft:16, marginRight:16}} 
+            value={formData.fullName}
+            onChangeText={(text) => handleChangeFullName(text)}
             className="mt-[36px] rounded-[10px]"
             theme={{ roundness: 10 }}
             outlineColor="transparent"
@@ -49,9 +185,9 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             mode="outlined"
             placeholder="Họ Tên"
           />
-          <TextInput
-            // value={text}
-            // onChangeText={(text) => setText(text)}
+          <TextInput style={{marginLeft:16, marginRight:16}} 
+            value={formData.email}
+            onChangeText={(text) => handleChangeEmail(text)}
             className="mt-[24px] rounded-[10px]"
             theme={{ roundness: 10 }}
             outlineColor="transparent"
@@ -60,9 +196,9 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             mode="outlined"
             placeholder="Email"
           />
-          <TextInput
-            // value={text}
-            // onChangeText={(text) => setText(text)}
+          <TextInput style={{marginLeft:16, marginRight:16}} 
+            value={formData.password}
+            onChangeText={(text) => handleChangePassword(text)}
             secureTextEntry={true}
             className="mt-[24px] rounded-[10px]"
             theme={{ roundness: 10 }}
@@ -77,9 +213,9 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
               />
             }
           />
-          <TextInput
-            // value={text}
-            // onChangeText={(text) => setText(text)}
+          <TextInput style={{marginLeft:16, marginRight:16}} 
+            value={formData.confirmPassword}
+            onChangeText={(text) => handleChangeConfirmPassword(text)}
             secureTextEntry={true}
             className="mt-[24px] rounded-[10px]"
             theme={{ roundness: 10 }}
@@ -95,39 +231,87 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             }
           />
         </View>
-        <TouchableOpacity style={{marginLeft:16,marginRight:16}}>
-          <Button
+        <TouchableOpacity onPress={handleSignUp}>
+          <Button style={{marginLeft:16, marginRight:16}} 
             // icon="camera"
             mode="contained"
             compact={true}
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
-            onPress={() => console.log("Pressed Sign up")}
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
             <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
           </Button>
         </TouchableOpacity>
-        <Modal
-          transparent={true}
-          animationType='fade'
-          visible={isModalVisible}
-          onRequestClose={()=> changeModalVisible(false)}
-          >
-        </Modal>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
           Đã có tài khoản?
           <Text> </Text>
           <Text
-            className="font-[600] underline text-[#6667AB]"
+            className="font-[500] underline"
             onPress={() => {
               navigation.navigate("SignIn");
             }}
           >
-            ĐĂNG NHẬP
+            Đăng Nhập
           </Text>
         </Text>
       </View>
     </SafeAreaView>
+    // <CustomSafeAreaView className='items-center px-5'>
+    //   {/* Header */}
+    //   <View className='flex-row items-center'>
+    //     <Pressable onPress={() => navigation.canGoBack() && navigation.goBack()}>
+    //       <ArrowLeft />
+    //     </Pressable>
+    //     <View className='flex-1' />
+    //     <Star8 />
+    //   </View>
+
+    //   <ScrollView contentContainerStyle={{ flexGrow: 1 }} className='w-full' showsVerticalScrollIndicator={false}>
+    //     <Text className='mt-[54px] w-full text-heading1 font-bold'>Sign up</Text>
+    //     <TextFieldWithLabel
+    //       label={'Email'}
+    //       error={errors.email?.message}
+    //       containerClassName='mt-[34px]'
+    //       control={control}
+    //       name='email'
+    //       placeholder='example@gmail.com'
+    //     />
+    //     <TextFieldWithLabel
+    //       error={errors.password?.message}
+    //       label={'Create a password'}
+    //       containerClassName='mt-[26px]'
+    //       secureTextEntry={secure[0]}
+    //       control={control}
+    //       name='password'
+    //       onRightIconPress={() => setSecure([!secure[0], secure[1]])}
+    //       placeholder='must be 8 characters'
+    //       rightIcon={!secure[0] ? <Eye /> : <UnEye />}
+    //     />
+    //     <TextFieldWithLabel
+    //       error={errors.confirmPassword?.message}
+    //       label={'Confirm password'}
+    //       onRightIconPress={() => setSecure([secure[0], !secure[1]])}
+    //       secureTextEntry={secure[1]}
+    //       name='confirmPassword'
+    //       control={control}
+    //       containerClassName='mt-[22px] mb-[38px]'
+    //       placeholder='repeat password'
+    //       rightIcon={!secure[1] ? <Eye /> : <UnEye />}
+    //     />
+
+    //     <Button onPress={handleSubmit(onSubmit)} label={'Create account'} />
+    //     <View className='flex-1' />
+    //     {/* Already have an account? Log in */}
+    //     <View className='mb-12 mt-4 flex-row justify-center'>
+    //       <Text className='font-app-light text-sm' style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
+    //         Already have an account?{' '}
+    //       </Text>
+    //       <Text className='font-app-semibold text-sm' onPress={() => navigation.navigate('Login')}>
+    //         Log in
+    //       </Text>
+    //     </View>
+    //   </ScrollView>
+    // </CustomSafeAreaView>
   );
 };
 

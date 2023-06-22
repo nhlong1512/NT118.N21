@@ -2,12 +2,12 @@ import React,{useState,useRef} from 'react';
 import { Text, View, StyleSheet, SafeAreaView,Image,TouchableOpacity,FlatList,ScrollView,Animated } from 'react-native';
 import { TextInput } from "react-native-paper";
 import notification from "../assets/icons/notification-icon.png";
-import user from "../assets/icons/user.png";
+import user from "../assets/icons/avtuser.png";
 import home from "../assets/icons/home.png";
-import news from "../assets/icons/news.png";
+import news from "../assets/icons/home.png";
 import stat from "../assets/icons/stat.png";
 import logout from "../assets/icons/logout.png";
-import menu from "../assets/icons/menu.png";
+import menu from "../assets/icons/menuhome.png";
 import closemenu from "../assets/icons/closemenu.png";
 
 const Separator = () => <View style={styles.separator} />;
@@ -81,23 +81,25 @@ export default function Home ({navigation}:{navigation:any}){
                 </View>
             </View>
 
-            <Animated.View style={{
-                flexGrow:1,
-                backgroundColor:'white',
-                position:'absolute',
-                top:0,
-                bottom:0,
-                left:0,
-                right:0,
-                paddingHorizontal:15,
-                paddingVertical:20,
-                borderRadius: showMenu ? 15 : 0,
+            <Animated.View 
+            style={{
+              flexGrow:1,
+              backgroundColor:'white',
+              position:'absolute',
+              top:0,
+              bottom:0,
+              left:0,
+              right:0,
+              paddingHorizontal:15,
+              paddingVertical:20,
+              borderRadius: showMenu ? 15 : 0,
 
-                transform:[
-                  { scale: scaleValue },
-                  {translateX: offsetValue}
-                ]
-            }}>
+              transform:[
+                { scale: scaleValue },
+                {translateX: offsetValue}
+              ]
+          }} 
+            >
                 <Animated.View style={{
                 transform:[{
                 translateY: closeButtonOffset

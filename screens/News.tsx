@@ -7,12 +7,10 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,ScrollView
 } from 'react-native';
 import {
-  Card, Button,DataTable, Appbar}from 'react-native-paper';
-
+  Card, Button,DataTable, Appbar}from 'react-native-paper'
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -40,15 +38,16 @@ const DATA = [
 
 ];
 
-const Item = ({ item,onPress, backgroundColor, textColor,}: { item:any,onPress : any , backgroundColor : any , textColor: any ,}) => (
+const Item = ({ item,onPress, backgroundColor, textColor}: { item:any,onPress : any , backgroundColor : any , textColor: any }) => (
   
-  <><TouchableOpacity onPress={onPress} style={[styles.item, { backgroundColor }]}>
+  <><><TouchableOpacity onPress={onPress} style={[styles.item, { backgroundColor }]}>
+
 
     <Card>
 
       <Card.Content>
 
-        <Text style={{ fontFamily: 'Cochin', fontSize: 20 }}>CV là gì</Text>
+        <Text style={{ fontFamily: 'Cochin', fontSize: 20 }}>CV là gì ?</Text>
       </Card.Content>
 
       <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
@@ -57,6 +56,7 @@ const Item = ({ item,onPress, backgroundColor, textColor,}: { item:any,onPress :
 
 
   </TouchableOpacity><TouchableOpacity onPress={onPress} style={[styles.item, { backgroundColor }]}>
+
 
       <Card>
 
@@ -70,16 +70,31 @@ const Item = ({ item,onPress, backgroundColor, textColor,}: { item:any,onPress :
 
 
 
-    </TouchableOpacity></>
-  
-);
+    </TouchableOpacity></><TouchableOpacity onPress={onPress} style={[styles.item, { backgroundColor }]}>
 
+
+      <Card>
+
+        <Card.Content>
+
+          <Text style={{ fontFamily: 'Cochin', fontSize: 20 }}>Cách thức nộp CV</Text>
+        </Card.Content>
+
+        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+      </Card>
+
+
+
+    </TouchableOpacity></>
+);
 
 const News = ({ navigation }: { navigation: any }) => {
   const [selectedId, setSelectedId] = useState();
+
   const renderItem = ({item}:{item: any}) => {
-    const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#6667AB';
-    const color = item.id === selectedId ? '#bfbfdf' : 'white';
+    const backgroundColor = item.id === selectedId ? '#bfbfdf' : '#6667AB';
+    const color = item.id === selectedId ? 'white' : 'black';
+
     return (
       <Item
         item={item}
@@ -90,37 +105,32 @@ const News = ({ navigation }: { navigation: any }) => {
     );
   };
 
-
   return (
     <SafeAreaView style={styles.container}>
-    <TouchableOpacity>
-      <Appbar.Header>
-        <Appbar.BackAction
-         onPress={()=>{
-            navigation.navigate("TrangChu");
-          }} />
-<Appbar.Content title="TIN TỨC"></Appbar.Content>        
-      </Appbar.Header>
-    </TouchableOpacity>
+<Appbar.Header  >
+    
+      <Appbar.BackAction onPress={() => {navigation.navigate("HomeSc");}} />
+      <Appbar.Content title="TIN TỨC" />
+    </Appbar.Header>
       <ScrollView style={styles.scrollView}>
         <DataTable>
             <DataTable.Header>
               <DataTable.Title
                 sortDirection='descending'
               >
-                <Text style={{fontFamily:'Cochin', fontSize:20}}>CV</Text>
+                <Text style={{fontFamily:'Cochin',fontSize:20}}>CV</Text>
               </DataTable.Title>
             
-              <DataTable.Title numeric><Button 
-            onPress={() => {navigation.navigate("Xemthem")}}> Xem thêm </Button></DataTable.Title>
+              <DataTable.Title numeric><Button style={{backgroundColor:'#6667AB'}}
+            onPress={() => {navigation.navigate("Xemthem")}}><Text></Text></Button></DataTable.Title>
             </DataTable.Header>
           </DataTable>
-
+        
           <FlatList
             data={DATA}
             renderItem={renderItem}
             keyExtractor={item => item.id}
-        horizontal={true}
+        horizontal
             extraData={selectedId}
           />
           <DataTable>
@@ -128,16 +138,16 @@ const News = ({ navigation }: { navigation: any }) => {
               <DataTable.Title
                 sortDirection='descending'
               >
-                <Text style={{fontFamily:'Cochin', fontSize:20}}>JOB</Text>
+                <Text style={{fontFamily:'Cochin',fontSize:20}}>JOB</Text>
               </DataTable.Title>
             
-              <DataTable.Title numeric><Button 
-            onPress={() => {navigation.navigate("Xemthem")}}> Xem thêm </Button></DataTable.Title>
+              <DataTable.Title numeric><Button style={{backgroundColor:'#6667AB'}}
+            onPress={() => {navigation.navigate("Xemthem")}}> <Text style={{color:'white'}}></Text> </Button></DataTable.Title>
             </DataTable.Header>
           </DataTable>
           <FlatList
             data={DATA}
-            renderItem={renderItem} 
+            renderItem={renderItem}
             keyExtractor={item => item.id}
         horizontal
             extraData={selectedId}
@@ -148,13 +158,11 @@ const News = ({ navigation }: { navigation: any }) => {
               <DataTable.Title
                 sortDirection='descending'
               >
-                <Text style={{fontFamily:'Cochin', fontSize:20}}>MORE</Text>
+                <Text style={{fontFamily:'Cochin',fontSize:20}}>MORE</Text>
               </DataTable.Title>
             
-              <DataTable.Title numeric>
-                <Button 
-                onPress={() => {navigation.navigate("Xemthem")}}> Xem thêm 
-                </Button></DataTable.Title>
+              <DataTable.Title numeric><Button style={{backgroundColor:'#6667AB'}}
+            onPress={() => {navigation.navigate("Xemthem")}}> <Text></Text> </Button></DataTable.Title>
             </DataTable.Header>
           </DataTable>
           <FlatList
@@ -182,12 +190,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderRadius:5,
   },
-  title:{
-    
-  },
+
   button:{
-    fontSize:20,
-    color: 'pink',
+    fontSize:10,
+    color: '#bfbfdf',
   },scrollView: {
     backgroundColor: '#bfbfdf',
     marginHorizontal: 0,
