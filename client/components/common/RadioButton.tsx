@@ -16,7 +16,7 @@ export default function RadioButton({ checked, black, width = 24, height = 24 }:
     <Pressable onPress={() => {}}>
       {checked ? (
         <View
-          className='ml-4 h-6 w-6 items-center justify-center rounded-full bg-charizard-400'
+          className='ml-4 h-6 w-6 items-center justify-center rounded-full bg-[#6667AB]'
           style={{ width: width, height: height }}
         >
           {black ? <CheckBlack height={height} width={width} /> : <Check height={height} width={width} />}

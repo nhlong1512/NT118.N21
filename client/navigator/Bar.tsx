@@ -78,7 +78,7 @@ const Bars = ({
                   'w-9 bg-white': backgroundColor === 'transparent'
                 },
                 {
-                  'bg-charizard-400': isHeartTrue
+                  'bg-[#6667AB]': isHeartTrue
                 }
               )}
               onPress={onRightButtonPress}
