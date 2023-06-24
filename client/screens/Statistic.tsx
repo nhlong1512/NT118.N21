@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { Button, TextInput } from "react-native-paper";
 // @ts-ignore
-// import {BarChart} from "react-native-chart-kit";
+import {BarChart} from "react-native-chart-kit";
 
 const Statistic =({navigation}:{navigation:any})=> {
     return (
@@ -20,7 +20,7 @@ const Statistic =({navigation}:{navigation:any})=> {
                     <Text style={{ fontSize: 25, fontWeight: 'bold', fontFamily: 'Cochin', textAlign: 'center' }}>Hi there, Long Nguyen</Text>
                 </View>
                 <View>
-                    {/* <BarChart
+                    <BarChart
                         data={{
                             labels: ['January', 'February', 'March', 'April', 'May', 'June'],
                             datasets: [
@@ -45,7 +45,7 @@ const Statistic =({navigation}:{navigation:any})=> {
                         style={{
                             marginVertical: 8,
                             borderRadius: 16,
-                        }} /> */}
+                        }} />
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity>

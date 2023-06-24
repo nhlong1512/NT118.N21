@@ -153,7 +153,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
 
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex justify-between mb-[25px]">
-      <View>
+      <View style={{padding:16}}>
         <View className="flex justify-between items-center flex-row mt-[48px]">
           <TouchableOpacity
             onPress={() => navigation.canGoBack() && navigation.goBack()}
@@ -162,7 +162,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
               <Image source={require("../assets/icons/arrow_back.png")} />
             </View>
           </TouchableOpacity>
-          <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+          <Text style={{fontFamily:'Cochin', fontWeight:'700'}} className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
             ĐĂNG KÝ
           </Text>
           <TouchableOpacity className="opacity-0">
@@ -237,7 +237,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
-            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
+            <Text style={{fontFamily:'Cochin', fontSize:20}} className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
           </Button>
         </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
