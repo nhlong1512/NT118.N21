@@ -93,14 +93,14 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
   return (
     <SafeAreaView className="flex-1 px-[20px] pt-[25px] flex justify-between mb-[25px]">
       <StatusBar style="light" />
-      <View>
-        <View>
+      <View style={{padding:16}}>
+        <View style={{alignItems:'center'}}>
           <Image source={require("../assets/images/logo1.png")} />
         </View>
-        <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center mb-[14px]">
+        <Text style={{fontFamily:'Cochin'}} className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center mb-[14px]">
           ĐĂNG NHẬP
         </Text>
-        <TextInput
+        <TextInput 
           value={formData.email}
           onChangeText={(text) => handleChangeEmail(text)}
           className="mt-[8px] rounded-[10px]"
@@ -153,7 +153,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
             onPress={handleSignIn}
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
-            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
+            <Text style={{fontFamily:'Cochin', fontSize:20}} className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
           </Button>
         </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
