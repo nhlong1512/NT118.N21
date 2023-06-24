@@ -66,31 +66,68 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
               />
             </View>
           </TouchableOpacity>
-          <View style={{ justifyContent: "center", marginTop: -90 }}>
+          <View style={{ alignItems:'center', marginTop: -90 }}>
             <Image
               style={{ height: 200 }}
               source={require("../assets/images/logo1.png")}
             />
           </View>
-          <View>
-            <TextInput
-              style={styles.input}
-              placeholder="Search"
-              placeholderTextColor="#CCCCDC"
-            />
-          </View>
+          <TouchableOpacity onPress={() => {
+              navigation.navigate("Find");
+            }}>
+            <View style={{margin:16,padding:16, backgroundColor:'white', borderWidth:2, borderRadius:10, borderColor:'#6667AB'}}>
+            <Text
+              style={{}}
+            >Search</Text>
+            </View>
+          </TouchableOpacity>
+          <ScrollView horizontal={true} style={{padding:16}}>
           <View
             style={{
-              justifyContent: "center",
-              padding: 15,
-              alignItems: "center",
+              flexDirection:'row',
+              marginRight:16
             }}
           >
-            <Image
-              style={{ height: 224, borderRadius: 10 }}
-              source={require("../assets/icons/timviec.png")}
-            />
+            <TouchableOpacity>
+            <View style={{flexDirection:'column', borderWidth:1,backgroundColor:'white', borderRadius:10}}>
+              <Image style={{width:350,height:200, borderRadius:10}} source={require('../assets/icons/FPT_Software_Logo.png')}/>
+              <Text style={{marginLeft:16, fontFamily:'Cochin', fontSize:22, color:'#6667AB', fontWeight:'600'}}>
+                FPT SoftWare
+              </Text>
+              <View style={{flexDirection:'row', margin:16}}>
+                <Image style={{width:28, height:28, marginRight:10}} source={require('../assets/icons/bag.jpg')}/>
+                <Text style={{marginTop:5, fontFamily:'Cochin', fontSize:18}}>10 jobs</Text>
+              </View>
+            </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+            <View style={{flexDirection:'column', borderWidth:1,backgroundColor:'white', borderRadius:10, marginLeft:16, marginRight:16}}>
+              <Image style={{width:350,height:200, borderRadius:10}} source={require('../assets/icons/groove.jpg.png')}/>
+              <Text style={{marginLeft:16, fontFamily:'Cochin', fontSize:22, color:'#6667AB', fontWeight:'600'}}>
+                Groove Technology
+              </Text>
+              <View style={{flexDirection:'row', margin:16}}>
+                <Image style={{width:28, height:28, marginRight:10}} source={require('../assets/icons/bag.jpg')}/>
+                <Text style={{marginTop:5, fontFamily:'Cochin', fontSize:18}}>5 jobs</Text>
+              </View>
+            </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+            <View style={{flexDirection:'column', borderWidth:1,backgroundColor:'white', borderRadius:10, marginLeft:16, marginRight:16}}>
+              <Image style={{width:350,height:200, borderRadius:10}} source={require('../assets/icons/zigexn-ventura-logo.jpg')}/>
+              <Text style={{marginLeft:16, fontFamily:'Cochin', fontSize:22, color:'#6667AB', fontWeight:'600'}}>
+                ZIGEXN VENTURA
+              </Text>
+              <View style={{flexDirection:'row', margin:16}}>
+                <Image style={{width:28, height:28, marginRight:10}} source={require('../assets/icons/bag.jpg')}/>
+                <Text style={{marginTop:5, fontFamily:'Cochin', fontSize:18}}>5 jobs</Text>
+              </View>
+            </View>
+            </TouchableOpacity>
           </View>
+          </ScrollView>
           <View>
             <Text style={styles.baseText}>
               <Text style={styles.titleText} onPress={onPressTitle}>
@@ -133,7 +170,7 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
           <View>
             <Text style={styles.jobhot}>Hot for you</Text>
           </View>
-          <View>
+          <View style={{paddingLeft:16, paddingRight:16}}>
             <FlatList
               data={horizontalDATA}
               horizontal={true}
@@ -146,9 +183,9 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
               borderWidth: 1,
               backgroundColor: "#5254A4",
               borderRadius: 10,
-              padding: 15,
+              padding: 16,
               alignItems: "center",
-              marginTop: 20,
+              margin: 16,
             }}
           >
             <View style={{ margin: 10 }}>
@@ -163,7 +200,10 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                 Find top IT job for you
               </Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("More");
+            }}>
               <View
                 style={{
                   borderWidth: 1,
@@ -172,6 +212,7 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                   justifyContent: "center",
                   backgroundColor: "white",
                   borderRadius: 10,
+              
                 }}
               >
                 <Text

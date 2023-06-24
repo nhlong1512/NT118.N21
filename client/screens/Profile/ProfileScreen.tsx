@@ -66,6 +66,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
   return (
     <CustomSafeAreaView className="flex-1 items-center bg-white px-4">
       <Bars
+      
         headerLeft='return'
         title='Thông tin của tôi'
         headerRight='action'

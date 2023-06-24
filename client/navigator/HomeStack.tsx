@@ -13,6 +13,8 @@ import DeleteJob from "../screens/DeleteJob";
 import DeleteSuccessScreen from "../screens/DeleteSuccessScreen";
 import Statistic from "../screens/Statistic";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
+import MoreJobs from "../screens/MoreJobs";
+import FindJobs from "../screens/FindJobs";
 import UpdateSuccessScreen from "../screens/Profile/UpdateSuccessScreen";
 const Stack = createNativeStackNavigator();
 const HomeStack = () => {
@@ -27,6 +29,8 @@ const HomeStack = () => {
       <Stack.Screen name="ThongKe" component={Statistic}/>
       <Stack.Screen name="Tintuc" component={News}/>
       <Stack.Screen name="Xemthem" component={Detailofnews} />
+      <Stack.Screen name="More" component={MoreJobs} />
+      <Stack.Screen name="Find" component={FindJobs} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="UpdateSuccess" component={UpdateSuccessScreen} />
     </Stack.Navigator>

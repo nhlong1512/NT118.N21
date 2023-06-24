@@ -66,8 +66,8 @@ const SettingsScreen = ({ navigation }: { navigation: any }) => {
         </Text>
       </View>
       <View>
-        <Button
-          className="mt-[40px] bg-[#6667AB] "
+        <Button style={{margin:16, borderRadius:10}}
+          className="mt-[30px] bg-[#6667AB] "
           mode="contained"
           onPress={() => {
             navigation.navigate("Profile");
@@ -75,25 +75,25 @@ const SettingsScreen = ({ navigation }: { navigation: any }) => {
         >
           <Feather name="user" size={20} color="white" className="mr-[20px]" />
           <View style={{ width: 16, height: 1 }} />
-          <Text>Thông tin của tôi</Text>
+          <Text style={{fontSize:18, fontFamily:'Cochin'}}>Thông tin của tôi</Text>
         </Button>
-        <Button
+        <Button style={{margin:16, borderRadius:10}}
           className="mt-[20px] bg-[#6667AB]"
           mode="contained"
           onPress={() => console.log("Pressed")}
         >
           <AntDesign name="paperclip" size={20} color="white" />
           <View style={{ width: 16, height: 1 }} />
-          <Text className="text-center ml-[20px]">Công việc đã lưu</Text>
+          <Text style={{fontSize:18, fontFamily:'Cochin'}} className="text-center ml-[20px]">Công việc đã lưu</Text>
         </Button>
-        <Button
+        <Button style={{margin:16, borderRadius:10}}
           className="mt-[20px] bg-[#6667AB] "
           mode="contained"
           onPress={toggle}
         >
           <Entypo name="log-out" size={20} color="white" />
           <View style={{ width: 16, height: 1 }} />
-          <Text>Đăng xuất</Text>
+          <Text style={{fontSize:18, fontFamily:'Cochin'}}>Đăng xuất</Text>
         </Button>
       </View>
     </SafeAreaView>
