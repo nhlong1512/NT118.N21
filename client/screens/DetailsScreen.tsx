@@ -12,12 +12,12 @@ const DetailsScreen=({navigation}:{navigation:any})=>{
             <TouchableOpacity onPress={()=>{
               navigation.navigate("HomeSc");
             }}>
-            <View style={{marginLeft:-30}}>
-              <Image style={{height:90,width:90}} source={require('../assets/icons/back.png')}/>
+            <View style={{}}>
+              <Image style={{height:100,width:100}} source={require('../assets/icons/back.png')}/>
             </View>
           </TouchableOpacity> 
-          <View style={{marginBottom:25,marginTop:15}}>
-            <Text style={{textAlign:'center',color:'#6667AB',fontWeight:'bold',fontSize:25,}}>
+          <View style={{marginBottom:25,marginTop:15, alignItems:'center'}}>
+            <Text style={{textAlign:'center',color:'#6667AB',fontWeight:'bold',fontSize:30,fontFamily:'Cochin'}}>
               Chi tiết công việc
             </Text>
           </View>

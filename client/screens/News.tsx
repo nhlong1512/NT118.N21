@@ -40,29 +40,59 @@ const DATA = [
 
 const Item = ({ item,onPress, backgroundColor, textColor}: { item:any,onPress : any , backgroundColor : any , textColor: any }) => (
   
-  <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
-  
-    
-     <Card>
-    
-    <Card.Content>
-      
-      <Text >Card content</Text>
-    </Card.Content>
+  <><><TouchableOpacity onPress={onPress} style={[styles.item, { backgroundColor }]}>
 
-    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-  </Card>
-  
-   
 
-  </TouchableOpacity>
+    <Card>
+
+      <Card.Content>
+
+        <Text style={{ fontFamily: 'Cochin', fontSize: 20 }}>CV là gì ?</Text>
+      </Card.Content>
+
+      <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+    </Card>
+
+
+
+  </TouchableOpacity><TouchableOpacity onPress={onPress} style={[styles.item, { backgroundColor }]}>
+
+
+      <Card>
+
+        <Card.Content>
+
+          <Text style={{ fontFamily: 'Cochin', fontSize: 20 }}>Cách viết CV</Text>
+        </Card.Content>
+
+        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+      </Card>
+
+
+
+    </TouchableOpacity></><TouchableOpacity onPress={onPress} style={[styles.item, { backgroundColor }]}>
+
+
+      <Card>
+
+        <Card.Content>
+
+          <Text style={{ fontFamily: 'Cochin', fontSize: 20 }}>Cách thức nộp CV</Text>
+        </Card.Content>
+
+        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+      </Card>
+
+
+
+    </TouchableOpacity></>
 );
 
 const News = ({ navigation }: { navigation: any }) => {
   const [selectedId, setSelectedId] = useState();
 
   const renderItem = ({item}:{item: any}) => {
-    const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
+    const backgroundColor = item.id === selectedId ? '#bfbfdf' : '#6667AB';
     const color = item.id === selectedId ? 'white' : 'black';
 
     return (
@@ -79,8 +109,8 @@ const News = ({ navigation }: { navigation: any }) => {
     <SafeAreaView style={styles.container}>
 <Appbar.Header  >
     
-      <Appbar.BackAction onPress={() => {}} />
-      <Appbar.Content title="TRANG CHỦ" />
+      <Appbar.BackAction onPress={() => {navigation.navigate("HomeSc");}} />
+      <Appbar.Content title="TIN TỨC" />
     </Appbar.Header>
       <ScrollView style={styles.scrollView}>
         <DataTable>
@@ -88,11 +118,11 @@ const News = ({ navigation }: { navigation: any }) => {
               <DataTable.Title
                 sortDirection='descending'
               >
-                CV
+                <Text style={{fontFamily:'Cochin',fontSize:20}}>CV</Text>
               </DataTable.Title>
             
-              <DataTable.Title numeric><Button 
-            onPress={() => {navigation.navigate("Xemthem")}}> Xem thêm </Button></DataTable.Title>
+              <DataTable.Title numeric><Button style={{backgroundColor:'#6667AB'}}
+            onPress={() => {navigation.navigate("Xemthem")}}><Text></Text></Button></DataTable.Title>
             </DataTable.Header>
           </DataTable>
         
@@ -103,21 +133,16 @@ const News = ({ navigation }: { navigation: any }) => {
         horizontal
             extraData={selectedId}
           />
-          
-
-
-
-
           <DataTable>
             <DataTable.Header>
               <DataTable.Title
                 sortDirection='descending'
               >
-                JOB
+                <Text style={{fontFamily:'Cochin',fontSize:20}}>JOB</Text>
               </DataTable.Title>
             
-              <DataTable.Title numeric><Button 
-            onPress={() => {navigation.navigate("Xemthem")}}> Xem thêm </Button></DataTable.Title>
+              <DataTable.Title numeric><Button style={{backgroundColor:'#6667AB'}}
+            onPress={() => {navigation.navigate("Xemthem")}}> <Text style={{color:'white'}}></Text> </Button></DataTable.Title>
             </DataTable.Header>
           </DataTable>
           <FlatList
@@ -133,11 +158,11 @@ const News = ({ navigation }: { navigation: any }) => {
               <DataTable.Title
                 sortDirection='descending'
               >
-                Blala
+                <Text style={{fontFamily:'Cochin',fontSize:20}}>MORE</Text>
               </DataTable.Title>
             
-              <DataTable.Title numeric><Button 
-            onPress={() => {navigation.navigate("Xemthem")}}> Xem thêm </Button></DataTable.Title>
+              <DataTable.Title numeric><Button style={{backgroundColor:'#6667AB'}}
+            onPress={() => {navigation.navigate("Xemthem")}}> <Text></Text> </Button></DataTable.Title>
             </DataTable.Header>
           </DataTable>
           <FlatList
@@ -168,9 +193,9 @@ const styles = StyleSheet.create({
 
   button:{
     fontSize:10,
-    color: 'pink',
+    color: '#bfbfdf',
   },scrollView: {
-    backgroundColor: 'pink',
+    backgroundColor: '#bfbfdf',
     marginHorizontal: 0,
   },
 });
