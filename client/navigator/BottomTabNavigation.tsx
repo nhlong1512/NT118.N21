@@ -4,9 +4,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import SettingsScreen from "../screens/SettingsScreen";
-import JobsListScreen from "../screens/JobsListScreen";
 import HomeScreen from "../screens/HomeScreen";
 import HomeStack from "./HomeStack";
+import JobPostedScreen from "../screens/ManageJob/JobPostedScreen";
 
 const BottomTabNavigation = () => {
   const Tab = createBottomTabNavigator();
@@ -37,7 +37,7 @@ const BottomTabNavigation = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Công việc" component={JobsListScreen} />
+      <Tab.Screen name="Công việc" component={JobPostedScreen} />
       <Tab.Screen name="Cài đặt" component={SettingsScreen} />
     </Tab.Navigator>
   );
