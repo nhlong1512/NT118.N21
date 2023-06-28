@@ -54,23 +54,25 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View>
+          <View style={{flexDirection:'row'}}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("PlSignIn");
+              navigation.navigate("Drawer");
             }}
           >
-            <View style={{ padding: 10 }}>
+            <View style={{margin:16}}>
               <Image
-                style={{ height: 20, width: 20, marginTop: 10 }}
+                style={{ height: 40, width: 40 }}
                 source={require("../assets/icons/menu.png")}
               />
             </View>
           </TouchableOpacity>
-          <View style={{ alignItems:'center', marginTop: -90 }}>
+          <View style={{ alignItems:'center',marginLeft:-45}}>
             <Image
               style={{ height: 200 }}
               source={require("../assets/images/logo1.png")}
             />
+          </View>
           </View>
           <TouchableOpacity onPress={() => {
               navigation.navigate("Find");
@@ -88,7 +90,9 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
               marginRight:16
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("Info");
+            }}>
             <View style={{flexDirection:'column', borderWidth:1,backgroundColor:'white', borderRadius:10}}>
               <Image style={{width:350,height:200, borderRadius:10}} source={require('../assets/icons/FPT_Software_Logo.png')}/>
               <Text style={{marginLeft:16, fontFamily:'Cochin', fontSize:22, color:'#6667AB', fontWeight:'600'}}>
@@ -101,7 +105,9 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
             </View>
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("Info");
+            }}>
             <View style={{flexDirection:'column', borderWidth:1,backgroundColor:'white', borderRadius:10, marginLeft:16, marginRight:16}}>
               <Image style={{width:350,height:200, borderRadius:10}} source={require('../assets/icons/groove.jpg.png')}/>
               <Text style={{marginLeft:16, fontFamily:'Cochin', fontSize:22, color:'#6667AB', fontWeight:'600'}}>
@@ -114,7 +120,9 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
             </View>
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("Info");
+            }}>
             <View style={{flexDirection:'column', borderWidth:1,backgroundColor:'white', borderRadius:10, marginLeft:16, marginRight:16}}>
               <Image style={{width:350,height:200, borderRadius:10}} source={require('../assets/icons/zigexn-ventura-logo.jpg')}/>
               <Text style={{marginLeft:16, fontFamily:'Cochin', fontSize:22, color:'#6667AB', fontWeight:'600'}}>

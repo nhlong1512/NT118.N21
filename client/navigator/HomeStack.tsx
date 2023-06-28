@@ -15,7 +15,9 @@ import Statistic from "../screens/Statistic";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import MoreJobs from "../screens/MoreJobs";
 import FindJobs from "../screens/FindJobs";
+import InfoCompany from "../screens/InfoCompany";
 import UpdateSuccessScreen from "../screens/Profile/UpdateSuccessScreen";
+import Drawer from "../screens/Drawer";
 const Stack = createNativeStackNavigator();
 const HomeStack = () => {
   return (
@@ -31,6 +33,8 @@ const HomeStack = () => {
       <Stack.Screen name="Xemthem" component={Detailofnews} />
       <Stack.Screen name="More" component={MoreJobs} />
       <Stack.Screen name="Find" component={FindJobs} />
+      <Stack.Screen name="Info" component={InfoCompany} />
+      <Stack.Screen name="Drawer" component={Drawer} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="UpdateSuccess" component={UpdateSuccessScreen} />
     </Stack.Navigator>
