@@ -26,7 +26,7 @@ const horizontalDATA = [
 ];
 
 const HomePageScreen = ({ navigation }: { navigation: any }) => {
-  const [titleText, setTitleText] = useState("Bosh");
+  const [titleText, setTitleText] = useState("Bosch");
   const bodyText =
     "Tellus at sit ante rutrum suspendisse pretium, vitae vel dignissim. Nunc, scelerisque adipiscing condimentum massa dignissim tortor leo lacus. Sapien felis ultrices fringilla nisi sit nibh. Etiam volutpat nisl ornare lorem mus at a, et pulvinar.";
   const onPressTitle = () => {
