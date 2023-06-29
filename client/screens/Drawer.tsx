@@ -1,13 +1,14 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
+import {Appbar} from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Drawer = ({navigation}:{navigation:any}) => {
   return (
     <SafeAreaView style={{flex:1}}>
         <View style={{flexDirection:'column'}}>
-        <View style={{flexDirection:'column'}}>
+        <View style={{flexDirection:'column', backgroundColor:'#6667AB'}}>
             <Image style={{height:100,width:100, borderRadius:10,margin:20}} source={require('../assets/icons/profile.png')} />
             <Text style={{
           fontSize: 23,
@@ -19,49 +20,40 @@ const Drawer = ({navigation}:{navigation:any}) => {
         }}>Truong Y Nhi
         </Text>
         </View>
+        <ScrollView>
         <View>
-            <Image source={require('../assets/icons/home.png')}/>
-            <Text>Home</Text>
+        <TouchableOpacity onPress={() => {navigation.navigate("HomeSc");}}>
+        <View style={{flexDirection:'row', margin:16, padding:16,borderRadius:10, backgroundColor:'white', borderColor:'#6667AB', borderWidth:2}}>
+            <Image style={{width:40, height:40}} source={require('../assets/icons/home.png')}/>
+            <Text style={{marginLeft:20, fontFamily:'Cochin', fontWeight:'bold', fontSize:20, marginTop:10, color:'black'}}>Home</Text>
         </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {navigation.navigate("Find");}}>
+        <View style={{flexDirection:'row', margin:16, padding:16,borderRadius:10, backgroundColor:'white', borderColor:'#6667AB', borderWidth:2}}>
+            <Image style={{width:40, height:40}} source={require('../assets/icons/search.png')}/>
+            <Text style={{marginLeft:20, fontFamily:'Cochin', fontWeight:'bold', fontSize:20, marginTop:10, color:'black'}}>Tìm kiếm</Text>
+        </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+         onPress={() => {navigation.navigate("Tintuc");}}>
+        <View style={{flexDirection:'row', margin:16, padding:16,borderRadius:10, backgroundColor:'white', borderColor:'#6667AB', borderWidth:2}}>
+            <Image style={{width:40, height:40}} source={require('../assets/icons/bell.png')}/>
+            <Text style={{marginLeft:20, fontFamily:'Cochin', fontWeight:'bold', fontSize:20, marginTop:10, color:'black'}}>Tin tức</Text>
+        </View>
+        </TouchableOpacity>
+        </View>
+        <TouchableOpacity 
+        onPress={() => {navigation.navigate("SignIn");}}>
+        <View style={{flexDirection:'row', margin:16, padding:16,borderRadius:10, backgroundColor:'white', borderColor:'#6667AB', borderWidth:2}}>
+          <Image style={{width:40, height:40}} source={require('../assets/icons/logout.png')}/>
+            <Text style={{marginLeft:20, fontFamily:'Cochin', fontWeight:'bold', fontSize:20, marginTop:10, color:'black'}}>Đăng xuất</Text>
+        </View>
+        </TouchableOpacity>
+        </ScrollView>
+        
         </View>
     </SafeAreaView>
   )
 }
-const TabButton = (currentTab:any, setCurrentTab:any, title:any, image:any) => {
-    return (
-  
-      <TouchableOpacity onPress={() => {
-        if (title == "LogOut") {
-          // Do your Stuff...
-        } else {
-          setCurrentTab(title)
-        }
-      }}>
-        <View style={{
-          flexDirection: "row",
-          alignItems: 'center',
-          paddingVertical: 8,
-          backgroundColor: currentTab == title ? 'white' : 'transparent',
-          paddingLeft: 13,
-          paddingRight: 35,
-          borderRadius: 8,
-          marginTop: 15
-        }}>
-  
-          <Image source={image} style={{
-            width: 25, height: 25,
-            tintColor: currentTab == title ? "#5359D1" : "white"
-          }}></Image>
-  
-          <Text style={{
-            fontSize: 15,
-            fontWeight: 'bold',
-            paddingLeft: 15,
-            color: currentTab == title ? "#5359D1" : "white"
-          }}>{title}</Text>
-  
-        </View>
-      </TouchableOpacity>
-    );
-  }
+
 export default Drawer
