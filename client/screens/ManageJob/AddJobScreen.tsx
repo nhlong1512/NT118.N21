@@ -6,7 +6,7 @@ import {
   Pressable,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import {
   CustomSafeAreaView,
   TextFieldWithLabel,
@@ -19,9 +19,12 @@ import { db } from "../../firebaseConfig";
 import uuid from 'react-native-uuid';
 import { JobCustom } from "../../model/model";
 import Toast from "react-native-toast-message";
+import useUserStore from "../../store/user";
+import shallow from "zustand/shallow";
 
 
 const AddJobScreen = ({ navigation }: { navigation: any }) => {
+  const [user, setUser] = useUserStore((state) => [state.user, state.setUser], shallow);
   const [businessName, setBusinessName] = useState("");
   const [urlPhoto, setUrlPhoto] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -49,6 +52,7 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
 
   //Add DB 
   const addDbJob = async( 
+    uid: string,
     id: string, 
     businessName: string, 
     jobTitle: string,
@@ -62,6 +66,7 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
     try {
       const jobRef = collection(db, "job");
       await setDoc(doc(jobRef, id), {
+        uid: uid,
         id: id,
         businessName: businessName,
         jobTitle: jobTitle,
@@ -89,6 +94,7 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
     console.log("Add job");
     const id = uuid.v4().toString();
     const jobCustom: JobCustom = {
+      uid: user?.id || "",
       id: id,
       businessName: businessName,
       jobTitle: jobTitle,
@@ -99,7 +105,7 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
       jobRequirement: jobRequirement,
       urlPhoto: urlPhoto,
     }
-    addDbJob(id, businessName, jobTitle, typeTime, salary,requireExp, jobDescription, jobRequirement, urlPhoto)
+    addDbJob(user?.id || "", id, businessName, jobTitle, typeTime, salary,requireExp, jobDescription, jobRequirement, urlPhoto)
   };
   return (
     <CustomSafeAreaView className="flex-1 items-center bg-white px-4">
