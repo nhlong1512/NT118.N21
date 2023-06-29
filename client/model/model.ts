@@ -22,6 +22,7 @@ export interface UserCustom {
 }
 
 export interface JobCustom {
+    uid: string,
     id: string,
     businessName: string,
     jobTitle: string,

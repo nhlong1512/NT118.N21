@@ -153,7 +153,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
             onPress={handleSignIn}
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
-            <Text style={{fontFamily:'Cochin', fontSize:20}} className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
+            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
           </Button>
         </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">

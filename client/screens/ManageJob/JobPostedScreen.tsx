@@ -1,12 +1,41 @@
 import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
-import React from "react";
-import { Appbar, TextInput } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { CustomSafeAreaView } from "../../components/common";
 import Bars from "../../navigator/Bar";
+import useUserStore from "../../store/user";
+import shallow from "zustand/shallow";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "../../firebaseConfig";
+import { JobCustom } from "../../model/model";
 
 const JobPostedScreen = ({ navigation }: { navigation: any }) => {
+  const [user, setUser] = useUserStore(
+    (state) => [state.user, state.setUser],
+    shallow
+  );
+  const [jobs, setJobs] = useState([])
+  useEffect(() => {
+    const fetchJobPosted = async () => {
+      let jobPosted: any = [];
+      const q = query(collection(db, "job"), where("uid", "==", user?.id));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        jobPosted.push(doc.data());
+      });
+      setJobs(jobPosted);
+    };
+    console.log('Fetchhhhh',fetchJobPosted());
+  }, [])
+  console.log('Jobs', jobs);
+  
   return (
     <CustomSafeAreaView className="flex-1 items-center bg-white px-2">
       <Bars
@@ -42,7 +71,7 @@ const JobPostedScreen = ({ navigation }: { navigation: any }) => {
               }}
               className="bg-white pr-[4px] ml-[4px] mr-[4px] rounded-[10px] mt-[15px]"
             >
-              <View style={{ flexDirection:"row" }} className="flex">
+              <View style={{ flexDirection: "row" }} className="flex">
                 <Image
                   //   style={{ width: 80, height: 80, borderRadius: 1, margin: 20 }}
                   className="w-[80px] h-[80px] rounded-[1px] mx-[10px] my-auto"
