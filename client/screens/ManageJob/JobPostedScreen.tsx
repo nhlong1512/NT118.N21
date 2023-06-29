@@ -42,7 +42,7 @@ const JobPostedScreen = ({ navigation }: { navigation: any }) => {
               }}
               className="bg-white pr-[4px] ml-[4px] mr-[4px] rounded-[10px] mt-[15px]"
             >
-              <View style={{ flexDirection: "row" }} className="flex">
+              <View style={{ flexDirection:"row" }} className="flex">
                 <Image
                   //   style={{ width: 80, height: 80, borderRadius: 1, margin: 20 }}
                   className="w-[80px] h-[80px] rounded-[1px] mx-[10px] my-auto"
