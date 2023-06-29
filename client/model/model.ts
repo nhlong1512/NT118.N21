@@ -20,3 +20,15 @@ export interface UserCustom {
     phoneNumber: string,
     dateOfBirth: string,
 }
+
+export interface JobCustom {
+    id: string,
+    businessName: string,
+    jobTitle: string,
+    typeTime: string, 
+    salary: string,
+    requireExp: string,
+    jobDescription: string,
+    jobRequirement: string,
+    urlPhoto: string,
+}

@@ -67,6 +67,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
   const [setUser] = useUserStore((state) => [state.setUser], shallow);
   const [secure, setSecure] = useState([true, true]);
 
+  
   const initialState: FormDataSignUp = {
     fullName: "",
     email: "",
