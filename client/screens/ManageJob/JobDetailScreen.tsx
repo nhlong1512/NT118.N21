@@ -78,7 +78,7 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
                 </View>
                 <View>
                   <Text className="text-[16px]">Số lượng tuyển</Text>
-                  <Text className="text-[16px] font-[600]">10 người</Text>
+                  <Text className="text-[16px] font-[600]">{job.numberRequirement} người</Text>
                 </View>
               </View>
               <View className="flex flex-row items-center gap-[20px]">
@@ -92,7 +92,7 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
                 </View>
                 <View>
                   <Text className="text-[16px]">Giới tính</Text>
-                  <Text className="text-[16px] font-[600]">Không yêu cầu</Text>
+                  <Text className="text-[16px] font-[600]">{job.gender}</Text>
                 </View>
               </View>
               <View className="flex flex-row items-center gap-[20px]">
@@ -107,7 +107,7 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
                 <View>
                   <Text className="text-[16px]">Vị trí</Text>
                   <Text className="text-[16px] font-[600]">
-                    Front-end Developer
+                    {job.jobTitle}
                   </Text>
                 </View>
               </View>
@@ -123,7 +123,7 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
                 <View className="w-full">
                   <Text className="text-[16px]">Địa chỉ</Text>
                   <Text className="text-[16px] font-[600] mr-[4px] max-w-[100%]">
-                    Tan Binh Dist, Hồ Chí Minh, Thành phố Hồ Chí Minh 72108
+                    {job.address}
                   </Text>
                 </View>
               </View>
@@ -132,26 +132,19 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
           <View className="mt-[20px]">
             <Text className="text-[18px] font-[700]">Mô tả công việc</Text>
             <Text className="text-[16px]">
-              Không yêu cầuKhông yêu cầuKhông yêu cầuKhông yêu cầuKhông yêu
-              cầuKhông yêu cầuKhông yêu cầuKhông yêu cầuKhông yêu cầuKhông yêu
-              cầuKhông yêu cầuKhông yêu cầuKhông yêu cầuKhông yêu cầuKhông yêu
-              cầuKhông yêu cầuKhông yêu cầu
+              {job.jobDescription}
             </Text>
           </View>
           <View className="mt-[20px]">
             <Text className="text-[18px] font-[700]">Yêu cầu công việc</Text>
             <Text className="text-[16px]">
-              Yêu cầu công việcYêu cầu công việcYêu cầu công việcYêu cầu công
-              việcYêu cầu công việcYêu cầu công việcYêu cầu công việcYêu cầu
-              công việcYêu cầu công việcYêu cầu công việcYêu cầu công việcYêu
-              cầu công việcYêu cầu công việcYêu cầu công việc
+              {job.jobRequirement}
             </Text>
           </View>
           <View className="mt-[20px]">
             <Text className="text-[18px] font-[700]">Quyền lợi</Text>
             <Text className="text-[16px]">
-              Quyền lợiQuyền lợiQuyền lợiQuyền lợiQuyền lợiQuyền lợiQuyền
-              lợiQuyền lợiQuyền lợiQuyền lợiQuyền lợiQuyền lợiQuyền lợi
+              {job.benefits}
             </Text>
           </View>
         </View>

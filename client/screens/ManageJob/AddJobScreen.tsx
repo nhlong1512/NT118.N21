@@ -38,6 +38,7 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
   const [benefits, setBenefits] = useState("");
   const [numberRequirement, setNumberRequirement] = useState(0);
   const [gender, setGender] = useState("");
+  const [address, setAddress] = useState("");
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -67,7 +68,8 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
     urlPhoto: string,
     benefits: string,
     numberRequirement: number,
-    sex: string
+    gender: string,
+    address: string
   ) => {
     try {
       const jobRef = collection(db, "job");
@@ -82,6 +84,11 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
         jobDescription: jobDescription,
         jobRequirement: jobRequirement,
         urlPhoto: urlPhoto,
+        benefits: benefits,
+        numberRequirement: numberRequirement,
+        gender: gender,
+        address: address,
+
       });
       console.log("Document written with ID: ", jobRef.id);
       Toast.show({
@@ -111,6 +118,7 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
       benefits: benefits,
       numberRequirement: numberRequirement,
       gender: gender,
+      address: address,
     };
     addDbJob(
       user?.id || "",
@@ -125,8 +133,10 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
       urlPhoto,
       benefits,
       numberRequirement,
-      gender
+      gender,
+      address
     );
+    navigation.navigate("JobPosted")
   };
   return (
     <CustomSafeAreaView className="flex-1 items-center bg-white px-4">
@@ -207,6 +217,13 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
           label="Giới tính"
           containerClassName="mt-2"
           placeholder="Nam/Nữ/Không yêu cầu"
+        />
+        <TextFieldWithLabel
+          value={address}
+          onChangeText={(text) => setAddress(text)}
+          label="Địa chỉ"
+          containerClassName="mt-2"
+          placeholder="Vui lòng nhập địa chỉ"
         />
         <View>
           <Text className="text-[16px] mt-2">Mô tả công việc</Text>
