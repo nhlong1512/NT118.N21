@@ -16,16 +16,18 @@ import * as ImagePicker from "expo-image-picker";
 import { TextInput } from "react-native-paper";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
-import uuid from 'react-native-uuid';
+import uuid from "react-native-uuid";
 import { JobCustom } from "../../model/model";
 import Toast from "react-native-toast-message";
 import useUserStore from "../../store/user";
 import shallow from "zustand/shallow";
 
-
 const AddJobScreen = ({ navigation }: { navigation: any }) => {
-  const [user, setUser] = useUserStore((state) => [state.user, state.setUser], shallow);
-  const [businessName, setBusinessName] = useState("");
+  const [user, setUser] = useUserStore(
+    (state) => [state.user, state.setUser],
+    shallow
+  );
+  const [companyName, setCompanyName] = useState("");
   const [urlPhoto, setUrlPhoto] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [typeTime, setTypeTime] = useState("");
@@ -33,9 +35,10 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
   const [requireExp, setRequireExp] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [jobRequirement, setJobRequirement] = useState("");
+  const [benefits, setBenefits] = useState("");
+  const [numberRequirement, setNumberRequirement] = useState(0);
+  const [gender, setGender] = useState("");
 
-
-  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -50,11 +53,11 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
     }
   };
 
-  //Add DB 
-  const addDbJob = async( 
+  //Add DB
+  const addDbJob = async (
     uid: string,
-    id: string, 
-    businessName: string, 
+    id: string,
+    companyName: string,
     jobTitle: string,
     typeTime: string,
     salary: string,
@@ -62,13 +65,16 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
     jobDescription: string,
     jobRequirement: string,
     urlPhoto: string,
+    benefits: string,
+    numberRequirement: number,
+    sex: string
   ) => {
     try {
       const jobRef = collection(db, "job");
       await setDoc(doc(jobRef, id), {
         uid: uid,
         id: id,
-        businessName: businessName,
+        companyName: companyName,
         jobTitle: jobTitle,
         typeTime: typeTime,
         salary: salary,
@@ -76,19 +82,17 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
         jobDescription: jobDescription,
         jobRequirement: jobRequirement,
         urlPhoto: urlPhoto,
-      })
+      });
       console.log("Document written with ID: ", jobRef.id);
       Toast.show({
-        type: 'success',
-        text1: 'Thêm công việc.',
-        text2: 'Thêm công việc thành công.'
-      })
-
-      
+        type: "success",
+        text1: "Thêm công việc.",
+        text2: "Thêm công việc thành công.",
+      });
     } catch (error) {
-      console.error("Error adding document: ", error)
+      console.error("Error adding document: ", error);
     }
-  }
+  };
 
   const handleAddJob = () => {
     console.log("Add job");
@@ -96,7 +100,7 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
     const jobCustom: JobCustom = {
       uid: user?.id || "",
       id: id,
-      businessName: businessName,
+      companyName: companyName,
       jobTitle: jobTitle,
       typeTime: typeTime,
       salary: salary,
@@ -104,8 +108,25 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
       jobDescription: jobDescription,
       jobRequirement: jobRequirement,
       urlPhoto: urlPhoto,
-    }
-    addDbJob(user?.id || "", id, businessName, jobTitle, typeTime, salary,requireExp, jobDescription, jobRequirement, urlPhoto)
+      benefits: benefits,
+      numberRequirement: numberRequirement,
+      gender: gender,
+    };
+    addDbJob(
+      user?.id || "",
+      id,
+      companyName,
+      jobTitle,
+      typeTime,
+      salary,
+      requireExp,
+      jobDescription,
+      jobRequirement,
+      urlPhoto,
+      benefits,
+      numberRequirement,
+      gender
+    );
   };
   return (
     <CustomSafeAreaView className="flex-1 items-center bg-white px-4">
@@ -128,7 +149,9 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
             className="w-[150px] h-[150px] rounded-[100px]"
             resizeMode="cover"
             source={
-              urlPhoto ? { uri: urlPhoto } : require("../../assets/images/user.jpg")
+              urlPhoto
+                ? { uri: urlPhoto }
+                : require("../../assets/images/user.jpg")
             }
           />
           <Text className="mt-2 py-[7.5px] font-app-medium text-body2">
@@ -136,8 +159,8 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
           </Text>
         </Pressable>
         <TextFieldWithLabel
-          value={businessName}
-          onChangeText={(text) => setBusinessName(text)}
+          value={companyName}
+          onChangeText={(text) => setCompanyName(text)}
           label="Tên doanh nghiệp"
           containerClassName="mt-2"
           placeholder="Nhập tên doanh nghiệp"
@@ -171,11 +194,25 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
           containerClassName="mt-2"
           placeholder="Trên 2 năm,..."
         />
+        <TextFieldWithLabel
+          value={numberRequirement.toString()}
+          onChangeText={(text) => setNumberRequirement(+text)}
+          label="Số lượng tuyển"
+          containerClassName="mt-2"
+          placeholder=""
+        />
+        <TextFieldWithLabel
+          value={gender}
+          onChangeText={(text) => setGender(text)}
+          label="Giới tính"
+          containerClassName="mt-2"
+          placeholder="Nam/Nữ/Không yêu cầu"
+        />
         <View>
           <Text className="text-[16px] mt-2">Mô tả công việc</Text>
           <TextInput
-            value = {jobDescription == "-1" ? "" : jobDescription}
-            onChangeText = {(text) => setJobDescription(text)} 
+            value={jobDescription == "-1" ? "" : jobDescription}
+            onChangeText={(text) => setJobDescription(text)}
             multiline
             mode="outlined"
             numberOfLines={4}
@@ -188,8 +225,22 @@ const AddJobScreen = ({ navigation }: { navigation: any }) => {
         <View>
           <Text className="text-[16px] mt-2">Yêu cầu công việc</Text>
           <TextInput
-            value = {jobRequirement}
-            onChangeText = {(text) => setJobRequirement(text)}
+            value={jobRequirement}
+            onChangeText={(text) => setJobRequirement(text)}
+            multiline
+            mode="outlined"
+            numberOfLines={4}
+            style={{ minHeight: 100 }}
+            outlineColor="transparent"
+            activeOutlineColor="#e0e0e0"
+            className="rounded-[8px] bg-giratina-100 focus:border-giratina-300"
+          />
+        </View>
+        <View>
+          <Text className="text-[16px] mt-2">Quyền lợi</Text>
+          <TextInput
+            value={benefits}
+            onChangeText={(text) => setBenefits(text)}
             multiline
             mode="outlined"
             numberOfLines={4}

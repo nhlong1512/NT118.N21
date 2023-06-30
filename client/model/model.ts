@@ -24,12 +24,17 @@ export interface UserCustom {
 export interface JobCustom {
     uid: string,
     id: string,
-    businessName: string,
+    companyName: string,
     jobTitle: string,
     typeTime: string, 
     salary: string,
     requireExp: string,
     jobDescription: string,
     jobRequirement: string,
+    benefits: string,
     urlPhoto: string,
+    numberRequirement: number,
+    gender: string,
+
+
 }

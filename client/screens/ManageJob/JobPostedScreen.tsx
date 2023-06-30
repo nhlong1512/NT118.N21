@@ -80,7 +80,7 @@ const JobPostedScreen = ({ navigation }: { navigation: any }) => {
                     />
                     <View style={{ margin: 20, flexDirection: "column" }}>
                       <Text className="text-[14px] font-[700]">
-                        {job.businessName}
+                        {job.companyName}
                       </Text>
                       <Text className="text-[14px] font-[400] text-[#6667AB] mr-[4px]">
                         {job.jobTitle}
