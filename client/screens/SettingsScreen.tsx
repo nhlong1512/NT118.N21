@@ -18,6 +18,8 @@ import { auth } from "../firebaseConfig";
 const SettingsScreen = ({ navigation }: { navigation: any }) => {
   const [show, setShow] = useState(false);
   const [user,logOut] = useUserStore((state) => [state.user, state.logOut], shallow);
+  console.log("phôtpUrl",user?.photoURL);
+  
   
   const toggle = () => setShow((prev) => !prev);
   const logout = () => {

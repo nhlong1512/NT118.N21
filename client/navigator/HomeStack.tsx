@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { useNavigation } from "@react-navigation/native";
 import Detailofnews from "../screens/Detailofnews";
 import News from "../screens/News";
 import HomePageScreen from "../screens/HomePageScreen";
@@ -12,11 +11,9 @@ import UpLoadCV from "../screens/UpLoadCV";
 import DeleteJob from "../screens/DeleteJob";
 import DeleteSuccessScreen from "../screens/DeleteSuccessScreen";
 import Statistic from "../screens/Statistic";
-import ProfileScreen from "../screens/Profile/ProfileScreen";
 import MoreJobs from "../screens/MoreJobs";
 import FindJobs from "../screens/FindJobs";
 import InfoCompany from "../screens/InfoCompany";
-import UpdateSuccessScreen from "../screens/Profile/UpdateSuccessScreen";
 import Drawer from "../screens/Drawer";
 import AddJobScreen from "../screens/ManageJob/AddJobScreen";
 import SignInScreen from "../screens/SignInScreen";
@@ -38,11 +35,7 @@ const HomeStack = () => {
       <Stack.Screen name="Find" component={FindJobs} />
       <Stack.Screen name="Info" component={InfoCompany} />
       <Stack.Screen name="Drawer" component={Drawer} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="SignIn" component={SignInScreen} />
-      <Stack.Screen name="UpdateSuccess" component={UpdateSuccessScreen} />
-      <Stack.Screen name="AddJob" component={AddJobScreen} />
-
+      {/* <Stack.Screen name="SignIn" component={SignInScreen} /> */}
     </Stack.Navigator>
   );
 };
