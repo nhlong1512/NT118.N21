@@ -7,6 +7,8 @@ import SettingsScreen from "../screens/SettingsScreen";
 import HomeScreen from "../screens/HomeScreen";
 import HomeStack from "./HomeStack";
 import JobPostedScreen from "../screens/ManageJob/JobPostedScreen";
+import SettingStack from "./SettingStack";
+import JobStack from "./JobStack";
 
 const BottomTabNavigation = () => {
   const Tab = createBottomTabNavigator();
@@ -37,8 +39,8 @@ const BottomTabNavigation = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Công việc" component={JobPostedScreen} />
-      <Tab.Screen name="Cài đặt" component={SettingsScreen} />
+      <Tab.Screen name="Công việc" component={JobStack} />
+      <Tab.Screen name="Cài đặt" component={SettingStack} />
     </Tab.Navigator>
   );
 };
