@@ -35,6 +35,7 @@ export interface JobCustom {
     urlPhoto: string,
     numberRequirement: number,
     gender: string,
+    address:string,
 
 
 }

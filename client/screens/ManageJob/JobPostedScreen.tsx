@@ -30,7 +30,7 @@ const JobPostedScreen = ({ navigation }: { navigation: any }) => {
       setJobs(jobPosted);
     };
     fetchJobPosted();
-  }, []);
+  }, [navigation]);
   console.log("Jobs", jobs);
   
   
