@@ -1,12 +1,62 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where , onSnapshot} from "firebase/firestore";
 import { debounce } from "lodash";
-import React, { useCallback, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import React, { useCallback, useState ,useEffect} from "react";
+import { FlatList, Text, View, TouchableOpacity, Image } from "react-native";
 import { Appbar, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { db } from "../firebaseConfig";
+import useUserStore from "../store/user";
+import shallow from "zustand/shallow";
+import { JobCustom } from "../model/model";
+import { ScrollView } from "react-native-gesture-handler";
 
 const FindJobs = ({ navigation }: { navigation: any }) => {
+
+  const [user, setUser] = useUserStore(
+    (state) => [state.user, state.setUser],
+    shallow
+  );
+  console.log(user?.id);
+
+  const [jobs, setJobs] = useState<JobCustom[]>([]);
+  const fetchJobPosted = async () => {
+    // let jobPosted: any = [];
+    // const q = query(collection(db, "job"), where("uid", "==", user?.id));
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.forEach((doc) => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   console.log(doc.id, " => ", doc.data());
+    //   jobPosted.push(doc.data());
+    // });
+    // setJobs(jobPosted);
+    const q = query(collection(db, "job"), where("uid", "==", user?.id));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const jobPosted: JobCustom[] = [];
+      snapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        jobPosted.push(doc.data() as JobCustom);
+      });
+      setJobs(jobPosted);
+    });
+  };
+  useEffect(() => {
+    // fetchJobPosted();
+    const q = query(collection(db, "job"), where("uid", "==", user?.id));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const jobPosted: JobCustom[] = [];
+      snapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        jobPosted.push(doc.data() as JobCustom);
+      });
+      setJobs(jobPosted);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [user?.id]);
+  console.log("Jobs", jobs);
+
   const [searchText, setSearchText] = useState<string>("");
   const [searchData, setSearchData] = useState([]);
   console.log(
@@ -39,9 +89,70 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
 
   const renderItem = ({ item }: { item: any }) => {
     return (
-      <View>
-        <Text>{item?.jobTitle}</Text>
-      </View>
+      <SafeAreaView style={{borderRadius:10, paddingLeft:16, paddingRight:16, paddingTop:-20}}>
+          <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("JobFind");
+                }}
+              >
+          <View
+                  style={{
+                    borderWidth: 3,
+                    borderColor: "#6667AB",
+                    marginBottom:-50
+                  }}
+                  className="bg-white pr-[4px] ml-[4px] mr-[4px] rounded-[10px] mt-[5px]"
+          >
+          <View style={{ flexDirection: "row" }} className="flex">
+          <Image
+                      //   style={{ width: 80, height: 80, borderRadius: 1, margin: 20 }}
+                      // style = {{borderRadius:40}}
+            className="w-[80px] h-[80px] rounded-[10px] mx-[10px] my-auto"
+            source={{ uri: item?.urlPhoto }}
+            />
+              <View style={{ margin: 20, flexDirection: "column" }}>
+                <Text className="text-[14px] font-[700]">
+                        {item?.companyName}
+                </Text>
+                <Text className="text-[14px] font-[400] text-[#6667AB] mr-[4px]">
+                        {item?.jobTitle}
+                </Text>
+                  <View style={{ flexDirection: "row", marginTop: 20 }}>
+                    <Text
+                          style={{
+                            marginRight: 10,
+                            backgroundColor: "#BEBEBE",
+                            padding: 5,
+                          }}
+                        >
+                          Java
+                    </Text>
+                    <Text
+                          style={{
+                            marginRight: 10,
+                            backgroundColor: "#BEBEBE",
+                            padding: 5,
+                          }}
+                        >
+                          Spring
+                    </Text>
+                    <Text
+                          style={{
+                            marginRight: 10,
+                            backgroundColor: "#BEBEBE",
+                            padding: 5,
+                          }}
+                        >
+                COBOL
+                    </Text>
+                </View>
+            </View>
+          </View>
+          </View>
+        </TouchableOpacity>
+
+      </SafeAreaView>
+      
     );
   };
 
@@ -73,7 +184,7 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
           }}
         />
       </Appbar.Header>
-
+      
       <FlatList
         data={searchData}
         renderItem={renderItem}
