@@ -5,7 +5,7 @@ import { CustomSafeAreaView } from "../../components/common";
 import Bars from "../../navigator/Bar";
 import useUserStore from "../../store/user";
 import shallow from "zustand/shallow";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { JobCustom } from "../../model/model";
 import { AntDesign } from "@expo/vector-icons";
@@ -39,6 +39,8 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
         console.log(doc.id, " => ", doc.data());
         jobPosted.push(doc.data());
       });
+
+
       setJobs(jobPosted);
     };
     fetchJobPosted();
@@ -52,8 +54,9 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
         title="Chi tiết công việc"
         onLeftButtonPress={() => navigation.goBack()}
         className="mb-2 font-[700]"
+  
       />
-      <ScrollView className="w-full">
+      <ScrollView className="w-full" style={{padding:20}}>
         <View className="w-full">
           <View className="flex justify-center items-center">
             <Image

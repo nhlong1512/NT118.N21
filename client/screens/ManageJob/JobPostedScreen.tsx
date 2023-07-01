@@ -62,7 +62,7 @@ const JobPostedScreen = ({ navigation }: { navigation: any }) => {
         onLeftButtonPress={() => navigation.goBack()}
         className="mb-2 font-[700]"
       />
-      <ScrollView className="w-full">
+      <ScrollView className="w-full" style={{padding:16}}>
         <View className="w-full">
           <View className="flex justify-between flex-row my-[10px]">
             <Text className="text-[14px]">
