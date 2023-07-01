@@ -21,6 +21,11 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
               >
                     <Text style={{fontFamily:'Cochin',fontSize:20,color:'#6667AB',fontWeight:'700'}}>Tech Blog</Text>
                 </View>
+                <TouchableOpacity onPress={() => {navigation.navigate("Xemthem")}} style={{width:'25%'}}>
+                    <Text style={{fontSize:18, fontFamily:'Cochin', color:'#6667AB',fontWeight:'600'}}>
+                    View more
+                    </Text>
+                </TouchableOpacity>
             </View>
             <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
                 
@@ -55,6 +60,37 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                 </View>
             </View>
 
+            
+          </View>
+
+          <View>
+            <View style={{flexDirection:'row',width:'100%',padding:16}}>
+                <View style={{width:'75%'}}
+              >
+                    <Text style={{fontFamily:'Cochin',fontSize:20,color:'#6667AB',fontWeight:'700'}}>Latest Articles</Text>
+                </View>
+                <TouchableOpacity onPress={() => {navigation.navigate("Xemthem")}} style={{width:'25%'}}>
+                    <Text style={{fontSize:18, fontFamily:'Cochin', color:'#6667AB',fontWeight:'600'}}>
+                    View more
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
+                
+                <View style={{flexDirection:'column', borderWidth:2,borderColor:'#6667AB',width:'100%', padding:5, borderRadius:10,backgroundColor:'white'}}>
+                    <Image style={{width:'100%',height:'60%'}} source={require('../assets/icons/innovate.jpg')} />
+
+                    <View style={{flexDirection:'column',width:'95%'}}>
+                        <Text numberOfLines={1} style={{marginBottom:10, fontSize:15,fontWeight:'600'}}>
+                        KICC HCMC x TOPDEV – Nắm giữ sứ mệnh chắp cánh cho nhân tài IT Việt Nam vươn mình bứt phá
+                        </Text>
+                        <Text numberOfLines={2} style={{ fontSize:13,fontWeight:'300'}}>
+                        “Innovate your Tech Career” – “Cải tiến sự nghiệp IT của bạn” là thông điệp mà KICC HCMC cùng TopDev mang đến cho các tài năng Công nghệ trong sự trở lại vào năm 2023. Theo đó là những hoạt động phối hợp với mục đích kết nối các việc làm ngành CNTT tại các doanh nghiệp IT Hàn Quốc với đối tượng Lập Trình Viên Việt Nam.
+                        </Text>
+                    </View>
+                </View>
+            </View>
+            
             <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
                 
                 <View style={{flexDirection:'column', borderWidth:2,borderColor:'#6667AB',width:'100%', padding:5, borderRadius:10,backgroundColor:'white'}}>
@@ -70,9 +106,9 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </View>
                 </View>
             </View>
+
             
           </View>
-
         </View>
         
         

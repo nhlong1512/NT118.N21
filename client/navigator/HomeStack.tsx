@@ -18,6 +18,8 @@ import Drawer from "../screens/Drawer";
 import AddJobScreen from "../screens/ManageJob/AddJobScreen";
 import SignInScreen from "../screens/SignInScreen";
 import JobDetailScreen from "../screens/ManageJob/JobDetailScreen";
+import NewsUpdate from "../screens/NewsUpdate";
+
 const Stack = createNativeStackNavigator();
 const HomeStack = () => {
   return (
@@ -36,6 +38,8 @@ const HomeStack = () => {
       <Stack.Screen name="Info" component={InfoCompany} />
       <Stack.Screen name="Drawer" component={Drawer} />
       <Stack.Screen name="JobDetail" component={JobDetailScreen}/>
+      <Stack.Screen name="NewsUpdate" component={NewsUpdate}/>
+
       {/* <Stack.Screen name="SignIn" component={SignInScreen} /> */}
     </Stack.Navigator>
   );
