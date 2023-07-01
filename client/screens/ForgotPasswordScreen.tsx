@@ -12,7 +12,6 @@ import { sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
 import * as yup from 'yup'
 import Toast from 'react-native-toast-message'
-import toastConfig from '../utils/config/toastConfig'
 
 const validationSchema = yup.object({
   email: yup.string().required('Required').email('Invalid email')

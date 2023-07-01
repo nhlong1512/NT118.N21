@@ -1,11 +1,9 @@
-import { View, Text, Pressable, Image, ScrollView } from "react-native";
+import { Text, Pressable, Image, ScrollView } from "react-native";
 import React, { useState } from "react";
 import TextFieldWithLabel from "../../components/common/TextFieldWithLabel";
 // import Bars from '~/components/navigation/Bars'
 
 import { CustomSafeAreaView } from "../../components/common";
-import { TextInput, Button, Checkbox } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import useUserStore from "../../store/user";
 import { shallow } from "zustand/shallow";
@@ -45,7 +43,6 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
       text1: 'Cập nhật thông tin',
       text2: 'Cập nhật thông tin thành công.'
     })
-
     // dispatch(setUser())
   }
 
@@ -66,7 +63,6 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
   return (
     <CustomSafeAreaView className="flex-1 items-center bg-white px-4">
       <Bars
-      
         headerLeft='return'
         title='Thông tin của tôi'
         headerRight='action'

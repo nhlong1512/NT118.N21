@@ -67,6 +67,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
   const [setUser] = useUserStore((state) => [state.setUser], shallow);
   const [secure, setSecure] = useState([true, true]);
 
+  
   const initialState: FormDataSignUp = {
     fullName: "",
     email: "",
@@ -162,7 +163,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
               <Image source={require("../assets/icons/arrow_back.png")} />
             </View>
           </TouchableOpacity>
-          <Text style={{fontFamily:'Cochin', fontWeight:'700'}} className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+          <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
             ĐĂNG KÝ
           </Text>
           <TouchableOpacity className="opacity-0">
@@ -237,7 +238,7 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
             className="rounded-[10px] py-[4px] bg-[#6667AB] mt-[48px]"
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
-            <Text style={{fontFamily:'Cochin', fontSize:20}} className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
+            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG KÝ</Text>
           </Button>
         </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
@@ -254,62 +255,6 @@ const SignUpScreen = ({ navigation }: { navigation: any }) => {
         </Text>
       </View>
     </SafeAreaView>
-    // <CustomSafeAreaView className='items-center px-5'>
-    //   {/* Header */}
-    //   <View className='flex-row items-center'>
-    //     <Pressable onPress={() => navigation.canGoBack() && navigation.goBack()}>
-    //       <ArrowLeft />
-    //     </Pressable>
-    //     <View className='flex-1' />
-    //     <Star8 />
-    //   </View>
-
-    //   <ScrollView contentContainerStyle={{ flexGrow: 1 }} className='w-full' showsVerticalScrollIndicator={false}>
-    //     <Text className='mt-[54px] w-full text-heading1 font-bold'>Sign up</Text>
-    //     <TextFieldWithLabel
-    //       label={'Email'}
-    //       error={errors.email?.message}
-    //       containerClassName='mt-[34px]'
-    //       control={control}
-    //       name='email'
-    //       placeholder='example@gmail.com'
-    //     />
-    //     <TextFieldWithLabel
-    //       error={errors.password?.message}
-    //       label={'Create a password'}
-    //       containerClassName='mt-[26px]'
-    //       secureTextEntry={secure[0]}
-    //       control={control}
-    //       name='password'
-    //       onRightIconPress={() => setSecure([!secure[0], secure[1]])}
-    //       placeholder='must be 8 characters'
-    //       rightIcon={!secure[0] ? <Eye /> : <UnEye />}
-    //     />
-    //     <TextFieldWithLabel
-    //       error={errors.confirmPassword?.message}
-    //       label={'Confirm password'}
-    //       onRightIconPress={() => setSecure([secure[0], !secure[1]])}
-    //       secureTextEntry={secure[1]}
-    //       name='confirmPassword'
-    //       control={control}
-    //       containerClassName='mt-[22px] mb-[38px]'
-    //       placeholder='repeat password'
-    //       rightIcon={!secure[1] ? <Eye /> : <UnEye />}
-    //     />
-
-    //     <Button onPress={handleSubmit(onSubmit)} label={'Create account'} />
-    //     <View className='flex-1' />
-    //     {/* Already have an account? Log in */}
-    //     <View className='mb-12 mt-4 flex-row justify-center'>
-    //       <Text className='font-app-light text-sm' style={{ color: 'rgba(0, 0, 0, 0.7)' }}>
-    //         Already have an account?{' '}
-    //       </Text>
-    //       <Text className='font-app-semibold text-sm' onPress={() => navigation.navigate('Login')}>
-    //         Log in
-    //       </Text>
-    //     </View>
-    //   </ScrollView>
-    // </CustomSafeAreaView>
   );
 };
 

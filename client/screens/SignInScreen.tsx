@@ -24,14 +24,6 @@ import { doc, getDoc } from "firebase/firestore";
 const SignInScreen = ({ navigation }: { navigation: any }) => {
   const [showPwd, setShowPwd] = useState<boolean>(false);
   const [setUser] = useUserStore((state) => [state.setUser], shallow);
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       setUser(user);
-  //     }
-  //   });
-  // }, [setUser]);
-  //FormDataState
   const initialState: FormDataSignIn = {
     email: "",
     password: "",
@@ -97,7 +89,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
         <View style={{alignItems:'center'}}>
           <Image source={require("../assets/images/logo1.png")} />
         </View>
-        <Text style={{fontFamily:'Cochin'}} className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center mb-[14px]">
+        <Text className="text-[24px] font-[700] text-[#6667AB] leading-[32px] text-center mb-[14px]">
           ĐĂNG NHẬP
         </Text>
         <TextInput 
@@ -153,7 +145,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
             onPress={handleSignIn}
           >
             <Image source={require("../assets/icons/telegram_icon.png")} />
-            <Text style={{fontFamily:'Cochin', fontSize:20}} className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
+            <Text className="text-[18px] font-[700]">&nbsp; ĐĂNG NHẬP</Text>
           </Button>
         </TouchableOpacity>
         <Text className="text-center flex flex-row justify-center items-center mt-[24px] text-[16px] leading-[20px]">
