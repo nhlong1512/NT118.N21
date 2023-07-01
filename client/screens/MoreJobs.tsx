@@ -1,125 +1,123 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, Image, TouchableOpacity ,Pressable } from 'react-native'
+import React, { useEffect, useState } from "react";
 import {Appbar, TextInput} from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
+import useUserStore from "../store/user";
+import Bars from "../navigator/Bar";
+import shallow from "zustand/shallow";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { JobCustom } from "../model/model";
+import { db } from "../firebaseConfig";
 
 const MoreJobs = ({navigation}:{navigation:any}) => {
+    const [user, setUser] = useUserStore(
+        (state) => [state.user, state.setUser],
+        shallow
+      );
+      console.log(user?.id);
+      
+      const [jobs, setJobs] = useState<JobCustom[]>([]);
+      useEffect(() => {
+        const fetchJobPosted = async () => {
+          let jobPosted: any = [];
+          const q = query(collection(db, "job"), where("uid", "==", user?.id));
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            jobPosted.push(doc.data());
+          });
+          setJobs(jobPosted);
+        };
+        fetchJobPosted();
+      }, [navigation]);
+      console.log("Jobs", jobs);
+      
+      
+    
   return (
     <SafeAreaView style={{flex:1, marginBottom:5}}>
-        <Appbar.Header style={{backgroundColor:'#6667AB'}}>
-            <Appbar.BackAction style={{backgroundColor:'white'}} onPress={() => {navigation.navigate("HomeSc");}} />
-            <TextInput placeholder='Search' style={{backgroundColor:'white',borderRadius:5, width:300,height:50, marginBottom:5, marginLeft:16, marginRight:16}}>
-            </TextInput>
-        </Appbar.Header>
-        <ScrollView>
-        <View >
-            <Text style={{marginTop:10, marginLeft:16, fontFamily:'Cochin'}}>
-                Hiện tại có <Text>5</Text> công việc
+        <Bars
+        headerLeft="return"
+        title="Các công việc hiện có"
+        onLeftButtonPress={() => navigation.goBack()}
+        className="mb-2 font-[700]"
+  
+      />
+        <ScrollView className="w-full" style={{padding:16}}>
+        <View className="w-full">
+          <View className="flex justify-between flex-row my-[10px]">
+            <Text className="text-[14px]">
+              Hiện tại có <Text>{jobs.length}</Text> công việc
             </Text>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("DetailMore");
-            }}>
-            <View style={{borderWidth:3,borderColor:'#6667AB', marginTop:15,backgroundColor:'white' ,marginLeft:16, marginRight:16, borderRadius:10}}>
-                <View style={{flexDirection: 'row',}}>
-                    <Image style={{width:80, height:80, borderRadius:1, margin:20}} source={require("../assets/icons/groove.jpg.png")} />
-                    <View style={{margin:20, flexDirection:'column'}}>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'600'}}>GROOVE TECHNOLOGY</Text>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'400', marginTop:10, color:'#6667AB', marginRight:16}}>
-                            SENIOR JAVA DEVELOPER
+            
+          </View>
+          <View>
+            {jobs.map((job) => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("JobDetail", {job: job});
+                }}
+              >
+                <View
+                  style={{
+                    borderWidth: 3,
+                    borderColor: "#6667AB",
+                  }}
+                  className="bg-white pr-[4px] ml-[4px] mr-[4px] rounded-[10px] mt-[15px]"
+                >
+                  <View style={{ flexDirection: "row" }} className="flex">
+                    <Image
+                      //   style={{ width: 80, height: 80, borderRadius: 1, margin: 20 }}
+                      // style = {{borderRadius:40}}
+                      className="w-[80px] h-[80px] rounded-[10px] mx-[10px] my-auto"
+                      source={{ uri: job.urlPhoto }}
+                    />
+                    <View style={{ margin: 20, flexDirection: "column" }}>
+                      <Text className="text-[14px] font-[700]">
+                        {job.companyName}
+                      </Text>
+                      <Text className="text-[14px] font-[400] text-[#6667AB] mr-[4px]">
+                        {job.jobTitle}
+                      </Text>
+                      <View style={{ flexDirection: "row", marginTop: 20 }}>
+                        <Text
+                          style={{
+                            marginRight: 10,
+                            backgroundColor: "#BEBEBE",
+                            padding: 5,
+                          }}
+                        >
+                          Java
                         </Text>
-                        <View style={{flexDirection:'row', marginTop:20}}>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>Java</Text>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>Spring</Text>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>COBOL</Text>
-                            
-                        </View>
-                    </View>
-                </View>
-            </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("DetailMore");
-            }}>
-            <View style={{borderWidth:3,borderColor:'#6667AB', marginTop:15,backgroundColor:'white' ,marginLeft:16, marginRight:16, borderRadius:10}}>
-                <View style={{flexDirection: 'row',}}>
-                    <Image style={{width:80, height:40, borderRadius:1, margin:20}} source={require("../assets/icons/FPT_Software_Logo.png")} />
-                    <View style={{margin:20, flexDirection:'column'}}>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'600'}}>FPT SOFTWARE</Text>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'400', marginTop:10, color:'#6667AB', marginRight:16}}>
-                            FRESHER JAVA GLOBAL
+                        <Text
+                          style={{
+                            marginRight: 10,
+                            backgroundColor: "#BEBEBE",
+                            padding: 5,
+                          }}
+                        >
+                          Spring
                         </Text>
-                        <View style={{flexDirection:'row', marginTop:20}}>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>Java</Text>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>Spring</Text>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>COBOL</Text>
-                            
-                        </View>
-                    </View>
-                </View>
-            </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("DetailMore");
-            }}>
-            <View style={{borderWidth:3,borderColor:'#6667AB', marginTop:15,backgroundColor:'white' ,marginLeft:16, marginRight:16, borderRadius:10}}>
-                <View style={{flexDirection: 'row',}}>
-                    <Image style={{width:80, height:40, borderRadius:1, margin:20}} source={require("../assets/icons/160017v-keylogo_crop.png")} />
-                    <View style={{margin:20, flexDirection:'column'}}>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'600'}}>V-KEY</Text>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'400', marginTop:10, color:'#6667AB'}}>
-                            SOFTWARE ENGINEER
+                        <Text
+                          style={{
+                            marginRight: 10,
+                            backgroundColor: "#BEBEBE",
+                            padding: 5,
+                          }}
+                        >
+                          COBOL
                         </Text>
-                        <View style={{flexDirection:'row', marginTop:20}}>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>QA</Text>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>Software Developer</Text>                            
-                        </View>
+                      </View>
                     </View>
+                  </View>
                 </View>
-            </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("DetailMore");
-            }}>
-            <View style={{borderWidth:3,borderColor:'#6667AB', marginTop:15,backgroundColor:'white' ,marginLeft:16, marginRight:16, borderRadius:10}}>
-                <View style={{flexDirection: 'row',}}>
-                    <Image style={{width:80, height:40, borderRadius:1, margin:20}} source={require("../assets/icons/zigexn-ventura-logo.jpg")} />
-                    <View style={{margin:20, flexDirection:'column'}}>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'600'}}>ZIGEXN VENTURA</Text>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'400', marginTop:10, color:'#6667AB'}}>
-                            FULLSTACK DEVELOPER
-                        </Text>
-                        <View style={{flexDirection:'row', marginTop:20}}>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>NodeJS</Text>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>Full-Stack</Text>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>VueJS</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("DetailMore");
-            }}>
-            <View style={{borderWidth:3,borderColor:'#6667AB', marginTop:15,backgroundColor:'white' ,marginLeft:16, marginRight:16, borderRadius:10}}>
-                <View style={{flexDirection: 'row',}}>
-                    <Image style={{width:80, height:40, borderRadius:1, margin:20}} source={require("../assets/icons/13fe5f335fc0bd3e2b27237737ca5d14.png")} />
-                    <View style={{margin:20, flexDirection:'column'}}>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'600'}}>SOFTROAD VIỆT NAM</Text>
-                        <Text style={{fontSize:15,fontFamily:'Cochin', fontWeight:'400', marginTop:10, color:'#6667AB'}}>
-                            SENIOR JAVA DEVELOPER
-                        </Text>
-                        <View style={{flexDirection:'row', marginTop:20}}>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>Java</Text>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>Spring</Text>
-                            <Text style={{marginRight:10, backgroundColor:'#BEBEBE',padding:5}}>MyBatis</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-        </ScrollView>
+      </ScrollView>
     </SafeAreaView>
   )
 }

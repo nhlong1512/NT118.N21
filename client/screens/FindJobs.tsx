@@ -40,7 +40,7 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
     });
   };
   useEffect(() => {
-    // fetchJobPosted();
+    fetchJobPosted();
     const q = query(collection(db, "job"), where("uid", "==", user?.id));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const jobPosted: JobCustom[] = [];
@@ -49,12 +49,14 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
         jobPosted.push(doc.data() as JobCustom);
       });
       setJobs(jobPosted);
-    });
+    }
+    );
 
     return () => {
       unsubscribe();
     };
-  }, [user?.id]);
+  },
+  [navigation,user?.id]);
   console.log("Jobs", jobs);
 
   const [searchText, setSearchText] = useState<string>("");
@@ -90,9 +92,10 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
   const renderItem = ({ item }: { item: any }) => {
     return (
       <SafeAreaView style={{borderRadius:10, paddingLeft:16, paddingRight:16, paddingTop:-20}}>
+         
           <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("JobFind");
+                  navigation.navigate("JobDetail" ,{job: item});
                 }}
               >
           <View
@@ -114,7 +117,7 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
                 <Text className="text-[14px] font-[700]">
                         {item?.companyName}
                 </Text>
-                <Text className="text-[14px] font-[400] text-[#6667AB] mr-[4px]">
+                <Text className="text-[14px] font-[500] text-[#6667AB] mr-[4px]">
                         {item?.jobTitle}
                 </Text>
                   <View style={{ flexDirection: "row", marginTop: 20 }}>
@@ -149,8 +152,7 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
             </View>
           </View>
           </View>
-        </TouchableOpacity>
-
+          </TouchableOpacity>
       </SafeAreaView>
       
     );

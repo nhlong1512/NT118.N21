@@ -131,15 +131,7 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                       style={{ width: 28, height: 28, marginRight: 10 }}
                       source={require("../assets/icons/bag.jpg")}
                     />
-                    <Text
-                      style={{
-                        marginTop: 5,
-                        fontFamily: "Cochin",
-                        fontSize: 18,
-                      }}
-                    >
-                      10 jobs
-                    </Text>
+                    
                   </View>
                 </View>
               </TouchableOpacity>
@@ -227,15 +219,7 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                       style={{ width: 28, height: 28, marginRight: 10 }}
                       source={require("../assets/icons/bag.jpg")}
                     />
-                    <Text
-                      style={{
-                        marginTop: 5,
-                        fontFamily: "Cochin",
-                        fontSize: 18,
-                      }}
-                    >
-                      5 jobs
-                    </Text>
+                    
                   </View>
                 </View>
               </TouchableOpacity>
