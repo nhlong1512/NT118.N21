@@ -9,6 +9,9 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { JobCustom } from "../../model/model";
 import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { Foundation } from "@expo/vector-icons";
 
 interface Props {
   route: any;
@@ -78,13 +81,15 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
                 </View>
                 <View>
                   <Text className="text-[16px]">Số lượng tuyển</Text>
-                  <Text className="text-[16px] font-[600]">{job.numberRequirement} người</Text>
+                  <Text className="text-[16px] font-[600]">
+                    {job.numberRequirement} người
+                  </Text>
                 </View>
               </View>
               <View className="flex flex-row items-center gap-[20px]">
                 <View className="rounded-[20px] bg-slate-200 p-[10px]">
-                  <AntDesign
-                    name="team"
+                  <FontAwesome5
+                    name="transgender-alt"
                     size={24}
                     color="#6667AB"
                     className="p-[10px] bg-slate-500"
@@ -97,8 +102,8 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
               </View>
               <View className="flex flex-row items-center gap-[20px]">
                 <View className="rounded-[20px] bg-slate-200 p-[10px]">
-                  <AntDesign
-                    name="team"
+                  <Foundation
+                    name="shopping-bag"
                     size={24}
                     color="#6667AB"
                     className="p-[10px] bg-slate-500"
@@ -106,15 +111,13 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
                 </View>
                 <View>
                   <Text className="text-[16px]">Vị trí</Text>
-                  <Text className="text-[16px] font-[600]">
-                    {job.jobTitle}
-                  </Text>
+                  <Text className="text-[16px] font-[600]">{job.jobTitle}</Text>
                 </View>
               </View>
               <View className="flex flex-row items-center gap-[20px]">
                 <View className="rounded-[20px] bg-slate-200 p-[10px]">
-                  <AntDesign
-                    name="team"
+                  <FontAwesome
+                    name="map-marker"
                     size={24}
                     color="#6667AB"
                     className="p-[10px] bg-slate-500"
@@ -131,21 +134,15 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
           </View>
           <View className="mt-[20px]">
             <Text className="text-[18px] font-[700]">Mô tả công việc</Text>
-            <Text className="text-[16px]">
-              {job.jobDescription}
-            </Text>
+            <Text className="text-[16px]">{job.jobDescription}</Text>
           </View>
           <View className="mt-[20px]">
             <Text className="text-[18px] font-[700]">Yêu cầu công việc</Text>
-            <Text className="text-[16px]">
-              {job.jobRequirement}
-            </Text>
+            <Text className="text-[16px]">{job.jobRequirement}</Text>
           </View>
-          <View className="mt-[20px]">
+          <View className="mt-[20px] mb-[10px]">
             <Text className="text-[18px] font-[700]">Quyền lợi</Text>
-            <Text className="text-[16px]">
-              {job.benefits}
-            </Text>
+            <Text className="text-[16px]">{job.benefits}</Text>
           </View>
         </View>
       </ScrollView>

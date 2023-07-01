@@ -5,7 +5,7 @@ import { CustomSafeAreaView } from "../../components/common";
 import Bars from "../../navigator/Bar";
 import useUserStore from "../../store/user";
 import shallow from "zustand/shallow";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { JobCustom } from "../../model/model";
 
@@ -15,26 +15,45 @@ const JobPostedScreen = ({ navigation }: { navigation: any }) => {
     shallow
   );
   console.log(user?.id);
-  
+
   const [jobs, setJobs] = useState<JobCustom[]>([]);
-  useEffect(() => {
-    const fetchJobPosted = async () => {
-      let jobPosted: any = [];
-      const q = query(collection(db, "job"), where("uid", "==", user?.id));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
+  const fetchJobPosted = async () => {
+    // let jobPosted: any = [];
+    // const q = query(collection(db, "job"), where("uid", "==", user?.id));
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.forEach((doc) => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   console.log(doc.id, " => ", doc.data());
+    //   jobPosted.push(doc.data());
+    // });
+    // setJobs(jobPosted);
+    const q = query(collection(db, "job"), where("uid", "==", user?.id));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const jobPosted: JobCustom[] = [];
+      snapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
-        jobPosted.push(doc.data());
+        jobPosted.push(doc.data() as JobCustom);
       });
       setJobs(jobPosted);
-    };
-    fetchJobPosted();
-  }, [navigation]);
-  console.log("Jobs", jobs);
-  
-  
+    });
+  };
+  useEffect(() => {
+    // fetchJobPosted();
+    const q = query(collection(db, "job"), where("uid", "==", user?.id));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const jobPosted: JobCustom[] = [];
+      snapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        jobPosted.push(doc.data() as JobCustom);
+      });
+      setJobs(jobPosted);
+    });
 
+    return () => {
+      unsubscribe();
+    };
+  }, [user?.id]);
+  console.log("Jobs", jobs);
   return (
     <CustomSafeAreaView className="flex-1 items-center bg-white px-2">
       <Bars
@@ -61,7 +80,7 @@ const JobPostedScreen = ({ navigation }: { navigation: any }) => {
             {jobs.map((job) => (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("JobDetail", {job: job});
+                  navigation.navigate("JobDetail", { job: job });
                 }}
               >
                 <View
