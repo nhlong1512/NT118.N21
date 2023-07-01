@@ -57,7 +57,7 @@ const MoreJobs = ({navigation}:{navigation:any}) => {
             {jobs.map((job) => (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("JobDetail", {job: job});
+                  navigation.navigate("JobDetail",{job:job});
                 }}
               >
                 <View
