@@ -27,10 +27,11 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </Text>
                 </TouchableOpacity>
             </View>
+            <TouchableOpacity onPress={() => {navigation.navigate("ContentNews")}}>
             <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
                 
                 <View style={{flexDirection:'column', borderWidth:2,borderColor:'#6667AB',width:'100%', padding:5, borderRadius:10,backgroundColor:'white'}}>
-                    <Image style={{width:'100%',height:'60%'}} source={require('../assets/icons/locky.png')} />
+                    <Image style={{width:'100%',height:'60%'}} source={require('../assets/icons/madoclocky.jpg')} />
 
                     <View style={{flexDirection:'column',width:'95%'}}>
                         <Text numberOfLines={1} style={{marginBottom:10, fontSize:15,fontWeight:'600'}}>
@@ -43,7 +44,9 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </View>
                 </View>
             </View>
+            </TouchableOpacity>
             
+            <TouchableOpacity onPress={() => {navigation.navigate("ContentNews")}}>
             <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
                 
                 <View style={{flexDirection:'column', borderWidth:2,borderColor:'#6667AB',width:'100%', padding:5, borderRadius:10,backgroundColor:'white'}}>
@@ -59,6 +62,7 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </View>
                 </View>
             </View>
+            </TouchableOpacity>
 
             
           </View>
@@ -75,6 +79,7 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </Text>
                 </TouchableOpacity>
             </View>
+            <TouchableOpacity onPress={() => {navigation.navigate("ContentNews")}}>
             <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
                 
                 <View style={{flexDirection:'column', borderWidth:2,borderColor:'#6667AB',width:'100%', padding:5, borderRadius:10,backgroundColor:'white'}}>
@@ -90,7 +95,9 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </View>
                 </View>
             </View>
+            </TouchableOpacity>
             
+            <TouchableOpacity onPress={() => {navigation.navigate("ContentNews")}}>
             <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
                 
                 <View style={{flexDirection:'column', borderWidth:2,borderColor:'#6667AB',width:'100%', padding:5, borderRadius:10,backgroundColor:'white'}}>
@@ -106,6 +113,7 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </View>
                 </View>
             </View>
+            </TouchableOpacity>
 
             
           </View>

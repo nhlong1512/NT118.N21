@@ -15,13 +15,16 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
       />
         <ScrollView className="w-full">
             <View style={{paddingBottom:20}}>
-            <View>
+            <View >
             <View style={{flexDirection:'row',width:'100%',padding:16}}>
                 <View style={{width:'75%'}}
               >
                     <Text style={{fontFamily:'Cochin',fontSize:20,color:'#6667AB',fontWeight:'700'}}>Tech Blog</Text>
                 </View>
             </View>
+            <TouchableOpacity onPress={() => {
+                  navigation.navigate("ContentNews");
+                }}>
             <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
                 
                 <View style={{flexDirection:'column', borderWidth:2,borderColor:'#6667AB',width:'100%', padding:5, borderRadius:10,backgroundColor:'white'}}>
@@ -38,7 +41,11 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </View>
                 </View>
             </View>
+            </TouchableOpacity>
             
+            <TouchableOpacity onPress={() => {
+                  navigation.navigate("ContentNews");
+                }}>
             <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
                 
                 <View style={{flexDirection:'column', borderWidth:2,borderColor:'#6667AB',width:'100%', padding:5, borderRadius:10,backgroundColor:'white'}}>
@@ -54,7 +61,11 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </View>
                 </View>
             </View>
+            </TouchableOpacity>
 
+            <TouchableOpacity onPress={() => {
+                  navigation.navigate("ContentNews");
+                }}>
             <View style={{flexDirection:'column',paddingLeft:16,paddingRight:16,height:320,marginBottom:-50}}>
                 
                 <View style={{flexDirection:'column', borderWidth:2,borderColor:'#6667AB',width:'100%', padding:5, borderRadius:10,backgroundColor:'white'}}>
@@ -70,6 +81,7 @@ const NewsUpdate = ({navigation}:{navigation:any}) => {
                     </View>
                 </View>
             </View>
+            </TouchableOpacity>
             
           </View>
 
