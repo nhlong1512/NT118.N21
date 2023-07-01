@@ -46,7 +46,7 @@ const MoreJobs = ({navigation}:{navigation:any}) => {
   
       />
         <ScrollView className="w-full" style={{padding:16}}>
-        <View className="w-full">
+          <View className="w-full">
           <View className="flex justify-between flex-row my-[10px]">
             <Text className="text-[14px]">
               Hiện tại có <Text>{jobs.length}</Text> công việc

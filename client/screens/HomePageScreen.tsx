@@ -225,7 +225,7 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Tintuc");
+              navigation.navigate("NewsUpdate");
             }}
           >
             <View
