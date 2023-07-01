@@ -3,10 +3,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Ionicons, AntDesign } from "@expo/vector-icons";
-import SettingsScreen from "../screens/SettingsScreen";
-import HomeScreen from "../screens/HomeScreen";
 import HomeStack from "./HomeStack";
-import JobPostedScreen from "../screens/ManageJob/JobPostedScreen";
 import SettingStack from "./SettingStack";
 import JobStack from "./JobStack";
 
