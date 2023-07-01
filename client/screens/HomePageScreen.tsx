@@ -25,9 +25,9 @@ const horizontalDATA = [
 ];
 
 const HomePageScreen = ({ navigation }: { navigation: any }) => {
-  const [titleText, setTitleText] = useState("Bosch");
+  const [titleText, setTitleText] = useState("Bạn muốn tìm việc làm ?");
   const bodyText =
-    "Tellus at sit ante rutrum suspendisse pretium, vitae vel dignissim. Nunc, scelerisque adipiscing condimentum massa dignissim tortor leo lacus. Sapien felis ultrices fringilla nisi sit nibh. Etiam volutpat nisl ornare lorem mus at a, et pulvinar.";
+    "Bạn muốn tìm kiếm việc làm, nhưng không biết bắt đầu từ đâu. Ở đây chúng tôi có những tin tức hữu ích sẽ giúp bạn có thể tìm kiếm một công việc như mong muốn một cách dễ dàng nhất. Nhấn vào Next để cùng bắt đầu nào !";
   const onPressTitle = () => {
     setTitleText("Bosh");
   };
@@ -88,7 +88,7 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                 borderColor: "#6667AB",
               }}
             >
-              <Text style={{}}>Search</Text>
+              <Text style={{}}>Bạn muốn tìm việc ?</Text>
             </View>
           </TouchableOpacity>
           <ScrollView horizontal={true} style={{ padding: 16 }}>
@@ -127,11 +127,10 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                     FPT SoftWare
                   </Text>
                   <View style={{ flexDirection: "row", margin: 16 }}>
-                    <Image
-                      style={{ width: 28, height: 28, marginRight: 10 }}
-                      source={require("../assets/icons/bag.jpg")}
-                    />
-                    
+                  
+                    <Text style={{fontSize:15, fontWeight:'500'}}>
+                    Tân Xá, Thạch Thất, Hà Nội
+                    </Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -167,18 +166,8 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                     Groove Technology
                   </Text>
                   <View style={{ flexDirection: "row", margin: 16 }}>
-                    <Image
-                      style={{ width: 28, height: 28, marginRight: 10 }}
-                      source={require("../assets/icons/bag.jpg")}
-                    />
-                    <Text
-                      style={{
-                        marginTop: 5,
-                        fontFamily: "Cochin",
-                        fontSize: 18,
-                      }}
-                    >
-                      5 jobs
+                  <Text style={{fontSize:15, fontWeight:'500'}}>
+                  Quận 1, Thành phố Hồ Chí Minh
                     </Text>
                   </View>
                 </View>
@@ -215,11 +204,9 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                     ZIGEXN VENTURA
                   </Text>
                   <View style={{ flexDirection: "row", margin: 16 }}>
-                    <Image
-                      style={{ width: 28, height: 28, marginRight: 10 }}
-                      source={require("../assets/icons/bag.jpg")}
-                    />
-                    
+                  <Text style={{fontSize:15, fontWeight:'500'}}>
+                  Bình Thạnh, Thành phố Hồ Chí Minh
+                    </Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -238,7 +225,7 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("ThongKe");
+              navigation.navigate("Tintuc");
             }}
           >
             <View
@@ -264,17 +251,6 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
               </Text>
             </View>
           </TouchableOpacity>
-          <View>
-            <Text style={styles.jobhot}>Hot for you</Text>
-          </View>
-          <View style={{ paddingLeft: 16, paddingRight: 16 }}>
-            <FlatList
-              data={horizontalDATA}
-              horizontal={true}
-              renderItem={({ item }) => <Item title={item.title} />}
-              keyExtractor={(item, index) => `${item.id}${index}`}
-            />
-          </View>
           <View
             style={{
               borderWidth: 1,

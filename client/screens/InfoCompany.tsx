@@ -50,37 +50,7 @@ const InfoCompany = ({navigation}:{navigation:any}) => {
                 - Thời gian làm việc: Thứ 2 - Thứ 6 từ 08 giờ tới 17 giờ
             </Text>
         </View>
-        <View style={{borderWidth:1,borderColor:'#6667AB', marginTop:16,padding:16, flexDirection:'column', backgroundColor:'white'}}>
-            <Text style={{fontFamily:'Cochin', fontSize:18, fontWeight:'500'}}>Thống kê số lượng apply </Text>
-            <View>
-                    <BarChart
-                        data={{
-                            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-                            datasets: [
-                                {
-                                    data: [20, 45, 28, 80, 99, 43],
-                                },
-                            ],
-                        }}
-                        width={Dimensions.get('window').width - 16}
-                        height={220}
-                        yAxisLabel={'Rs'}
-                        chartConfig={{
-                            backgroundColor: '#1cc910',
-                            backgroundGradientFrom: '#eff3ff',
-                            backgroundGradientTo: '#efefef',
-                            decimalPlaces: 2,
-                            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                            style: {
-                                borderRadius: 16,
-                            },
-                        }}
-                        style={{
-                            marginVertical: 8,
-                            borderRadius: 16,
-                        }} />
-                </View>
-        </View>
+    
         </ScrollView>
     </SafeAreaView>
   )
