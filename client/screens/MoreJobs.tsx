@@ -21,7 +21,7 @@ const MoreJobs = ({navigation}:{navigation:any}) => {
       useEffect(() => {
         const fetchJobPosted = async () => {
           let jobPosted: any = [];
-          const q = query(collection(db, "job"), where("uid", "==", user?.id));
+          const q = query(collection(db, "job"));
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
