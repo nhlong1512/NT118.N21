@@ -51,6 +51,8 @@ const NewsUpdate = ({ navigation }: { navigation: any }) => {
     };
   }, [user?.id]);
   console.log("News", news);
+  const newsCongNghe = news.filter((item) => item.type === "Công nghệ");
+  const newsNgheNghiep = news.filter((item) => item.type === "Nghề nghiệp");
   return (
     <SafeAreaView className="flex-1 bg-white px-4">
       <Bars
@@ -86,7 +88,7 @@ const NewsUpdate = ({ navigation }: { navigation: any }) => {
               </View>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("Xemthem");
+                  navigation.navigate("Xemthem", { news: newsCongNghe });
                 }}
               >
                 <Text
@@ -102,103 +104,11 @@ const NewsUpdate = ({ navigation }: { navigation: any }) => {
               </TouchableOpacity>
             </View>
             <View>
-              {news
-                .filter((item) => item.type === "Công nghệ")
-                .map((item) => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("ContentNews", { newItem: item });
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "column",
-                        paddingLeft: 16,
-                        paddingRight: 16,
-                        height: 320,
-                        marginBottom: -50,
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "column",
-                          borderWidth: 2,
-                          borderColor: "#6667AB",
-                          width: "100%",
-                          padding: 5,
-                          borderRadius: 10,
-                          backgroundColor: "white",
-                        }}
-                      >
-                        <Image
-                          style={{ width: "100%", height: "60%" }}
-                          source={{ uri: item.urlPhoto }}
-                        />
-
-                        <View style={{ flexDirection: "column", width: "95%" }}>
-                          <Text
-                            numberOfLines={1}
-                            style={{
-                              marginBottom: 10,
-                              fontSize: 15,
-                              fontWeight: "600",
-                            }}
-                          >
-                            {item.title}
-                          </Text>
-                          <Text
-                            numberOfLines={2}
-                            style={{ fontSize: 13, fontWeight: "300" }}
-                          >
-                            {item.content}
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                ))}
-            </View>
-          </View>
-
-          <View>
-            <View className="flex flex-row justify-between my-[16px]">
-              <View>
-                <Text
-                  style={{
-                    fontFamily: "Cochin",
-                    fontSize: 20,
-                    color: "#6667AB",
-                    fontWeight: "700",
-                  }}
-                >
-                  Nghề nghiệp
-                </Text>
-              </View>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Xemthem");
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontFamily: "Cochin",
-                    color: "#6667AB",
-                    fontWeight: "600",
-                  }}
-                >
-                  Xem thêm
-                </Text>
-              </TouchableOpacity>
-            </View>
-            {news
-              .filter((item) => item.type === "Nghề nghiệp")
-              .map((item) => (
+              {newsCongNghe.map((item) => (
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate("ContentNews", { newItem: item });
                   }}
-                  key={item.id}
                 >
                   <View
                     style={{
@@ -247,6 +157,94 @@ const NewsUpdate = ({ navigation }: { navigation: any }) => {
                   </View>
                 </TouchableOpacity>
               ))}
+            </View>
+          </View>
+
+          <View>
+            <View className="flex flex-row justify-between my-[16px]">
+              <View>
+                <Text
+                  style={{
+                    fontFamily: "Cochin",
+                    fontSize: 20,
+                    color: "#6667AB",
+                    fontWeight: "700",
+                  }}
+                >
+                  Nghề nghiệp
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("Xemthem", { news: newsNgheNghiep });
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: "Cochin",
+                    color: "#6667AB",
+                    fontWeight: "600",
+                  }}
+                >
+                  Xem thêm
+                </Text>
+              </TouchableOpacity>
+            </View>
+            {newsNgheNghiep.map((item) => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("ContentNews", { newItem: item });
+                }}
+                key={item.id}
+              >
+                <View
+                  style={{
+                    flexDirection: "column",
+                    paddingLeft: 16,
+                    paddingRight: 16,
+                    height: 320,
+                    marginBottom: -50,
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      borderWidth: 2,
+                      borderColor: "#6667AB",
+                      width: "100%",
+                      padding: 5,
+                      borderRadius: 10,
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <Image
+                      style={{ width: "100%", height: "60%" }}
+                      source={{ uri: item.urlPhoto }}
+                    />
+
+                    <View style={{ flexDirection: "column", width: "95%" }}>
+                      <Text
+                        numberOfLines={1}
+                        style={{
+                          marginBottom: 10,
+                          fontSize: 15,
+                          fontWeight: "600",
+                        }}
+                      >
+                        {item.title}
+                      </Text>
+                      <Text
+                        numberOfLines={2}
+                        style={{ fontSize: 13, fontWeight: "300" }}
+                      >
+                        {item.content}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
       </ScrollView>
