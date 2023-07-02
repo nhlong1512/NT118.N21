@@ -36,6 +36,12 @@ export interface JobCustom {
     numberRequirement: number,
     gender: string,
     address:string,
+}
 
-
+export interface NewCustom {
+    id: string,
+    title: string, 
+    type: string, 
+    content: string,
+    urlPhoto: string,
 }

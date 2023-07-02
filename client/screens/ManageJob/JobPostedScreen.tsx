@@ -18,15 +18,6 @@ const JobPostedScreen = ({ navigation }: { navigation: any }) => {
 
   const [jobs, setJobs] = useState<JobCustom[]>([]);
   const fetchJobPosted = async () => {
-    // let jobPosted: any = [];
-    // const q = query(collection(db, "job"), where("uid", "==", user?.id));
-    // const querySnapshot = await getDocs(q);
-    // querySnapshot.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   console.log(doc.id, " => ", doc.data());
-    //   jobPosted.push(doc.data());
-    // });
-    // setJobs(jobPosted);
     const q = query(collection(db, "job"), where("uid", "==", user?.id));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const jobPosted: JobCustom[] = [];
