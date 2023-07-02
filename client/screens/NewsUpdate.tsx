@@ -109,6 +109,7 @@ const NewsUpdate = ({ navigation }: { navigation: any }) => {
                   onPress={() => {
                     navigation.navigate("ContentNews", { newItem: item });
                   }}
+                  className="mb-[10px]"
                 >
                   <View
                     style={{

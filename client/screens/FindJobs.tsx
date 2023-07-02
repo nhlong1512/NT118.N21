@@ -1,6 +1,12 @@
-import { collection, getDocs, query, where , onSnapshot} from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 import { debounce } from "lodash";
-import React, { useCallback, useState ,useEffect} from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { FlatList, Text, View, TouchableOpacity, Image } from "react-native";
 import { Appbar, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,7 +17,6 @@ import { JobCustom } from "../model/model";
 import { ScrollView } from "react-native-gesture-handler";
 
 const FindJobs = ({ navigation }: { navigation: any }) => {
-
   const [user, setUser] = useUserStore(
     (state) => [state.user, state.setUser],
     shallow
@@ -29,7 +34,7 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
     //   jobPosted.push(doc.data());
     // });
     // setJobs(jobPosted);
-    const q = query(collection(db, "job"), where("uid", "==", user?.id));
+    const q = query(collection(db, "job"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const jobPosted: JobCustom[] = [];
       snapshot.forEach((doc) => {
@@ -41,7 +46,7 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
   };
   useEffect(() => {
     fetchJobPosted();
-    const q = query(collection(db, "job"), where("uid", "==", user?.id));
+    const q = query(collection(db, "job"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const jobPosted: JobCustom[] = [];
       snapshot.forEach((doc) => {
@@ -49,14 +54,12 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
         jobPosted.push(doc.data() as JobCustom);
       });
       setJobs(jobPosted);
-    }
-    );
+    });
 
     return () => {
       unsubscribe();
     };
-  },
-  [navigation,user?.id]);
+  }, [navigation, user?.id]);
   console.log("Jobs", jobs);
 
   const [searchText, setSearchText] = useState<string>("");
@@ -91,70 +94,75 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
 
   const renderItem = ({ item }: { item: any }) => {
     return (
-      <SafeAreaView style={{borderRadius:10, paddingLeft:16, paddingRight:16, paddingTop:-20}}>
-         
-          <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("JobDetail" ,{job: item});
-                }}
-              >
+      <SafeAreaView
+        style={{
+          borderRadius: 10,
+          paddingLeft: 16,
+          paddingRight: 16,
+          paddingTop: -20,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("JobDetail", { job: item });
+          }}
+        >
           <View
-                  style={{
-                    borderWidth: 3,
-                    borderColor: "#6667AB",
-                    marginBottom:-50
-                  }}
-                  className="bg-white pr-[4px] ml-[4px] mr-[4px] rounded-[10px] mt-[5px]"
+            style={{
+              borderWidth: 3,
+              borderColor: "#6667AB",
+              marginBottom: 10,
+            }}
+            className="bg-white pr-[4px] ml-[4px] mr-[4px] rounded-[10px] mt-[5px]"
           >
-          <View style={{ flexDirection: "row" }} className="flex">
-          <Image
-                      //   style={{ width: 80, height: 80, borderRadius: 1, margin: 20 }}
-                      // style = {{borderRadius:40}}
-            className="w-[80px] h-[80px] rounded-[10px] mx-[10px] my-auto"
-            source={{ uri: item?.urlPhoto }}
-            />
+            <View style={{ flexDirection: "row" }} className="flex">
+              <Image
+                //   style={{ width: 80, height: 80, borderRadius: 1, margin: 20 }}
+                // style = {{borderRadius:40}}
+                className="w-[80px] h-[80px] rounded-[10px] mx-[10px] my-auto"
+                source={{ uri: item?.urlPhoto }}
+              />
               <View style={{ margin: 20, flexDirection: "column" }}>
                 <Text className="text-[14px] font-[700]">
-                        {item?.companyName}
+                  {item?.companyName}
                 </Text>
                 <Text className="text-[14px] font-[500] text-[#6667AB] mr-[4px]">
-                        {item?.jobTitle}
+                  {item?.jobTitle}
                 </Text>
-                  <View style={{ flexDirection: "row", marginTop: 20 }}>
-                    <Text
-                          style={{
-                            marginRight: 10,
-                            backgroundColor: "#BEBEBE",
-                            padding: 5,
-                          }}
-                        >
-                          Java
-                    </Text>
-                    <Text
-                          style={{
-                            marginRight: 10,
-                            backgroundColor: "#BEBEBE",
-                            padding: 5,
-                          }}
-                        >
-                          Spring
-                    </Text>
-                    <Text
-                          style={{
-                            marginRight: 10,
-                            backgroundColor: "#BEBEBE",
-                            padding: 5,
-                          }}
-                        >
-                COBOL
-                    </Text>
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                  <Text
+                    style={{
+                      marginRight: 10,
+                      backgroundColor: "#BEBEBE",
+                      padding: 5,
+                    }}
+                  >
+                    Java
+                  </Text>
+                  <Text
+                    style={{
+                      marginRight: 10,
+                      backgroundColor: "#BEBEBE",
+                      padding: 5,
+                    }}
+                  >
+                    Spring
+                  </Text>
+                  <Text
+                    style={{
+                      marginRight: 10,
+                      backgroundColor: "#BEBEBE",
+                      padding: 5,
+                    }}
+                  >
+                    COBOL
+                  </Text>
                 </View>
+              </View>
             </View>
           </View>
-          </View>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </SafeAreaView>
-      
     );
   };
 
@@ -186,7 +194,7 @@ const FindJobs = ({ navigation }: { navigation: any }) => {
           }}
         />
       </Appbar.Header>
-      
+
       <FlatList
         data={searchData}
         renderItem={renderItem}

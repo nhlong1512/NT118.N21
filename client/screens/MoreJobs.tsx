@@ -9,6 +9,7 @@ import shallow from "zustand/shallow";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { JobCustom } from "../model/model";
 import { db } from "../firebaseConfig";
+import { CustomSafeAreaView } from '../components/common';
 
 const MoreJobs = ({navigation}:{navigation:any}) => {
     const [user, setUser] = useUserStore(
@@ -37,10 +38,10 @@ const MoreJobs = ({navigation}:{navigation:any}) => {
       
     
   return (
-    <SafeAreaView style={{flex:1, marginBottom:5}}>
-        <Bars
+    <CustomSafeAreaView className="flex-1 items-center bg-white px-2">
+      <Bars
         headerLeft="return"
-        title="Các công việc hiện có"
+        title="Tất cả công việc"
         onLeftButtonPress={() => navigation.goBack()}
         className="mb-2 font-[700]"
   
@@ -118,7 +119,7 @@ const MoreJobs = ({navigation}:{navigation:any}) => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </CustomSafeAreaView>
   )
 }
 

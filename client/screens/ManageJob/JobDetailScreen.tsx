@@ -45,7 +45,8 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
     };
     fetchJobPosted();
   }, []);
-  console.log("Jobs", jobs);
+  console.log(job);
+  
 
   return (
     <CustomSafeAreaView className="flex-1 items-center bg-white px-2">
@@ -143,7 +144,7 @@ const JobDetailScreen: React.FC<Props> = ({ route, navigation }) => {
             <Text className="text-[18px] font-[700]">Yêu cầu công việc</Text>
             <Text className="text-[16px]">{job.jobRequirement}</Text>
           </View>
-          <View className="mt-[20px] mb-[10px]">
+          <View className="mt-[20px] mb-[30px]">
             <Text className="text-[18px] font-[700]">Quyền lợi</Text>
             <Text className="text-[16px]">{job.benefits}</Text>
           </View>

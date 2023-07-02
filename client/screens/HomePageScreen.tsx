@@ -25,11 +25,11 @@ const horizontalDATA = [
 ];
 
 const HomePageScreen = ({ navigation }: { navigation: any }) => {
-  const [titleText, setTitleText] = useState("Bạn muốn tìm việc làm ?");
+  const [titleText, setTitleText] = useState("Bạn muốn tìm việc làm?");
   const bodyText =
     "Bạn muốn tìm kiếm việc làm, nhưng không biết bắt đầu từ đâu. Ở đây chúng tôi có những tin tức hữu ích sẽ giúp bạn có thể tìm kiếm một công việc như mong muốn một cách dễ dàng nhất. Nhấn vào Next để cùng bắt đầu nào !";
   const onPressTitle = () => {
-    setTitleText("Bosh");
+    setTitleText("Bosch");
   };
 
   const Item = ({ title }: { title: any }) => {
@@ -112,24 +112,23 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                   }}
                 >
                   <Image
-                    style={{ width: 350, height: 200, borderRadius: 10 }}
+                    style={{ width: 335, height: 200, borderRadius: 10 }}
                     source={require("../assets/icons/FPT_Software_Logo.png")}
                   />
                   <Text
                     style={{
-                      marginLeft: 16,
+                      marginLeft: 10,
                       fontFamily: "Cochin",
-                      fontSize: 22,
+                      fontSize: 18,
                       color: "#6667AB",
                       fontWeight: "600",
                     }}
                   >
                     FPT SoftWare
                   </Text>
-                  <View style={{ flexDirection: "row", margin: 16 }}>
-                  
-                    <Text style={{fontSize:15, fontWeight:'500'}}>
-                    Tân Xá, Thạch Thất, Hà Nội
+                  <View style={{ flexDirection: "row", margin: 10 }}>
+                    <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                      Tân Xá, Thạch Thất, Hà Nội
                     </Text>
                   </View>
                 </View>
@@ -146,28 +145,28 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                     borderWidth: 1,
                     backgroundColor: "white",
                     borderRadius: 10,
-                    marginLeft: 16,
+                    marginLeft: 10,
                     marginRight: 16,
                   }}
                 >
                   <Image
-                    style={{ width: 350, height: 200, borderRadius: 10 }}
+                    style={{ width: 335, height: 200, borderRadius: 10 }}
                     source={require("../assets/icons/groove.jpg.png")}
                   />
                   <Text
                     style={{
-                      marginLeft: 16,
+                      marginLeft: 10,
                       fontFamily: "Cochin",
-                      fontSize: 22,
+                      fontSize: 18,
                       color: "#6667AB",
                       fontWeight: "600",
                     }}
                   >
                     Groove Technology
                   </Text>
-                  <View style={{ flexDirection: "row", margin: 16 }}>
-                  <Text style={{fontSize:15, fontWeight:'500'}}>
-                  Quận 1, Thành phố Hồ Chí Minh
+                  <View style={{ flexDirection: "row", margin: 10 }}>
+                    <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                      Quận 1, Thành phố Hồ Chí Minh
                     </Text>
                   </View>
                 </View>
@@ -184,28 +183,28 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                     borderWidth: 1,
                     backgroundColor: "white",
                     borderRadius: 10,
-                    marginLeft: 16,
+                    marginLeft: 10,
                     marginRight: 16,
                   }}
                 >
                   <Image
-                    style={{ width: 350, height: 200, borderRadius: 10 }}
+                    style={{ width: 335, height: 200, borderRadius: 10 }}
                     source={require("../assets/icons/zigexn-ventura-logo.jpg")}
                   />
                   <Text
                     style={{
-                      marginLeft: 16,
+                      marginLeft: 10,
                       fontFamily: "Cochin",
-                      fontSize: 22,
+                      fontSize: 18,
                       color: "#6667AB",
                       fontWeight: "600",
                     }}
                   >
                     ZIGEXN VENTURA
                   </Text>
-                  <View style={{ flexDirection: "row", margin: 16 }}>
-                  <Text style={{fontSize:15, fontWeight:'500'}}>
-                  Bình Thạnh, Thành phố Hồ Chí Minh
+                  <View style={{ flexDirection: "row", margin: 10 }}>
+                    <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                      Bình Thạnh, Thành phố Hồ Chí Minh
                     </Text>
                   </View>
                 </View>
@@ -253,7 +252,6 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
           </TouchableOpacity>
           <View
             style={{
-              borderWidth: 1,
               backgroundColor: "#5254A4",
               borderRadius: 10,
               padding: 16,
@@ -266,11 +264,11 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
                 style={{
                   color: "white",
                   fontFamily: "Cochin",
-                  fontSize: 25,
+                  fontSize: 19,
                   fontWeight: "bold",
                 }}
               >
-                Find top IT job for you
+                FIND TOP ID JOB FOR YOU
               </Text>
             </View>
             <TouchableOpacity
@@ -280,7 +278,6 @@ const HomePageScreen = ({ navigation }: { navigation: any }) => {
             >
               <View
                 style={{
-                  borderWidth: 1,
                   height: 40,
                   width: 250,
                   justifyContent: "center",
